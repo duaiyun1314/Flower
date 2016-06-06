@@ -1,4 +1,4 @@
-package com.andy.flower.flowerapplication;
+package com.andy.flower.app;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,15 +13,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
+import com.andy.flower.R;
+import com.andy.flower.fragments.BaseChannelFragment;
+
+public class MainActivity extends BaseToolBarActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String titles[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initRes();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +43,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initRes() {
+        titles = getResources().getStringArray(R.array.channel_types);
+
+    }
+
+    @Override
+    protected int getBasicContentLayout() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -79,19 +92,29 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        int selectedType = 0;
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            selectedType = 0;
         } else if (id == R.id.nav_gallery) {
-
+            selectedType = 1;
         } else if (id == R.id.nav_slideshow) {
-
+            selectedType = 2;
         } else if (id == R.id.nav_manage) {
-
+            selectedType = 3;
         } else if (id == R.id.nav_share) {
-
+            selectedType = 4;
         } else if (id == R.id.nav_send) {
-
+            selectedType = 5;
+        }
+        BaseChannelFragment channelFragment = (BaseChannelFragment) getSupportFragmentManager().findFragmentByTag(titles[selectedType]);
+        if (channelFragment == null) {
+            channelFragment = BaseChannelFragment.newInstance(titles[selectedType]);
+        }
+        if (channelFragment.isAdded()) {
+            getSupportFragmentManager().beginTransaction().show(channelFragment);
+        } else {
+            getSupportFragmentManager().beginTransaction().add(R.id.content, channelFragment, titles[selectedType]).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
