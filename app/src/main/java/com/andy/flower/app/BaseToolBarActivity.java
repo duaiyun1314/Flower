@@ -10,6 +10,8 @@ import android.widget.FrameLayout;
 import com.andy.flower.R;
 import com.andy.flower.utils.ThemeManager;
 
+import butterknife.ButterKnife;
+
 
 public abstract class BaseToolBarActivity extends AppCompatActivity {
     protected FrameLayout content;
@@ -17,6 +19,7 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
     protected int colorPrimary;
     protected int colorPrimaryDark;
     protected int colorAccent;
+    protected FlowerApplication mApplication;
 
 
     @Override
@@ -32,6 +35,7 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         content = (FrameLayout) findViewById(R.id.content);
+        mApplication = FlowerApplication.from();
     }
 
 

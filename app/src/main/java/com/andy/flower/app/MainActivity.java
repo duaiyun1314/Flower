@@ -1,5 +1,6 @@
 package com.andy.flower.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,38 +13,73 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.andy.flower.R;
 import com.andy.flower.fragments.BaseChannelFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends BaseToolBarActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private String titles[];
+
+    private ImageView mUserPortrait;
+    private TextView mUserName;
+    private TextView mUserEmail;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
         initRes();
+        initView();
+        initUser();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
+
+    }
+
+    private void initUser() {
+
+        if (mApplication.isLogin()) {
+            mUserName.setText(mApplication.mUserName);
+        } else {
+            mUserName.setVisibility(View.GONE);
+            mUserEmail.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void initView() {
+
+        navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        mUserName = ButterKnife.findById(header, R.id.user_name);
+        mUserEmail = ButterKnife.findById(header, R.id.user_email);
+        mUserPortrait = ButterKnife.findById(header, R.id.user_portrait);
+        mUserPortrait.setOnClickListener(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     private void initRes() {
         titles = getResources().getStringArray(R.array.channel_types);
@@ -120,5 +156,18 @@ public class MainActivity extends BaseToolBarActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        switch (viewId) {
+            case R.id.user_portrait:
+                if (!mApplication.isLogin()) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
     }
 }

@@ -6,4 +6,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="text_size_14">14dip</dimen>
+    <dimen name="text_size_16">16dip</dimen>
+    <dimen name="text_size_18">18dip</dimen>
+
+    <dimen name="button_padding_default">16dip</dimen>
 </resources>
