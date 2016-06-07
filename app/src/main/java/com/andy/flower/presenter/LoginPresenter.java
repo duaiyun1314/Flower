@@ -35,19 +35,16 @@ public class LoginPresenter implements Presenter {
     public void login(final String username, final String password) {
         NetClient.createService(LoginAPI.class)
                 .httpsTokenRx(Constants.mClientInto, "password", username, password)
-                .map(new Func1<Response<ResponseBody>, String>() {
-                    @Override
-                    public String call(Response<ResponseBody> responseBodyResponse) {
-                        ResponseBody body = responseBodyResponse.body();
-                        try {
-                            if (body != null) {
-                                return body.string();
-                            } else {
-                                return null;
-                            }
-                        } catch (Exception e) {
+                .map(responseBodyResponse -> {
+                    ResponseBody body = responseBodyResponse.body();
+                    try {
+                        if (body != null) {
+                            return body.string();
+                        } else {
                             return null;
                         }
+                    } catch (Exception e) {
+                        return null;
                     }
                 })
                 .subscribeOn(Schedulers.io())
