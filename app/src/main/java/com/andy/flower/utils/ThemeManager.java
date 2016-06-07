@@ -12,19 +12,19 @@ import com.andy.flower.R;
  */
 public class ThemeManager {
     private static int[] ThemeRes = {
-            R.style.Theme_Basic
+            R.style.AppTheme_Basic
             ,
-            R.style.Theme_Basic_TEAL
+            R.style.AppTheme_TEAL
             ,
-            R.style.Theme_Basic_BROWN
+            R.style.AppTheme_BROWN
             ,
-            R.style.Theme_Basic_ORANGE
+            R.style.AppTheme_ORANGE
             ,
-            R.style.Theme_Basic_PURPLE
+            R.style.AppTheme_PURPLE
             ,
-            R.style.Theme_Basic_GREEN
+            R.style.AppTheme_GREEN
             ,
-            R.style.Theme_Basic_Night
+            R.style.AppTheme_Night
     };
 
     public static void changeToTheme(Activity activity, int theme) {
