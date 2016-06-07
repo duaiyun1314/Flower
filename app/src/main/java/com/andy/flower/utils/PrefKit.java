@@ -52,6 +52,13 @@ public class PrefKit {
         edit.apply();
     }
 
+    public static void writeLong(Context context, String key, long value) {
+        SharedPreferences appPrefs = getSharedPreferences(context);
+        SharedPreferences.Editor edit = appPrefs.edit();
+        edit.putLong(key, value);
+        edit.apply();
+    }
+
     public static int getInt(Context context, String key, int def) {
         SharedPreferences appPrefs = getSharedPreferences(context);
         return appPrefs.getInt(key, def);

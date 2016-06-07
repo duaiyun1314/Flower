@@ -3,7 +3,7 @@ package com.andy.flower.bean.POJO;
 /**
  * Created by wanglu on 16/6/7.
  */
-public class AccessToekn {
+public class AccessToken {
     private String access_token;
     private String token_type;
     private int expires_in;

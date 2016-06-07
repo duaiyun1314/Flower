@@ -7,10 +7,24 @@ public class Constants {
 
     public static final String Authorization="Authorization";
 
+    //user
     public static final String IS_LOGIN = "is_login";
-
+    public static final String LOGINTIME = "loginTime";
     public static final String USERNAME = "userName";
     public static final String USERID = "userID";
+    public static final String USERACCOUNT = "userAccount";
+    public static final String USERPASSWORD = "userPassword";
+    public static final String USERHEADKEY = "userHeadKey";
+    public static final String USEREMAIL = "userEmail";
+    //token
+    public static final String TOKENACCESS = "TokenAccess";
+    public static final String TOKENREFRESH = "TokenRefresh";
+    public static final String TOKENTYPE = "TokenType";
+    public static final String TOKENEXPIRESIN = "TokeExpiresIn";
+
+    //board info
+    public static final String BOARDTILTARRAY="boardTitleArray";
+    public static final String BOARDIDARRAY="boardIdArray";
 
     public static final String Register_Url = "http://www.huaban.com";
 
@@ -22,4 +36,11 @@ public class Constants {
     private static final String mBasic="Basic ";
     private static final String mClientInfo = "MWQ5MTJjYWU0NzE0NGZhMDlkODg6Zjk0ZmNjMDliNTliNDM0OWExNDhhMjAzYWIyZjIwYzc=";
     public static final String mClientInto=mBasic+mClientInfo;
+
+
+    //获得用户画板列表详情的操作符
+    public static final String OPERATEBOARDEXTRA="recommend_tags";
+
+    //,
+    public static final String SEPARATECOMMA=",";
 }

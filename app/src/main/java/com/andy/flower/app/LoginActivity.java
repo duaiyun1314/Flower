@@ -1,5 +1,6 @@
 package com.andy.flower.app;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
     ScrollView scrollLoginForm;
 
     private LoginPresenter mPresenter;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initView();
+        initProgressDialog();
 
         mPresenter = new LoginPresenter(this, this);
 
@@ -86,19 +89,35 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
         String userPassword = editPassword.getText().toString();
         if (TextUtils.isEmpty(userName)) {
             actvUsername.setError(Constants.USERNAME_NULL);
+            return;
         } else if (TextUtils.isEmpty(userPassword)) {
             editPassword.setError(Constants.PASSWORD_NULL);
+            return;
         }
         if (!StringUtil.isEmail(userName)) {
             actvUsername.setError(Constants.EMAIL_INVALID);
+            return;
         }
         mPresenter.login(userName, userPassword);
 
     }
 
     @Override
-    public void showDismiss(boolean show) {
+    public void showProgress(boolean show) {
+        if (show) {
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
 
+    }
+
+    @Override
+    public void initProgressDialog() {
+        mProgressDialog = new ProgressDialog(LoginActivity.this);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage(getString(R.string.logining_label));
+        mProgressDialog.setProgressDrawable(getDrawable(R.drawable.progress_drawable));
     }
 
     @Override

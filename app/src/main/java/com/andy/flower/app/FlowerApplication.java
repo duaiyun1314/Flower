@@ -41,6 +41,6 @@ public class FlowerApplication extends Application {
 
     public void getDataByLogin() {
         mUserName = PrefKit.getString(this, Constants.USERNAME, "");
-        mUserKey = PrefKit.getString(this, Constants.USERID, "");
+        mUserKey = PrefKit.getInt(this, Constants.USERID, 0) + "";
     }
 }
