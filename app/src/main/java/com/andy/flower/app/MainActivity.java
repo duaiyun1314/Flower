@@ -2,42 +2,34 @@ package com.andy.flower.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.POJO.UserInfoBean;
 import com.andy.flower.event.LoginEvent;
-import com.andy.flower.fragments.BaseChannelFragment;
+import com.andy.flower.fragments.HomeFragment;
 import com.andy.flower.utils.ImageLoaderUtil;
-import com.andy.flower.utils.Logger;
 import com.andy.flower.views.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseToolBarActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
-    private String titles[];
 
     private CircleImageView mUserPortrait;
     private TextView mUserName;
@@ -83,6 +75,9 @@ public class MainActivity extends BaseToolBarActivity
     private void initView() {
 
         navigationView.setNavigationItemSelectedListener(this);
+        Menu menu = navigationView.getMenu();
+        menu.getItem(0).setChecked(true);
+        switchFragment(menu.getItem(0));
         View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
         mUserName = ButterKnife.findById(header, R.id.user_name);
         mUserEmail = ButterKnife.findById(header, R.id.user_email);
@@ -96,7 +91,6 @@ public class MainActivity extends BaseToolBarActivity
     }
 
     private void initRes() {
-        titles = getResources().getStringArray(R.array.channel_types);
     }
 
     @Override
@@ -132,35 +126,29 @@ public class MainActivity extends BaseToolBarActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        int selectedType = 0;
-
-        if (id == R.id.nav_camera) {
-            selectedType = 0;
-        } else if (id == R.id.nav_gallery) {
-            selectedType = 1;
-        } else if (id == R.id.nav_slideshow) {
-            selectedType = 2;
-        } else if (id == R.id.nav_manage) {
-            selectedType = 3;
-        } else if (id == R.id.nav_share) {
-            selectedType = 4;
-        } else if (id == R.id.nav_send) {
-            selectedType = 5;
-        }
-        BaseChannelFragment channelFragment = (BaseChannelFragment) getSupportFragmentManager().findFragmentByTag(titles[selectedType]);
-        if (channelFragment == null) {
-            channelFragment = BaseChannelFragment.newInstance(titles[selectedType]);
-        }
-        if (channelFragment.isAdded()) {
-            getSupportFragmentManager().beginTransaction().show(channelFragment);
-        } else {
-            getSupportFragmentManager().beginTransaction().add(R.id.content, channelFragment, titles[selectedType]).commit();
-        }
-
+        switchFragment(item);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void switchFragment(MenuItem item) {
+        String title = (String) item.getTitle();
+        setTitle(title);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(title);
+        if (fragment == null) {
+            if (title.equals("首页图赏")) {
+                fragment = HomeFragment.newInstance();
+            } else {
+                Toast.makeText(MainActivity.this, "敬请期待", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        if (fragment.isAdded()) {
+            getSupportFragmentManager().beginTransaction().show(fragment);
+        } else {
+            getSupportFragmentManager().beginTransaction().add(R.id.content, fragment, (String) item.getTitle()).commit();
+        }
     }
 
     @Override

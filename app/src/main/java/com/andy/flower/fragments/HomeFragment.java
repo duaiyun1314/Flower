@@ -12,30 +12,20 @@ import android.widget.TextView;
 /**
  * Created by andy on 16-6-6.
  */
-public class BaseChannelFragment extends Fragment {
+public class HomeFragment extends Fragment {
     private String mType;
 
-    public static BaseChannelFragment newInstance(String type) {
-        BaseChannelFragment baseChannelFragment = new BaseChannelFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("type", type);
-        baseChannelFragment.setArguments(bundle);
-        return baseChannelFragment;
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+        return fragment;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Bundle arguments = getArguments();
-        mType = arguments.getString("type");
-
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         TextView tv = new TextView(getActivity());
-        tv.setText("type:" + mType);
+        tv.setText("type:" + "首页");
         return tv;
     }
 }

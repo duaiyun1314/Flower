@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="首页图赏" />
+        <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_subscribe"
             android:title="我的关注" />

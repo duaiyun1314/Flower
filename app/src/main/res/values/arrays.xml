@@ -1,8 +1,2 @@
 <resources>
-    <string-array name="channel_types">
-        <item>首页</item>
-        <item>热门</item>
-        <item>家居/家装</item>
-        <item>手工/布艺</item>
-    </string-array>
 </resources>
