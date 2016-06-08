@@ -5,7 +5,7 @@ package com.andy.flower;
  */
 public class Constants {
 
-    public static final String Authorization="Authorization";
+    public static final String Authorization = "Authorization";
 
     //user
     public static final String IS_LOGIN = "is_login";
@@ -23,24 +23,27 @@ public class Constants {
     public static final String TOKENEXPIRESIN = "TokeExpiresIn";
 
     //board info
-    public static final String BOARDTILTARRAY="boardTitleArray";
-    public static final String BOARDIDARRAY="boardIdArray";
+    public static final String BOARDTILTARRAY = "boardTitleArray";
+    public static final String BOARDIDARRAY = "boardIdArray";
 
-    public static final String Register_Url = "http://www.huaban.com";
 
     public static final String USERNAME_NULL = "用户名为空";
     public static final String PASSWORD_NULL = "密码为空";
 
     public static final String EMAIL_INVALID = "邮箱格式不正确";
 
-    private static final String mBasic="Basic ";
+    private static final String mBasic = "Basic ";
     private static final String mClientInfo = "MWQ5MTJjYWU0NzE0NGZhMDlkODg6Zjk0ZmNjMDliNTliNDM0OWExNDhhMjAzYWIyZjIwYzc=";
-    public static final String mClientInto=mBasic+mClientInfo;
+    public static final String mClientInto = mBasic + mClientInfo;
 
 
     //获得用户画板列表详情的操作符
-    public static final String OPERATEBOARDEXTRA="recommend_tags";
+    public static final String OPERATEBOARDEXTRA = "recommend_tags";
 
     //,
-    public static final String SEPARATECOMMA=",";
+    public static final String SEPARATECOMMA = ",";
+
+    //root url
+    public static final String ImgRootUrl = "http://img.hb.aicdn.com/";
+    public static final String Register_Url = "http://www.huaban.com";
 }

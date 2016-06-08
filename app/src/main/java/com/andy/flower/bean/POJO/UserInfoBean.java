@@ -18,6 +18,15 @@ public class UserInfoBean {
     private int follower_count;
     private int creations_count;
     private int pin_count;
+    private String avatarUrl;
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     //该用户是否已经关注 关注为1 否则没有对应的网络字段 int默认值为0
     private int following;

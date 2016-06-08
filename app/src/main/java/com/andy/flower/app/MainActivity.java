@@ -16,8 +16,19 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.andy.flower.Constants;
 import com.andy.flower.R;
+import com.andy.flower.bean.POJO.UserInfoBean;
+import com.andy.flower.event.LoginEvent;
 import com.andy.flower.fragments.BaseChannelFragment;
+import com.andy.flower.utils.ImageLoaderUtil;
+import com.andy.flower.utils.Logger;
+import com.andy.flower.views.CircleImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,41 +39,45 @@ public class MainActivity extends BaseToolBarActivity
 
     private String titles[];
 
-    private ImageView mUserPortrait;
+    private CircleImageView mUserPortrait;
     private TextView mUserName;
     private TextView mUserEmail;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    private UserInfoBean mCurrentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         initRes();
         initView();
         initUser();
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-
     }
 
+
     private void initUser() {
+        mCurrentUser = mApplication.getUserInfoBean();
 
         if (mApplication.isLogin()) {
-            mUserName.setText(mApplication.mUserName);
+            mUserName.setVisibility(View.VISIBLE);
+            mUserEmail.setVisibility(View.VISIBLE);
+            mUserName.setText(mCurrentUser.getUsername());
+            mUserEmail.setText(mCurrentUser.getEmail());
+            String imageUrl = Constants.ImgRootUrl + mCurrentUser.getAvatarUrl();
+            ImageLoader.getInstance().displayImage(imageUrl, mUserPortrait, ImageLoaderUtil.getNoEmptyOptions());
         } else {
             mUserName.setVisibility(View.GONE);
             mUserEmail.setVisibility(View.GONE);
         }
 
+    }
+
+    @Subscribe
+    public void onEventMainThread(LoginEvent event) {
+        initUser();
     }
 
     private void initView() {
@@ -80,10 +95,8 @@ public class MainActivity extends BaseToolBarActivity
         toggle.syncState();
     }
 
-
     private void initRes() {
         titles = getResources().getStringArray(R.array.channel_types);
-
     }
 
     @Override
@@ -103,30 +116,22 @@ public class MainActivity extends BaseToolBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         int selectedType = 0;
 
@@ -169,5 +174,12 @@ public class MainActivity extends BaseToolBarActivity
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
     }
 }

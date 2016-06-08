@@ -117,6 +117,10 @@ public class LoginPresenter implements Presenter {
                 boardId.append(Constants.SEPARATECOMMA);
             }
         }
+        userInfoBean.setAvatarUrl(userInfoBean.getAvatar().getKey());
+        FlowerApplication.from().setUserInfoBean(userInfoBean);
+        FlowerApplication.from().setLogin(true);
+
         PrefKit.writeBoolean(FlowerApplication.from(), Constants.IS_LOGIN, true);
         PrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
         PrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);

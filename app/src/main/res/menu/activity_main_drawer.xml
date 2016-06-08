@@ -4,20 +4,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="首页" />
+            android:icon="@drawable/ic_menu_subscribe"
+            android:title="我的关注" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="热门" />
+            android:icon="@drawable/ic_menu_add"
+            android:title="采集图片" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="家居/家装" />
+            android:icon="@drawable/ic_menu_message"
+            android:title="我的消息" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="手工/布艺" />
+            android:icon="@drawable/ic_menu_friend"
+            android:title="寻找好友" />
     </group>
 
     <item android:title="Communicate">
