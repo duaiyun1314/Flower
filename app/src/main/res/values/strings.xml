@@ -20,4 +20,8 @@
     <string name="message_server_error">连接服务器失败</string>
     <string name="message_unknown_error">未知错误</string>
     <string name="message_data_error">数据解析错误</string>
+
+    <string name="load_fail_label">加载失败</string>
+
+    <string name="load_empty_label">列表为空</string>
 </resources>

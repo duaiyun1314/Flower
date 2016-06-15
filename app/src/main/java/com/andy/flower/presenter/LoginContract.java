@@ -15,7 +15,7 @@ public class LoginContract {
         void initProgressDialog();
     }
 
-    public interface Presenter extends BasePresenter {
+    public interface IPresenter {
         void login(final String username, final String password);
 
         void register();

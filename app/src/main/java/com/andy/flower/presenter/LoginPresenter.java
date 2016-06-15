@@ -1,7 +1,6 @@
 package com.andy.flower.presenter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
@@ -9,6 +8,7 @@ import android.widget.Toast;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;
+import com.andy.flower.app.LoginActivity;
 import com.andy.flower.bean.POJO.AccessToken;
 import com.andy.flower.bean.POJO.BoardItemInfoBean;
 import com.andy.flower.bean.POJO.BoardListInfoBean;
@@ -18,9 +18,8 @@ import com.andy.flower.network.NetClient;
 import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.LoginAPI;
 import com.andy.flower.network.apis.UserAPI;
-import com.andy.flower.presenter.LoginContract.Presenter;
+import com.andy.flower.presenter.LoginContract.IPresenter;
 import com.andy.flower.utils.PrefKit;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,20 +32,12 @@ import rx.schedulers.Schedulers;
 /**
  * Created by andy on 16-6-6.
  */
-public class LoginPresenter implements Presenter {
-    private Activity mContext;
-    private LoginContract.IView iView;
-
-    private String mAuthorization = Constants.mClientInto;
-
+public class LoginPresenter extends BasePresenter<LoginContract.IView> implements IPresenter {
     private AccessToken mAccessToken;
     private UserInfoBean mUserBean;
 
     public LoginPresenter(Activity context, LoginContract.IView iView) {
-        mContext = context;
-        this.iView = iView;
-        iView.setPresenter(this);
-
+        super(context, iView);
     }
 
     @Override
@@ -90,7 +81,7 @@ public class LoginPresenter implements Presenter {
                         iView.showProgress(false);
                         EventBus.getDefault().post(new LoginEvent(true));
                         Toast.makeText(mContext, mContext.getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-                        mContext.finish();
+                        ((Activity) mContext).finish();
                     }
                 });
 

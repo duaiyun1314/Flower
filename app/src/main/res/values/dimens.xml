@@ -15,4 +15,12 @@
     <dimen name="text_size_18">18dip</dimen>
 
     <dimen name="button_padding_default">16dip</dimen>
+
+    <dimen name="card_elevation_static">2dp</dimen>
+    <dimen name="card_elevation_selected">8dp</dimen>
+    <dimen name="card_radius_default">2dp</dimen>
+    <dimen name="text_spacing_default">8dp</dimen>
+    <dimen name="card_spacing_default_half">4dp</dimen>
+    <dimen name="card_title_size_24sp">24sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
