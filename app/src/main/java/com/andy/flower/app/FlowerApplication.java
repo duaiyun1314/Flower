@@ -5,7 +5,11 @@ import android.app.Application;
 import com.andy.flower.Constants;
 import com.andy.flower.bean.POJO.UserInfoBean;
 import com.andy.flower.utils.ImageLoaderUtil;
+import com.andy.flower.utils.ImageUtils;
 import com.andy.flower.utils.PrefKit;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 /**
  * Created by andy on 16-6-6.
@@ -21,6 +25,7 @@ public class FlowerApplication extends Application {
         mApp = this;
         initData();
         ImageLoaderUtil.initImageLoader(this);
+        ImageUtils.initImageLoader(this);
     }
 
     private void initData() {

@@ -2,8 +2,11 @@ package com.andy.flower.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
+import android.widget.ImageView;
 
+import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.ext.LruDiskCache;
@@ -12,6 +15,7 @@ import com.nostra13.universalimageloader.cache.memory.MemoryCache;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.io.File;
@@ -23,6 +27,7 @@ public class ImageLoaderUtil {
     private static final int maxMemory = 1024 * 1024 * ((ActivityManager) FlowerApplication.from().getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass() / 8;
     private static final int maxDiskSize = 50 * 1024 * 1024;
     private static final int maxDiskCount = 15;
+    private static final int maxLoadThreadCount = 5;
 
     public static void initImageLoader(Context context) {
         // This configuration tuning is custom. You can tune every option, you may tune some of them,
@@ -31,6 +36,7 @@ public class ImageLoaderUtil {
         // method.
         ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(context)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
+                .threadPoolSize(maxLoadThreadCount)
                 .denyCacheImageMultipleSizesInMemory()
                 .diskCache(getLruDiskCache(context))
                 .memoryCache(getMemoryCache())
@@ -77,6 +83,8 @@ public class ImageLoaderUtil {
                 .showImageOnLoading(R.drawable.empty_photo)
                 .showImageOnFail(R.drawable.empty_photo)
                 .showImageForEmptyUri(R.drawable.empty_photo)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .build();
     }
 
@@ -85,5 +93,17 @@ public class ImageLoaderUtil {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();
+    }
+
+    public static int setImageLayoutParams(ImageView iv, int itemWidth, int fileWidth, int fileHeight) {
+        int height = 0;
+        if (fileHeight / fileWidth <= Constants.IMAGE_MAXHEIGHT_SCALE) {
+            height = itemWidth * fileHeight / fileWidth;
+        } else {
+            height = (int) (itemWidth * Constants.IMAGE_MAXHEIGHT_SCALE);
+        }
+        iv.getLayoutParams().height = height;
+        return height;
+
     }
 }
