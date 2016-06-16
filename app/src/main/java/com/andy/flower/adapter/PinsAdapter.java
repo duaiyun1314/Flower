@@ -14,14 +14,11 @@ import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.utils.ImageLoadFresco;
-import com.andy.flower.utils.ImageLoaderUtil;
+import com.andy.flower.utils.ImageUtils;
 import com.andy.flower.utils.Logger;
 import com.andy.flower.utils.ScreenSizeUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.utils.ImageSizeUtils;
 
 import java.util.List;
 
@@ -47,8 +44,7 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
         ((PinsItemViewHolder) holder).tv.setText(bean.getRaw_text());
         String imageUrl = Constants.ImgRootUrl + bean.getFile().getKey();
         SimpleDraweeView iv = ((PinsItemViewHolder) holder).img;
-        int mItemHeight = ImageLoaderUtil.setImageLayoutParams(iv, mItemWidth, bean.getFile().getWidth(), bean.getFile().getHeight());
-        ImageSize imageSize = new ImageSize(mItemWidth, mItemHeight);
+        int mItemHeight = ImageUtils.setImageLayoutParams(iv, mItemWidth, bean.getFile().getWidth(), bean.getFile().getHeight());
         iv.setAspectRatio(mItemWidth / mItemHeight);
         Drawable drawable = mContext.getResources().getDrawable(R.mipmap.ic_launcher);
         new ImageLoadFresco.LoadImageFrescoBuilder(mContext, iv, imageUrl)

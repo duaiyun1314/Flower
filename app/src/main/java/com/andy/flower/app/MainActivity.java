@@ -18,9 +18,9 @@ import com.andy.flower.R;
 import com.andy.flower.bean.POJO.UserInfoBean;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.fragments.HomeFragment;
-import com.andy.flower.utils.ImageLoaderUtil;
+import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.views.CircleImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseToolBarActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private CircleImageView mUserPortrait;
+    private SimpleDraweeView mUserPortrait;
     private TextView mUserName;
     private TextView mUserEmail;
     @BindView(R.id.nav_view)
@@ -59,7 +59,9 @@ public class MainActivity extends BaseToolBarActivity
             mUserName.setText(mCurrentUser.getUsername());
             mUserEmail.setText(mCurrentUser.getEmail());
             String imageUrl = Constants.ImgRootUrl + mCurrentUser.getAvatarUrl();
-            ImageLoader.getInstance().displayImage(imageUrl, mUserPortrait, ImageLoaderUtil.getNoEmptyOptions());
+            new ImageLoadFresco.LoadImageFrescoBuilder(this, mUserPortrait, imageUrl)
+                    .setIsCircle(true, true)
+                    .build();
         } else {
             mUserName.setVisibility(View.GONE);
             mUserEmail.setVisibility(View.GONE);

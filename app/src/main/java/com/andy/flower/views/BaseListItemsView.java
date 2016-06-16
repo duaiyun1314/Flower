@@ -21,9 +21,6 @@ import com.andy.flower.utils.recyclerheaderutils.ExStaggeredGridLayoutManager;
 import com.andy.flower.utils.recyclerheaderutils.HeaderAndFooterRecyclerViewAdapter;
 import com.andy.flower.utils.recyclerheaderutils.HeaderSpanSizeLookup;
 import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
