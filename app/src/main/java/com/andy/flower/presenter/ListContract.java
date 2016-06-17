@@ -21,10 +21,12 @@ public class ListContract {
         void showFail(boolean show);
 
         void update(Object... args);
+
+        void onLoadFinish();
     }
 
     public interface IPresenter<T extends RecyclerView.Adapter> {
-        void loadNew(Object... args);
+        void loadNew(boolean isrefresh, Object... args);
 
         void loadNext(Object... args);
 

@@ -2,12 +2,11 @@ package com.andy.flower.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Matrix;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.andy.flower.Constants;
@@ -15,9 +14,9 @@ import com.andy.flower.R;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
-import com.andy.flower.utils.Logger;
 import com.andy.flower.utils.ScreenSizeUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.drawable.AutoRotateDrawable;
+import com.facebook.drawee.drawable.ProgressBarDrawable;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -30,11 +29,15 @@ import butterknife.ButterKnife;
  */
 public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
 
-    private int mItemWidth;
+    private Drawable progressDrawable;
+    private Drawable failDrawable;
 
     public PinsAdapter(Context context, List<PinsBean> datas) {
         super(context, datas);
-        mItemWidth = (int) (ScreenSizeUtil.getScreenSize((Activity) context).widthPixels - context.getResources().getDimension(R.dimen.card_spacing_default_half) * 4) / 2;
+        TypedArray array = context.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
+        int colorPrimary = array.getColor(0, 0xFF1473AF);
+        progressDrawable = new AutoRotateDrawable(context.getDrawable(R.drawable.ic_load_progress), 5000);
+        failDrawable = ImageUtils.getTintDrawable(context, R.drawable.ic_load_fail, colorPrimary);
 
     }
 
@@ -44,11 +47,10 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
         ((PinsItemViewHolder) holder).tv.setText(bean.getRaw_text());
         String imageUrl = Constants.ImgRootUrl + bean.getFile().getKey();
         SimpleDraweeView iv = ((PinsItemViewHolder) holder).img;
-        int mItemHeight = ImageUtils.setImageLayoutParams(iv, mItemWidth, bean.getFile().getWidth(), bean.getFile().getHeight());
-        iv.setAspectRatio(mItemWidth / mItemHeight);
-        Drawable drawable = mContext.getResources().getDrawable(R.mipmap.ic_launcher);
+        iv.setAspectRatio(ImageUtils.setImageLayoutParams(bean.getFile().getWidth(), bean.getFile().getHeight()));
         new ImageLoadFresco.LoadImageFrescoBuilder(mContext, iv, imageUrl)
-                .setProgressBarImage(drawable)
+                .setProgressBarImage(progressDrawable)
+                .setFailureImage(failDrawable)
                 .build();
 
     }

@@ -3,7 +3,11 @@ package com.andy.flower.utils;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
+import android.support.annotation.ColorInt;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.widget.ImageView;
 
 import com.andy.flower.Constants;
@@ -18,6 +22,7 @@ import com.facebook.imagepipeline.core.DiskStorageCacheFactory;
 import com.facebook.imagepipeline.core.DiskStorageFactory;
 import com.facebook.imagepipeline.core.FileCacheFactory;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
+
 import java.io.File;
 
 /**
@@ -43,15 +48,24 @@ public class ImageUtils {
         return config;
     }
 
-    public static int setImageLayoutParams(ImageView iv, int itemWidth, int fileWidth, int fileHeight) {
-        int height = 0;
-        if (fileHeight / fileWidth <= Constants.IMAGE_MAXHEIGHT_SCALE) {
-            height = itemWidth * fileHeight / fileWidth;
-        } else {
-            height = (int) (itemWidth * Constants.IMAGE_MAXHEIGHT_SCALE);
+    public static Drawable getTintListDrawable(Context mContext, int mResDrawableId, int mResTintId){
+        Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(mContext, mResDrawableId).mutate());
+        DrawableCompat.setTintList(drawable, ContextCompat.getColorStateList(mContext, mResTintId));
+        return drawable;
+    }
+
+    public static Drawable getTintDrawable(Context mContext ,int mResDrawableId, @ColorInt int tint){
+        Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(mContext, mResDrawableId).mutate());
+        DrawableCompat.setTint(drawable,tint);
+        return drawable;
+    }
+
+    public static float setImageLayoutParams(int fileWidth, int fileHeight) {
+        float scale = (float) fileWidth / (float) fileHeight;
+        if (scale <= Constants.IMAGE_MAXHEIGHT_SCALE) {
+            scale = Constants.IMAGE_MAXHEIGHT_SCALE;
         }
-        iv.getLayoutParams().height = height;
-        return height;
+        return scale;
 
     }
 }

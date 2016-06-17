@@ -9,6 +9,9 @@ import com.andy.flower.presenter.PinsListPresenter;
  * Created by andy on 16-6-12.
  */
 public class HomeView extends BaseListItemsView<PinsListPresenter> {
+    private String categoryId;
+    private String categoryName;
+
     public HomeView(Context context) {
         super(context);
     }
@@ -29,6 +32,13 @@ public class HomeView extends BaseListItemsView<PinsListPresenter> {
     @Override
     public void update(Object... args) {
         super.update(args);
-        mPresenter.loadNew(args);
+        categoryName = (String) args[0];
+        categoryId = (String) args[1];
+        mPresenter.loadNew(false, categoryName, categoryId);
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.loadNew(true, categoryName, categoryId);
     }
 }

@@ -21,6 +21,7 @@ import com.andy.flower.utils.recyclerheaderutils.ExStaggeredGridLayoutManager;
 import com.andy.flower.utils.recyclerheaderutils.HeaderAndFooterRecyclerViewAdapter;
 import com.andy.flower.utils.recyclerheaderutils.HeaderSpanSizeLookup;
 import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -118,13 +119,18 @@ public class BaseListItemsView<P extends ListPresenter> extends FrameLayout impl
     }
 
     @Override
+    public void onLoadFinish() {
+        layoutRefresh.setRefreshing(false);
+    }
+
+    @Override
     public void setPresenter(BasePresenter presenter) {
 
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.loadNew();
+        //mPresenter.loadNew();
     }
 
     protected View createHeadView() {
@@ -132,9 +138,8 @@ public class BaseListItemsView<P extends ListPresenter> extends FrameLayout impl
     }
 
     protected RecyclerView.LayoutManager getLayoutManager() {
-        /*ExStaggeredGridLayoutManager manager = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) listView.getAdapter(), manager.getSpanCount()));*/
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        ExStaggeredGridLayoutManager manager = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) listView.getAdapter(), manager.getSpanCount()));
         return manager;
     }
 }
