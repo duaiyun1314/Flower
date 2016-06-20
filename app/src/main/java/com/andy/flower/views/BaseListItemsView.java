@@ -139,7 +139,7 @@ public class BaseListItemsView<P extends ListPresenter> extends FrameLayout impl
 
     protected RecyclerView.LayoutManager getLayoutManager() {
         ExStaggeredGridLayoutManager manager = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) listView.getAdapter(), manager.getSpanCount()));
+       // manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) listView.getAdapter(), manager.getSpanCount()));
         return manager;
     }
 }

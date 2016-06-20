@@ -165,7 +165,7 @@ public class ImageLoadFresco {
         private boolean mIsRadius = false;//是否圆角
         private boolean mIsBorder = false;//是否有包边
         private float mRadius = 10;//圆角度数 默认10
-        private ResizeOptions mResizeOptions = new ResizeOptions(3000, 3000);//图片的大小限制
+        private ResizeOptions mResizeOptions = new ResizeOptions(500, 1000);//图片的大小限制
 
         private ControllerListener mControllerListener;//图片加载的回调
 

@@ -38,6 +38,9 @@ public class MainActivity extends BaseToolBarActivity
     NavigationView navigationView;
 
     private UserInfoBean mCurrentUser;
+    private int mIconsRes[] = new int[]{R.drawable.icon_category_all,
+            R.drawable.icon_category_home,
+            R.drawable.icon_category_diy_crafts, R.drawable.icon_category_photography};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +79,23 @@ public class MainActivity extends BaseToolBarActivity
 
     private void initView() {
 
+        //init menu
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
+        String[] categoryNames = Constants.Categories_NAMES;
+        int itemId = 0;
+        for (String categoryName : categoryNames) {
+            menu.add(R.id.menu_cagegory_type, itemId++, Menu.NONE, categoryName).setIcon(mIconsRes[itemId - 1]).setCheckable(true);
+        }
         menu.getItem(0).setChecked(true);
         switchFragment(menu.getItem(0));
+        //init header
         View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
         mUserName = ButterKnife.findById(header, R.id.user_name);
         mUserEmail = ButterKnife.findById(header, R.id.user_email);
         mUserPortrait = ButterKnife.findById(header, R.id.user_portrait);
         mUserPortrait.setOnClickListener(this);
+        //init drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -139,18 +150,13 @@ public class MainActivity extends BaseToolBarActivity
         setTitle(title);
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(title);
         if (fragment == null) {
-            if (title.equals("首页图赏")) {
-                fragment = HomeFragment.newInstance();
-            } else {
-                Toast.makeText(MainActivity.this, "敬请期待", Toast.LENGTH_SHORT).show();
-                return;
+            if (item.getGroupId() == R.id.menu_cagegory_type) {
+                fragment = HomeFragment.newInstance(item.getItemId());
             }
         }
-        if (fragment.isAdded()) {
-            getSupportFragmentManager().beginTransaction().show(fragment);
-        } else {
-            getSupportFragmentManager().beginTransaction().add(R.id.content, fragment, (String) item.getTitle()).commit();
-        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment, title)
+                .commit();
+
     }
 
     @Override

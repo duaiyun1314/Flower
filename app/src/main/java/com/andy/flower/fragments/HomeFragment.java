@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
+import com.andy.flower.utils.Logger;
 import com.andy.flower.views.BaseListItemsView;
 import com.andy.flower.views.HomeView;
 import com.andy.flower.views.SlidingTabLayout;
@@ -23,74 +24,32 @@ import java.util.List;
  * Created by andy on 16-6-6.
  */
 public class HomeFragment extends Fragment {
-    private String mType;
+    private int position;
+    private static final String KEY_TYPE = "key_type";
+    private String[] categoryNames = Constants.Categories_NAMES;
+    private String[] categoryIds = Constants.Categories_ID;
+    private HomeView mRootView;
 
-    public static HomeFragment newInstance() {
+
+    public static final HomeFragment newInstance(int position) {
         HomeFragment fragment = new HomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_TYPE, position);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
-    private ViewPager mViewPager;
-    private SlidingTabLayout slidingTabLayout;
-    private String[] categoryNames = Constants.Categories_NAMES;
-    private String[] categoryIds = Constants.Categories_ID;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        position = getArguments().getInt(KEY_TYPE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        mViewPager = (ViewPager) view.findViewById(R.id.vp_discover);
-        mViewPager.setOffscreenPageLimit(Constants.CATEGORY_CACHE_COUNT);
-        this.slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
-        this.slidingTabLayout.setDistributeEvenly(true);
-        return view;
+        mRootView = new HomeView(getActivity());
+        mRootView.update(categoryNames[position], categoryIds[position]);
+        return mRootView;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewPager.setAdapter(new MyAdapter());
-        slidingTabLayout.setViewPager(mViewPager);
-    }
-
-    private class MyAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return categoryNames.length;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            String categoryName = categoryNames[position];
-            String categoryId = categoryIds[position];
-            BaseListItemsView listViewGp = null;
-            if (true) {
-                listViewGp = new HomeView(getActivity());
-            } else {
-                listViewGp = new BaseListItemsView(getActivity());
-            }
-            if (listViewGp != null) {
-                (container).addView(listViewGp);
-                listViewGp.update(categoryName, categoryId);
-            }
-
-            return listViewGp;
-        }
-
-        @Override
-        public void destroyItem(View container, int position, Object object) {
-            // super.destroyItem(container, position, object);
-            ((ViewPager) container).removeView((View) object);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return categoryNames[position];
-        }
-    }
 }

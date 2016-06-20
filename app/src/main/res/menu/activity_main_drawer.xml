@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="首页图赏" />
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_subscribe"
-            android:title="我的关注" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_add"
-            android:title="采集图片" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_message"
-            android:title="我的消息" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_friend"
-            android:title="寻找好友" />
-    </group>
+    <group
+        android:id="@+id/menu_cagegory_type"
+        android:checkableBehavior="single" android:menuCategory="container"/>
 
-    <item android:title="Communicate">
+    <item android:title="Communicate" android:menuCategory="system">
         <menu>
             <item
                 android:id="@+id/nav_share"

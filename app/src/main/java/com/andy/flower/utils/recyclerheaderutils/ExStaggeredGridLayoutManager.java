@@ -42,13 +42,10 @@ public class ExStaggeredGridLayoutManager extends StaggeredGridLayoutManager {
 
     @Override
     public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
-        //Log.d(TAG, "item count = " + getItemCount());
         for (int i = 0; i < getItemCount(); i++) {
 
-            if (mSpanSizeLookup.getSpanSize(i) > 1) {
-                //Log.d(TAG, "lookup > 1 = " + i);
+            if (mSpanSizeLookup != null && mSpanSizeLookup.getSpanSize(i) > 1) {
                 try {
-                    //fix 动态添加时报IndexOutOfBoundsException
                     View view = recycler.getViewForPosition(i);
                     if (view != null) {
                         /**

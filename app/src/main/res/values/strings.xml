@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Flower</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -24,4 +24,6 @@
     <string name="load_fail_label">加载失败</string>
 
     <string name="load_empty_label">列表为空</string>
+
+    <string name="owner_des">由<xliff:g ID="owner_name">%1$s</xliff:g>收集到<xliff:g ID="board_name">%2$s</xliff:g></string>
 </resources>

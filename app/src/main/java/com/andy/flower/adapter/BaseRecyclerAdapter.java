@@ -33,7 +33,7 @@ public abstract class BaseRecyclerAdapter<T> extends
     @Override
     public int getItemCount() {
         int count = 0;
-        if (mDatas.size() > 0) {
+        if (mDatas != null && mDatas.size() > 0) {
             count = mDatas.size();
         }
         return count;
