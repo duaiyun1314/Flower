@@ -3,18 +3,21 @@
 
     <group
         android:id="@+id/menu_cagegory_type"
-        android:checkableBehavior="single" android:menuCategory="container"/>
+        android:checkableBehavior="single"
+        android:menuCategory="container" />
 
-    <item android:title="Communicate" android:menuCategory="system">
+    <item
+        android:menuCategory="system"
+        android:title="Flower">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_set"
+                android:icon="@drawable/ic_menu_setting"
+                android:title="@string/action_settings" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_about"
+                android:title="@string/action_about" />
         </menu>
     </item>
 

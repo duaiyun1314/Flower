@@ -47,8 +47,8 @@ public class Constants {
     public static final String ImgRootUrl = "http://img.hb.aicdn.com/";
     public static final String Register_Url = "http://www.huaban.com";
 
-    public static final String[] Categories_ID = new String[]{"all", "home", "diy_crafts", "photography", "design", "illustration", "apparel", "men", "wedding_events", "industrial_design", "modeling_hair", "food_drink", "travel_places", "fitness", "kids", "pets", "quotes", "people", "beauty", "desire", "geek", "anime", "architecture", "art", "data_presentation", "games", "cars_motorcycles", "film_music_books", "tips", "education", "sports", "funny"};
-    public static final String[] Categories_NAMES = new String[]{"首页", "家居/家装", "手工/布艺", "摄影"/*, "平面", "插画/漫画", "女装/搭配", "男士/风尚", "婚礼", "工业设计", "造型/美妆", "美食", "旅行", "健身/舞蹈", "儿童", "宠物", "美图", "明星", "美女", "礼物", "极客", "动漫", "建筑设计", "人文艺术", "数据图", "游戏", "汽车/摩托", "电影/图书", "生活百科", "教育", "运动", "搞笑"*/};
+    public static final String[] Categories_ID = new String[]{"all", "home", "diy_crafts", "photography", "food_drink", "travel_places", "illustration", "design", "apparel", "modeling_hair", "wedding_events", "desire", "beauty", "pets", "kids", "architecture", "film_music_books", "tips", "art", "men", "fitness", "quotes", "people", "geek", "data_presentation", "games", "cars_motorcycles", "education", "sports", "funny", "industrial_design", "anime"};
+    public static final String[] Categories_NAMES = new String[]{"首页", "家居/家装", "手工/布艺", "摄影", "美食", "旅行", "插画/漫画", "平面", "女装/搭配", "造型/美妆", "婚礼", "礼物", "美女", "宠物", "儿童", "建筑/设计", "电影/图书", "生活百科", "人文艺术", "男士/风尚", "健身/舞蹈", "美图", "明星", "极客", "数据图", "游戏", "汽车/摩托", "教育", "运动", "搞笑", "工业设计", "动漫"};
     public static final int PAGE_COUNT_LIMIT = 20;
     public static final int CATEGORY_CACHE_COUNT = 2;
     public static final float IMAGE_MAXHEIGHT_SCALE = 0.8f;
