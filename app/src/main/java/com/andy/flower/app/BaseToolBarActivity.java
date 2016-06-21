@@ -20,11 +20,12 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
     protected int colorPrimaryDark;
     protected int colorAccent;
     protected FlowerApplication mApplication;
+    protected int mCurrentThemeId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeManager.onActivityCreateSetTheme(this);
+        mCurrentThemeId = ThemeManager.onActivityCreateSetTheme(this);
         super.onCreate(savedInstanceState);
         super.setContentView(getBasicContentLayout());
         TypedArray array = obtainStyledAttributes(new int[]{R.attr.colorPrimary, R.attr.colorPrimaryDark, R.attr.colorAccent});
@@ -38,6 +39,13 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
         mApplication = FlowerApplication.from();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mCurrentThemeId != ThemeManager.getCurrentTheme(this)) {
+            recreate();
+        }
+    }
 
     @Override
     public void setContentView(int layoutResID) {

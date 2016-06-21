@@ -1,7 +1,12 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textAppearanceLarge">@style/ddd</item>
+    </style>
 
+    <style name="ddd">
+        <item name="android:textSize">16dip</item>
+    </style>
     <style name="AppTheme.Basic" parent="AppTheme">
 
         <item name="colorPrimary">@color/colorPrimary</item>

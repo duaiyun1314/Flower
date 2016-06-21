@@ -4,6 +4,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="scroll_aware_fab_behavior">com.andy.flower.views.widgets.ScrollAwareFABBehavior</string>
+
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
     <string name="login_label">登录</string>
@@ -29,4 +31,6 @@
     <string name="owner_des">由<xliff:g ID="owner_name">%1$s</xliff:g>收集到<xliff:g ID="board_name">%2$s</xliff:g></string>
     <!--设置-->
     <string name="pref_general_category">通用</string>
+    <string name="pref_general_theme">主题配色</string>
+    <string name="sure">确定</string>
 </resources>

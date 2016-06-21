@@ -2,5 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/pref_general_category">
+        <com.andy.flower.views.preference.ThemePreference/>
     </PreferenceCategory>
 </PreferenceScreen>

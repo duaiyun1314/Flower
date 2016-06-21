@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
         super(context, datas);
         TypedArray array = context.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
         int colorPrimary = array.getColor(0, 0xFF1473AF);
-        progressDrawable = new AutoRotateDrawable(context.getDrawable(R.drawable.ic_load_progress), 5000);
+        progressDrawable = new AutoRotateDrawable(ContextCompat.getDrawable(context,R.drawable.ic_load_progress), 5000);
         failDrawable = ImageUtils.getTintDrawable(context, R.drawable.ic_load_fail, colorPrimary);
 
     }

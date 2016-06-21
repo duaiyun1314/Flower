@@ -38,21 +38,23 @@ public class ThemeManager {
      */
     public static void changeToTheme(Activity activity, Bundle saveData, int theme) {
         PrefKit.writeInt(activity, "theme", theme);
-        activity.finish();
+        /*activity.finish();
         Intent intent = new Intent(activity, activity.getClass());
         if (saveData != null) {
             intent.putExtras(saveData);
-        }
+        }*/
         activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        activity.startActivity(intent);
+        activity.recreate();
     }
 
     /**
      * Set the theme of the activity, according to the configuration.
      */
-    public static void onActivityCreateSetTheme(Activity activity) {
-        int theme = ThemeRes[PrefKit.getInt(activity, "theme", 0)];
+    public static int onActivityCreateSetTheme(Activity activity) {
+        int themeId = PrefKit.getInt(activity, "theme", 0);
+        int theme = ThemeRes[themeId];
         activity.setTheme(theme);
+        return themeId;
     }
 
     public static int getCurrentTheme(Context context) {
