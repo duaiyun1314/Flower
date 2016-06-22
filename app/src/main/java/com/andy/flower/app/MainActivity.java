@@ -170,7 +170,7 @@ public class MainActivity extends BaseToolBarActivity
             if (itemId == R.id.nav_set) {
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
-            } else if (itemId == R.id.nav_about) {
+            } else if (itemId == R.id.nav_out) {
 
             }
 

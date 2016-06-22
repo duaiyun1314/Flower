@@ -30,7 +30,7 @@ import java.io.File;
  */
 public class ImageUtils {
     private static final int maxMemory = 1024 * 1024 * ((ActivityManager) FlowerApplication.from().getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass() / 8;
-    private static final int maxDiskSize = 50 * 1024 * 1024;
+    private static final int maxDiskSize = 30 * 1024 * 1024;
     private static final int maxDiskCount = 15;
     private static final int maxLoadThreadCount = 5;
 
@@ -43,6 +43,7 @@ public class ImageUtils {
                 .setBitmapsConfig(Bitmap.Config.RGB_565)
                 .setDownsampleEnabled(true)
                 .setMainDiskCacheConfig(DiskCacheConfig.newBuilder(context)
+                        .setMaxCacheSize(maxDiskSize)
                         .setBaseDirectoryName("IMAGE").build())
                 .build();
         return config;
