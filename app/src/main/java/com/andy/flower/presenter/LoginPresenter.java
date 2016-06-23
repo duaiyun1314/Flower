@@ -19,6 +19,7 @@ import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.LoginAPI;
 import com.andy.flower.network.apis.UserAPI;
 import com.andy.flower.presenter.LoginContract.IPresenter;
+import com.andy.flower.utils.LoginPrefKit;
 import com.andy.flower.utils.PrefKit;
 
 import org.greenrobot.eventbus.EventBus;
@@ -112,21 +113,21 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
         FlowerApplication.from().setUserInfoBean(userInfoBean);
         FlowerApplication.from().setLogin(true);
 
-        PrefKit.writeBoolean(FlowerApplication.from(), Constants.IS_LOGIN, true);
-        PrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
-        PrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
-        PrefKit.writeString(FlowerApplication.from(), Constants.USERPASSWORD, password);
-        PrefKit.writeString(FlowerApplication.from(), Constants.TOKENACCESS, accessToken.getAccess_token());
-        PrefKit.writeString(FlowerApplication.from(), Constants.TOKENTYPE, accessToken.getToken_type());
-        PrefKit.writeString(FlowerApplication.from(), Constants.TOKENREFRESH, accessToken.getRefresh_token());
-        PrefKit.writeInt(FlowerApplication.from(), Constants.TOKENEXPIRESIN, accessToken.getExpires_in());
-        PrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
-        PrefKit.writeString(FlowerApplication.from(), Constants.USERNAME, userInfoBean.getUsername());
-        PrefKit.writeInt(FlowerApplication.from(), Constants.USERID, userInfoBean.getUser_id());
-        PrefKit.writeString(FlowerApplication.from(), Constants.USERHEADKEY, userInfoBean.getAvatar().getKey());
-        PrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
-        PrefKit.writeString(FlowerApplication.from(), Constants.BOARDIDARRAY, boardId.toString());
-        PrefKit.writeString(FlowerApplication.from(), Constants.BOARDTILTARRAY, boardTitle.toString());
+        LoginPrefKit.writeBoolean(FlowerApplication.from(), Constants.IS_LOGIN, true);
+        LoginPrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERPASSWORD, password);
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.TOKENACCESS, accessToken.getAccess_token());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.TOKENTYPE, accessToken.getToken_type());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.TOKENREFRESH, accessToken.getRefresh_token());
+        LoginPrefKit.writeInt(FlowerApplication.from(), Constants.TOKENEXPIRESIN, accessToken.getExpires_in());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERNAME, userInfoBean.getUsername());
+        LoginPrefKit.writeInt(FlowerApplication.from(), Constants.USERID, userInfoBean.getUser_id());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERHEADKEY, userInfoBean.getAvatar().getKey());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.BOARDIDARRAY, boardId.toString());
+        LoginPrefKit.writeString(FlowerApplication.from(), Constants.BOARDTILTARRAY, boardTitle.toString());
 
     }
 }

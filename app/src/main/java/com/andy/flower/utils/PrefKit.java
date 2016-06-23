@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
  * Created by andy on 16-6-6.
  */
 public class PrefKit {
-    private static SharedPreferences getSharedPreferences(Context context) {
+    protected static SharedPreferences getSharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -76,5 +76,11 @@ public class PrefKit {
         SharedPreferences.Editor edit = appPrefs.edit();
         edit.putString(key, value);
         edit.apply();
+    }
+
+    public static void clear(Context context) {
+        SharedPreferences appPrefs = getSharedPreferences(context);
+        SharedPreferences.Editor edit = appPrefs.edit();
+        edit.clear().commit();
     }
 }

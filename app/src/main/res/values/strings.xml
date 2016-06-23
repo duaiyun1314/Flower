@@ -45,5 +45,6 @@
     <string name="pref_author_title">开发者</string>
     <string name="pref_author_data">https://github.com/duaiyun1314</string>
     <string name="pref_version_title">版本</string>
+    <string name="login_info">login_info</string>
 
 </resources>

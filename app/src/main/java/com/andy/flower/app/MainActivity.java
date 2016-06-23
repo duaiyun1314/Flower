@@ -19,6 +19,7 @@ import com.andy.flower.bean.POJO.UserInfoBean;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.fragments.HomeFragment;
 import com.andy.flower.utils.ImageLoadFresco;
+import com.andy.flower.utils.LoginPrefKit;
 import com.andy.flower.views.CircleImageView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -78,6 +79,7 @@ public class MainActivity extends BaseToolBarActivity
         } else {
             mUserName.setVisibility(View.GONE);
             mUserEmail.setVisibility(View.GONE);
+            mUserPortrait.setImageResource(R.drawable.ic_avatar);
         }
 
     }
@@ -171,6 +173,10 @@ public class MainActivity extends BaseToolBarActivity
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_out) {
+                FlowerApplication.from().setUserInfoBean(null);
+                FlowerApplication.from().setLogin(false);
+                LoginPrefKit.clear(this);
+                EventBus.getDefault().post(new LoginEvent(false));
 
             }
 
