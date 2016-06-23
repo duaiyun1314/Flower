@@ -13,7 +13,6 @@
         android:layout_height="@dimen/nav_header_img_width"
         android:layout_marginLeft="@dimen/nav_header_left_spacing"
         android:layout_marginTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/ic_avatar"
         fresco:roundingBorderColor="@color/white"
         fresco:roundingBorderWidth="1dip"
         fresco:roundAsCircle="true"

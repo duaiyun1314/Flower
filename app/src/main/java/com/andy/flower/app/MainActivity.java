@@ -1,6 +1,7 @@
 package com.andy.flower.app;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -25,6 +26,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +82,8 @@ public class MainActivity extends BaseToolBarActivity
         } else {
             mUserName.setVisibility(View.GONE);
             mUserEmail.setVisibility(View.GONE);
-            mUserPortrait.setImageResource(R.drawable.ic_avatar);
+            Uri uri = Uri.parse("res:///" + R.drawable.ic_avatar);
+            mUserPortrait.setImageURI(uri);
         }
 
     }
