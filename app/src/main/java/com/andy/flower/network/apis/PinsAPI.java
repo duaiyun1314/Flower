@@ -21,7 +21,7 @@ public interface PinsAPI {
     Observable<PinsListBean> getPinsByCategory(@Header(Constants.Authorization) String authorization, @Path("type") String type, @Query("limit") int limit);
 
     //https//api.huaban.com/favorite/food_drink?max=5445324325&limit=20
-    @GET("{type}")
+    @GET("favorite/{type}")
     Observable<PinsListBean> getPinsByCategoryANDLimit(@Header(Constants.Authorization) String authorization, @Path("type") String type, @Query("max") int max, @Query("limit") int limit);
 
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.andy.flower.presenter.PinsListPresenter;
+import com.andy.flower.views.widgets.RecyclerFootManger;
 
 /**
  * Created by andy on 16-6-12.
@@ -40,5 +41,15 @@ public class HomeView extends BaseListItemsView<PinsListPresenter> {
     @Override
     public void onRefresh() {
         mPresenter.loadNew(true, categoryName, categoryId);
+    }
+
+    @Override
+    public void loadNext() {
+        mPresenter.loadNext(categoryName, categoryId);
+    }
+
+    @Override
+    protected boolean createFootView() {
+        return true;
     }
 }

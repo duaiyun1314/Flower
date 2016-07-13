@@ -10,19 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.andy.flower.utils.Logger;
+import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
+
 public abstract class BaseRecyclerAdapter<T> extends
         RecyclerView.Adapter {
     protected Context mContext;
     protected LayoutInflater mInflater;
     protected List<T> mDatas = new LinkedList<T>();
     public OnItemClickListener<T> mOnItemClickListener;
+    public RecyclerView mRecyclerView;
 
-    public BaseRecyclerAdapter(Context context, List<T> datas) {
+    public BaseRecyclerAdapter(Context context, RecyclerView recyclerView) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        if (datas != null) {
-            mDatas = datas;
-        }
+        mRecyclerView = recyclerView;
     }
 
     @Override

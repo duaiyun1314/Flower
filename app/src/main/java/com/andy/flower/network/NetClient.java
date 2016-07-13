@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by andy on 16-6-6.
  */
 public class NetClient {
-    //所有的联网地址 统一成https
     public final static String mBaseUrl = "https://api.huaban.com/";
 
     public static Gson gson = new Gson();
@@ -33,7 +32,7 @@ public class NetClient {
 
     public static OkHttpClient.Builder addLogClient(OkHttpClient.Builder builder) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         builder.addInterceptor(logging);
         return builder;
     }

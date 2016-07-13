@@ -21,6 +21,7 @@ import com.andy.flower.utils.recyclerheaderutils.ExStaggeredGridLayoutManager;
 import com.andy.flower.utils.recyclerheaderutils.HeaderAndFooterRecyclerViewAdapter;
 import com.andy.flower.utils.recyclerheaderutils.HeaderSpanSizeLookup;
 import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
+import com.andy.flower.views.widgets.RecyclerFootManger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by andy on 16-6-12.
  */
-public class BaseListItemsView<P extends ListPresenter> extends FrameLayout implements ListContract.IView, SwipeRefreshLayout.OnRefreshListener {
+public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLayout implements ListContract.IView, SwipeRefreshLayout.OnRefreshListener, RecyclerFootManger.LoadNextListener {
     @BindView(R.id.list_view)
     RecyclerView listView;
     @BindView(R.id.layout_refresh)
@@ -45,6 +46,7 @@ public class BaseListItemsView<P extends ListPresenter> extends FrameLayout impl
     protected int colorAccent;
     protected Context mContext;
     protected HeaderAndFooterRecyclerViewAdapter mHeaderAndFooterRecyclerViewAdapter;
+    protected RecyclerFootManger footManger;
 
     protected P mPresenter;
 
@@ -91,26 +93,49 @@ public class BaseListItemsView<P extends ListPresenter> extends FrameLayout impl
         layoutRefresh.setOnRefreshListener(this);
         layoutRefresh.setColorSchemeColors(colorPrimary, colorPrimaryDark, colorAccent);
         layoutRefresh.setDistanceToTriggerSync(150);
-        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(mPresenter.getAdapter());
+        mHeaderAndFooterRecyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(mPresenter.getAdapter(listView));
         listView.setAdapter(mHeaderAndFooterRecyclerViewAdapter);
         listView.setLayoutManager(getLayoutManager());
         RecyclerViewUtils.setHeaderView(listView, createHeadView());
-
+        if (createFootView()) {
+            footManger = new RecyclerFootManger(mContext, listView, mPresenter.getAdapter(listView));
+            footManger.setLoadNextListner(this);
+        }
     }
 
     @Override
-    public void showLoading(boolean show) {
-        loading.setVisibility(show ? View.VISIBLE : View.GONE);
+    public void showTips(boolean showLoading, boolean showEmpty, boolean showFail) {
+        loading.setVisibility(showLoading ? View.VISIBLE : View.GONE);
+        loadEmpty.setVisibility(showEmpty ? View.VISIBLE : View.GONE);
+        loadFail.setVisibility(showFail ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void showEmpty(boolean show) {
-        loadEmpty.setVisibility(show ? View.VISIBLE : View.GONE);
+    public void onLoadFinish() {
+        layoutRefresh.setRefreshing(false);
+    }
+
+    protected View createHeadView() {
+        return null;
+    }
+
+    /**
+     * 是否需要上拉加载更多
+     *
+     * @return
+     */
+    protected boolean createFootView() {
+        return false;
+    }
+
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        ExStaggeredGridLayoutManager manager = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        return manager;
     }
 
     @Override
-    public void showFail(boolean show) {
-        loadFail.setVisibility(show ? View.VISIBLE : View.GONE);
+    public void setFootStatus(int status, boolean showView) {
+        footManger.setState(status, true);
     }
 
     @Override
@@ -119,27 +144,7 @@ public class BaseListItemsView<P extends ListPresenter> extends FrameLayout impl
     }
 
     @Override
-    public void onLoadFinish() {
-        layoutRefresh.setRefreshing(false);
-    }
-
-    @Override
     public void setPresenter(BasePresenter presenter) {
 
-    }
-
-    @Override
-    public void onRefresh() {
-        //mPresenter.loadNew();
-    }
-
-    protected View createHeadView() {
-        return null;
-    }
-
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        ExStaggeredGridLayoutManager manager = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-       // manager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) listView.getAdapter(), manager.getSpanCount()));
-        return manager;
     }
 }

@@ -16,6 +16,7 @@ import com.andy.flower.R;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
+import com.andy.flower.utils.Logger;
 import com.andy.flower.utils.ScreenSizeUtil;
 import com.facebook.drawee.drawable.AutoRotateDrawable;
 import com.facebook.drawee.drawable.ProgressBarDrawable;
@@ -34,11 +35,11 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
     private Drawable progressDrawable;
     private Drawable failDrawable;
 
-    public PinsAdapter(Context context, List<PinsBean> datas) {
-        super(context, datas);
+    public PinsAdapter(Context context, RecyclerView recyclerView) {
+        super(context, recyclerView);
         TypedArray array = context.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
         int colorPrimary = array.getColor(0, 0xFF1473AF);
-        progressDrawable = new AutoRotateDrawable(ContextCompat.getDrawable(context,R.drawable.ic_load_progress), 5000);
+        progressDrawable = new AutoRotateDrawable(ContextCompat.getDrawable(context, R.drawable.ic_load_progress), 5000);
         failDrawable = ImageUtils.getTintDrawable(context, R.drawable.ic_load_fail, colorPrimary);
 
     }
@@ -53,7 +54,6 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
         SimpleDraweeView ownerImg = ((PinsItemViewHolder) holder).owner_img;
         img.setAspectRatio(ImageUtils.setImageLayoutParams(bean.getFile().getWidth(), bean.getFile().getHeight()));
         new ImageLoadFresco.LoadImageFrescoBuilder(mContext, img, imageUrl)
-                // .setProgressBarImage(progressDrawable)
                 .setFailureImage(failDrawable)
                 .build();
         new ImageLoadFresco.LoadImageFrescoBuilder(mContext, ownerImg, ownerImgUrl)
@@ -88,4 +88,5 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
             ButterKnife.bind(this, itemView);
         }
     }
+
 }
