@@ -3,6 +3,7 @@ package com.andy.flower.network.apis;
 import com.andy.flower.Constants;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.bean.POJO.PinsListBean;
+import com.andy.flower.bean.POJO.Weeklies;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface PinsAPI {
     @GET("favorite/{type}")
     Observable<PinsListBean> getPinsByCategoryANDLimit(@Header(Constants.Authorization) String authorization, @Path("type") String type, @Query("max") int max, @Query("limit") int limit);
 
+    //https://api.huaban.com/weekly?max=2016-07-21&limit=3
+    @GET("weekly?")
+    Observable<Weeklies> getWeekliesByLimit(@Query("max") String releaseNo, @Query("limit") int limit);
 }

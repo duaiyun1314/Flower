@@ -50,4 +50,5 @@
 
     <string name="text_foot_end">-- END --</string>
     <string name="text_foot_loading">正在加载。。。</string>
+    <string name="weekly_label">Flower周刊</string>
 </resources>

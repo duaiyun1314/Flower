@@ -13,4 +13,15 @@ public class StringUtil {
         Matcher m = p.matcher(email);
         return m.matches();
     }
+
+    public static String getWeeklyReleaseNo(String source) {
+        try {
+            String[] split = source.split("-");
+            String releaseNo = split[0] + "/" + split[1] + " 第" + split[2] + "期";
+            return releaseNo;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

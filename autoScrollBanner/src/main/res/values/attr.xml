@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundCornerIndicaor">
+        <attr name="rci_width" format="dimension" />
+        <attr name="rci_height" format="dimension" />
+        <attr name="rci_gap" format="dimension" />
+        <attr name="rci_cornerRadius" format="dimension" />
+        <attr name="rci_strokeWidth" format="dimension" />
+        <attr name="rci_selectColor" format="color" />
+        <attr name="rci_unselectColor" format="color" />
+        <attr name="rci_strokeColor" format="color" />
+        <attr name="rci_isSnap" format="boolean" />
+    </declare-styleable>
+</resources>

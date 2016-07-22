@@ -11,14 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.andy.autoscrollbanner.views.SwitchView;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
+import com.andy.flower.adapter.BannerAdapter;
+import com.andy.flower.bean.POJO.Weeklies;
+import com.andy.flower.bean.POJO.Weekly;
+import com.andy.flower.network.NetClient;
+import com.andy.flower.network.apis.PinsAPI;
 import com.andy.flower.utils.Logger;
 import com.andy.flower.views.BaseListItemsView;
 import com.andy.flower.views.HomeView;
 import com.andy.flower.views.SlidingTabLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by andy on 16-6-6.
@@ -28,7 +39,7 @@ public class HomeFragment extends Fragment {
     private static final String KEY_TYPE = "key_type";
     private String[] categoryNames = Constants.Categories_NAMES;
     private String[] categoryIds = Constants.Categories_ID;
-    private HomeView mRootView;
+    private SwitchView switchView;
 
 
     public static final HomeFragment newInstance(int position) {
@@ -47,9 +58,43 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = new HomeView(getActivity());
-        mRootView.update(categoryNames[position], categoryIds[position]);
-        return mRootView;
+        if (position == 0) {
+            switchView = new SwitchView(getActivity());
+            switchView.setAdaper(new BannerAdapter(getActivity()));
+            HomeView homeView = new HomeView(getActivity()) {
+                @Override
+                protected View createHeadView() {
+                    return switchView;
+                }
+            };
+            homeView.update(categoryNames[position], categoryIds[position]);
+            return homeView;
+
+        } else {
+            HomeView mRootView = new HomeView(getActivity());
+            mRootView.update(categoryNames[position], categoryIds[position]);
+            return mRootView;
+        }
+
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (position == 0 && switchView != null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            NetClient.createService(PinsAPI.class)
+                    .getWeekliesByLimit(format.format(new Date()), 3)
+                    .map(weeklies -> {
+                        List<Weekly> weekliesBean = weeklies.getWeeklies();
+                        Weekly homepageWeekly = new Weekly();
+                        homepageWeekly.setTitle(getResources().getString(R.string.weekly_label));
+                        weekliesBean.add(0, homepageWeekly);
+                        return weekliesBean;
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(weekliesBean -> switchView.update(weekliesBean));
+        }
+    }
 }

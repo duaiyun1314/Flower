@@ -45,6 +45,7 @@ public class Constants {
 
     //root url
     public static final String ImgRootUrl = "http://img.hb.aicdn.com/";
+    public static final String BannerImgUrl = "http://hbfile.b0.upaiyun.com";
     public static final String Register_Url = "http://www.huaban.com";
 
     public static final String[] Categories_ID = new String[]{"all", "home", "diy_crafts", "photography", "food_drink", "travel_places", "illustration", "design", "apparel", "modeling_hair", "wedding_events", "desire", "beauty", "pets", "kids", "architecture", "film_music_books", "tips", "art", "men", "fitness", "quotes", "people", "geek", "data_presentation", "games", "cars_motorcycles", "education", "sports", "funny", "industrial_design", "anime"};
