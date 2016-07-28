@@ -1,28 +1,20 @@
 package com.andy.flower.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.andy.autoscrollbanner.views.SwitchView;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.BannerAdapter;
-import com.andy.flower.bean.POJO.Weeklies;
 import com.andy.flower.bean.POJO.Weekly;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.apis.PinsAPI;
-import com.andy.flower.utils.Logger;
-import com.andy.flower.views.BaseListItemsView;
 import com.andy.flower.views.HomeView;
-import com.andy.flower.views.SlidingTabLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

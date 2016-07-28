@@ -3,6 +3,7 @@ package com.andy.flower.app;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -61,7 +62,6 @@ public class MainActivity extends BaseToolBarActivity
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
-        initRes();
         initView();
         initUser();
     }
@@ -117,9 +117,6 @@ public class MainActivity extends BaseToolBarActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-    }
-
-    private void initRes() {
     }
 
     @Override
@@ -206,6 +203,15 @@ public class MainActivity extends BaseToolBarActivity
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
 
+    /**
+     * 防止activity异常终止时对fragment保存，导致重启后fragment重叠
+     *
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
     }
 }
