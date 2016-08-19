@@ -39,6 +39,7 @@ public class MainActivity extends BaseToolBarActivity
     private SimpleDraweeView mUserPortrait;
     private TextView mUserName;
     private TextView mUserEmail;
+    private long mFirstBackTime;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
@@ -67,6 +68,9 @@ public class MainActivity extends BaseToolBarActivity
     }
 
 
+    /**
+     * init user information
+     */
     private void initUser() {
         mCurrentUser = mApplication.getUserInfoBean();
 
@@ -93,6 +97,9 @@ public class MainActivity extends BaseToolBarActivity
         initUser();
     }
 
+    /**
+     * init and inflater view
+     */
     private void initView() {
 
         //init menu
@@ -130,7 +137,13 @@ public class MainActivity extends BaseToolBarActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            long secondBackTime = System.currentTimeMillis();
+            if (secondBackTime - mFirstBackTime > 2000) {
+                Toast.makeText(MainActivity.this, getString(R.string.click_2Exit), Toast.LENGTH_SHORT).show();
+            } else {
+                super.onBackPressed();
+            }
+            mFirstBackTime = secondBackTime;
         }
     }
 

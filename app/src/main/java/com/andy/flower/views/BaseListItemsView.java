@@ -27,7 +27,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by andy on 16-6-12.
+ * This is a basic list view, and provides the data loading interface
+ * and related loading logic and joined the headerview and footvew.
+ * A subclass only need to define your own presenter
  */
 public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLayout implements ListContract.IView, SwipeRefreshLayout.OnRefreshListener, RecyclerFootManger.LoadNextListener {
     @BindView(R.id.list_view)
@@ -120,7 +122,7 @@ public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLa
     }
 
     /**
-     * 是否需要上拉加载更多
+     * Whether need to load more
      *
      * @return
      */

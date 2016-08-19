@@ -51,4 +51,5 @@
     <string name="text_foot_end">-- END --</string>
     <string name="text_foot_loading">正在加载。。。</string>
     <string name="weekly_label">Flower周刊</string>
+    <string name="click_2Exit">再按一次返回键退出</string>
 </resources>

@@ -14,6 +14,12 @@ import java.util.List;
 public class ListContract {
 
     public interface IView extends BaseIView {
+        /**
+         * show tips according to loading status
+         * @param showLoading
+         * @param showEmpty
+         * @param showFail
+         */
         void showTips(boolean showLoading, boolean showEmpty, boolean showFail);
 
         void setFootStatus(int status, boolean showView);

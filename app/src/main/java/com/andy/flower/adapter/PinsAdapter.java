@@ -1,6 +1,5 @@
 package com.andy.flower.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -16,13 +15,8 @@ import com.andy.flower.R;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
-import com.andy.flower.utils.Logger;
-import com.andy.flower.utils.ScreenSizeUtil;
 import com.facebook.drawee.drawable.AutoRotateDrawable;
-import com.facebook.drawee.drawable.ProgressBarDrawable;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

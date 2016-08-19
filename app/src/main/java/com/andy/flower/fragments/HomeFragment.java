@@ -50,6 +50,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //homepage add weekly banner
         if (position == 0) {
             switchView = new SwitchView(getActivity());
             switchView.setAdaper(new BannerAdapter(getActivity()));

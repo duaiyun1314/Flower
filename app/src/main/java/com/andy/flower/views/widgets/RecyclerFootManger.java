@@ -18,9 +18,7 @@ import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
  */
 public class RecyclerFootManger extends RecyclerView.OnScrollListener {
 
-    private RecyclerView recyclerView;
     private View footerView;
-    private static RecyclerFootManger footManger;
     private View mLoadingView;
     private View mTheEndView;
     private LoadNextListener nextListener;
@@ -32,7 +30,6 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
     private StaggeredGridLayoutManager gridLayoutManager;
 
     public RecyclerFootManger(Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
-        recyclerView = recyclerView;
         mAdapter = (BaseRecyclerAdapter) adapter;
         footerView = View.inflate(context, R.layout.layout_footer, null);
         mLoadingView = ((ViewStub) footerView.findViewById(R.id.loading_viewstub)).inflate();
@@ -50,7 +47,6 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
      * @param showView 是否展示当前View
      */
     public void setState(int status, boolean showView) {
-        Logger.d("setState", status + "");
         if (mStatus == status) {
             return;//如果状态已经相同 不做修改
         }
