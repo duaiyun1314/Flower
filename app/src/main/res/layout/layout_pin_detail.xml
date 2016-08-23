@@ -1,0 +1,136 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/by_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_horizontal_margin">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/owner_img"
+                        android:layout_width="@dimen/pin_detail_img"
+                        android:layout_height="@dimen/pin_detail_img" />
+
+                    <TextView
+                        android:id="@+id/by_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@id/owner_img"
+                        android:text="@string/by_label"
+                        android:textColor="#999999"/>
+
+                    <TextView
+                        android:id="@+id/owner_des"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/by_label"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@id/owner_img"
+                        android:textColor="#333333"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/from_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_horizontal_margin">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/from_img"
+                        android:layout_width="@dimen/pin_detail_img"
+                        android:layout_height="@dimen/pin_detail_img" />
+
+                    <TextView
+                        android:id="@+id/from_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@id/from_img"
+                        android:text="@string/from_label"
+                        android:textColor="#999999" />
+
+                    <TextView
+                        android:id="@+id/from_des"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/from_label"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@id/from_img"
+                        android:textColor="#333333" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/to_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/activity_horizontal_margin">
+
+                    <com.andy.flower.views.PinRankSmallView
+                        android:id="@+id/to_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></com.andy.flower.views.PinRankSmallView>
+
+                    <TextView
+                        android:id="@+id/to_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@id/to_rank"
+                        android:text="@string/to_label"
+                        android:textColor="#999999" />
+
+                    <TextView
+                        android:id="@+id/to_des"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/to_label"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@id/to_rank"
+                        android:textColor="#333333" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_behavior="@string/scroll_aware_fab_behavior" />
+
+</android.support.design.widget.CoordinatorLayout>

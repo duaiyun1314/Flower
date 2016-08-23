@@ -1,8 +1,9 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BoardItemInfoBean {
+public class BoardItemInfoBean implements Serializable {
 
     /**
      * board_id : 17891564

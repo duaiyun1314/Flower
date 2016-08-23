@@ -1,9 +1,11 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+
 /**
  * Created by andy on 16-6-15.
  */
-public  class Avatar {
+public  class Avatar implements Serializable{
     private int id;
     private String farm;
     private String bucket;

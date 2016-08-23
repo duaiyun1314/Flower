@@ -1,9 +1,11 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+
 /**
  * Created by andy on 16-6-7.
  */
-public class UserInfoBean {
+public class UserInfoBean implements Serializable {
     private int user_id;
     private String username;
     private String urlname;

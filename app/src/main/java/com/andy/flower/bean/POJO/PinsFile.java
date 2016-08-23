@@ -1,9 +1,11 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+
 /**
  * Created by andy on 16-6-15.
  */
-public class PinsFile {
+public class PinsFile implements Serializable {
     private String farm;
     private String bucket;
     private String key;

@@ -1,9 +1,12 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Created by andy on 16-6-15.
  */
-public class PinsBean {
+public class PinsBean implements Serializable {
     private int pin_id;
     private int user_id;
     private int board_id;
@@ -26,6 +29,78 @@ public class PinsBean {
     private boolean liked;
     private PinsUser user;
     private PinsBoard board;
+    private PinsUser via_user;
+    private PinsBean via_pin;
+    private PinsBean original_pin;
+    private PinsBean prev;
+    private PinsBean next;
+    private ArrayList<PinsBean> siblings;
+    private boolean hide_origin;
+    private String category;
+
+    public PinsUser getVia_user() {
+        return via_user;
+    }
+
+    public void setVia_user(PinsUser via_user) {
+        this.via_user = via_user;
+    }
+
+    public PinsBean getVia_pin() {
+        return via_pin;
+    }
+
+    public void setVia_pin(PinsBean via_pin) {
+        this.via_pin = via_pin;
+    }
+
+    public PinsBean getOriginal_pin() {
+        return original_pin;
+    }
+
+    public void setOriginal_pin(PinsBean original_pin) {
+        this.original_pin = original_pin;
+    }
+
+    public PinsBean getPrev() {
+        return prev;
+    }
+
+    public void setPrev(PinsBean prev) {
+        this.prev = prev;
+    }
+
+    public PinsBean getNext() {
+        return next;
+    }
+
+    public void setNext(PinsBean next) {
+        this.next = next;
+    }
+
+    public ArrayList<PinsBean> getSiblings() {
+        return siblings;
+    }
+
+    public void setSiblings(ArrayList<PinsBean> siblings) {
+        this.siblings = siblings;
+    }
+
+    public boolean isHide_origin() {
+        return hide_origin;
+    }
+
+    public void setHide_origin(boolean hide_origin) {
+        this.hide_origin = hide_origin;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public int getPin_id() {
         return pin_id;

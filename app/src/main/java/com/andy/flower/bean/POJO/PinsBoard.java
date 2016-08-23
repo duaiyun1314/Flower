@@ -1,9 +1,12 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Created by andy on 16-6-15.
  */
-public class PinsBoard {
+public class PinsBoard implements Serializable {
     private int board_id;
     private int user_id;
     private String title;
@@ -17,6 +20,15 @@ public class PinsBoard {
     private int updated_at;
     private int deleting;
     private int is_private;
+    private ArrayList<PinsBean> pins;
+
+    public ArrayList<PinsBean> getPins() {
+        return pins;
+    }
+
+    public void setPins(ArrayList<PinsBean> pins) {
+        this.pins = pins;
+    }
 
     public int getBoard_id() {
         return board_id;

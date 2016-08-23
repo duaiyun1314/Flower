@@ -1,6 +1,7 @@
 package com.andy.flower.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
+import com.andy.flower.app.PinDetailActivity;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
@@ -42,8 +44,8 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
     public void getView(RecyclerView.ViewHolder holder, int position) {
         PinsBean bean = mDatas.get(position);
         ((PinsItemViewHolder) holder).tv.setText(bean.getRaw_text());
-        String imageUrl = Constants.ImgRootUrl + bean.getFile().getKey();
-        String ownerImgUrl = Constants.ImgRootUrl + bean.getUser().getAvatar().getKey();
+        String imageUrl = Constants.ImgRootUrl + bean.getFile().getKey() + Constants.GENERAL_IMG_SUFFIX;
+        String ownerImgUrl = Constants.ImgRootUrl + bean.getUser().getAvatar().getKey() + Constants.SMALL_IMG_SUFFIX;
         SimpleDraweeView img = ((PinsItemViewHolder) holder).img;
         SimpleDraweeView ownerImg = ((PinsItemViewHolder) holder).owner_img;
         img.setAspectRatio(ImageUtils.setImageLayoutParams(bean.getFile().getWidth(), bean.getFile().getHeight()));
@@ -55,6 +57,14 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
                 .setIsRadius(true, 4)
                 .build();
         ((PinsItemViewHolder) holder).owner_des.setText(mContext.getString(R.string.owner_des, bean.getUser().getUsername(), bean.getBoard().getTitle()));
+        ((PinsItemViewHolder) holder).img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PinDetailActivity.class);
+                intent.putExtra(PinDetailActivity.PIN_VALUE_KEY, bean);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

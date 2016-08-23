@@ -1,6 +1,7 @@
 package com.andy.flower.network.apis;
 
 import com.andy.flower.Constants;
+import com.andy.flower.bean.POJO.PinDetailWrapper;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.bean.POJO.PinsListBean;
 import com.andy.flower.bean.POJO.Weeklies;
@@ -28,4 +29,7 @@ public interface PinsAPI {
     //https://api.huaban.com/weekly?max=2016-07-21&limit=3
     @GET("weekly?")
     Observable<Weeklies> getWeekliesByLimit(@Query("max") String releaseNo, @Query("limit") int limit);
+
+    @GET("pins/{pinId}")
+    Observable<PinDetailWrapper> getPinDetailByPinId(@Header(Constants.Authorization) String authorization, @Path("pinId") int pinId);
 }

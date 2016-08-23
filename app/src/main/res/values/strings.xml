@@ -6,10 +6,12 @@
 
     <string name="scroll_aware_fab_behavior">com.andy.flower.views.widgets.ScrollAwareFABBehavior</string>
 
+    <string name="action_like">喜欢</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
     <string name="action_out">注销</string>
     <string name="login_label">登录</string>
+    <string name="pin_item_detail">采集详情</string>
 
     <string name="user_name">UserName</string>
     <string name="user_password">Password</string>
@@ -52,4 +54,9 @@
     <string name="text_foot_loading">正在加载。。。</string>
     <string name="weekly_label">Flower周刊</string>
     <string name="click_2Exit">再按一次返回键退出</string>
+    <string name="by_label">由</string>
+    <string name="from_label">从</string>
+    <string name="to_label">采集到</string>
+    <string name="action_download">下载</string>
+    <string name="action_regather">转采</string>
 </resources>

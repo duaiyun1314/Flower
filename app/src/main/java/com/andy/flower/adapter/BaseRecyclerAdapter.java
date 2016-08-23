@@ -85,6 +85,7 @@ public abstract class BaseRecyclerAdapter<T> extends
 
         public BaseRecyclerViewHolder(View itemView) {
             super(itemView);
+
         }
     }
 

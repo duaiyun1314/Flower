@@ -1,9 +1,11 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+
 /**
  * Created by andy on 16-7-21.
  */
-public class Weekly {
+public class Weekly implements Serializable {
     private int weekly_id;
     private int is_final;
     private String release_date;

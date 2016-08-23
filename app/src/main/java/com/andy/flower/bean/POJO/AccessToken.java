@@ -1,9 +1,11 @@
 package com.andy.flower.bean.POJO;
 
+import java.io.Serializable;
+
 /**
  * Created by wanglu on 16/6/7.
  */
-public class AccessToken {
+public class AccessToken implements Serializable {
     private String access_token;
     private String token_type;
     private int expires_in;
