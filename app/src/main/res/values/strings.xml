@@ -59,4 +59,6 @@
     <string name="to_label">采集到</string>
     <string name="action_download">下载</string>
     <string name="action_regather">转采</string>
+    <string name="action_comment">评论</string>
+    <string name="action_share">分享</string>
 </resources>

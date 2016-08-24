@@ -48,6 +48,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
                 .flatMap(accessToekn -> {
                     mAccessToken = accessToekn;
                     mAuthorization = accessToekn.getToken_type() + " " + accessToekn.getAccess_token();
+                    FlowerApplication.from().mAuthorization = mAuthorization;
                     return NetClient.createService(LoginAPI.class)
                             .getUserInfo(mAuthorization);
                 })

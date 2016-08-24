@@ -58,4 +58,7 @@ public class Constants {
     public static final String BIG_IMG_SUFFIX = "_fw658";
     public static final String SMALL_IMG_SUFFIX = "_sq75sf";
 
+    public static final String UNLIKEOPERATOR = "unlike";
+    public static final String LIKEOPERATOR = "like";
+
 }

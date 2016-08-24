@@ -1,10 +1,12 @@
 package com.andy.flower.app;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.andy.flower.Constants;
 import com.andy.flower.bean.POJO.UserInfoBean;
 import com.andy.flower.utils.ImageUtils;
+import com.andy.flower.utils.LoginPrefKit;
 import com.andy.flower.utils.PrefKit;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipeline;
@@ -17,6 +19,7 @@ public class FlowerApplication extends Application {
     private static FlowerApplication mApp;
     public boolean mIsLogin;
     private UserInfoBean userInfoBean;
+    public String mAuthorization;
 
     @Override
     public void onCreate() {
@@ -54,6 +57,11 @@ public class FlowerApplication extends Application {
         userInfoBean.setUser_id(PrefKit.getInt(this, Constants.USERID, 0));
         userInfoBean.setEmail(PrefKit.getString(this, Constants.USEREMAIL, ""));
         userInfoBean.setAvatarUrl(PrefKit.getString(this, Constants.USERHEADKEY, ""));
+        String tokenType = PrefKit.getString(this,Constants.TOKENTYPE,"");
+        String accessType = PrefKit.getString(this,Constants.TOKENACCESS,"");
+        if (!TextUtils.isEmpty(tokenType) && !TextUtils.isEmpty(accessType)) {
+            mAuthorization = tokenType + " " + accessType;
+        }
     }
 
     public UserInfoBean getUserInfoBean() {
@@ -62,5 +70,12 @@ public class FlowerApplication extends Application {
 
     public void setUserInfoBean(UserInfoBean userInfoBean) {
         this.userInfoBean = userInfoBean;
+    }
+
+    public void exit() {
+        this.userInfoBean = null;
+        this.setLogin(false);
+        mAuthorization = Constants.mClientInto;
+        LoginPrefKit.clear(this);
     }
 }

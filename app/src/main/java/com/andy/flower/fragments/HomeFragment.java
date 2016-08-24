@@ -14,6 +14,7 @@ import com.andy.flower.adapter.BannerAdapter;
 import com.andy.flower.bean.POJO.Weekly;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.apis.PinsAPI;
+import com.andy.flower.utils.Logger;
 import com.andy.flower.views.HomeView;
 
 import java.text.SimpleDateFormat;
@@ -87,7 +88,7 @@ public class HomeFragment extends Fragment {
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(weekliesBean -> switchView.update(weekliesBean));
+                    .subscribe(weekliesBean -> switchView.update(weekliesBean), throwable -> Logger.e((Exception) throwable));
         }
     }
 }

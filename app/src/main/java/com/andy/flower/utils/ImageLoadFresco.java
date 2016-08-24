@@ -58,6 +58,7 @@ public class ImageLoadFresco {
         //请求参数 主要配置url 和C层相关
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(frescoBuilder.mUrl))
                 .setResizeOptions(frescoBuilder.mResizeOptions)
+                .setProgressiveRenderingEnabled(frescoBuilder.mProgressiveRender)
                 .build();
         //初始化C层 用于控制图片的加载 是主要的实现控制类
         PipelineDraweeControllerBuilder builderC = Fresco.newDraweeControllerBuilder();
@@ -154,6 +155,7 @@ public class ImageLoadFresco {
         //非必要参数
         private String mUrlLow;//低分率图地址
 
+        private boolean mProgressiveRender;//是否开始渐进式加载
         private Drawable mPlaceHolderImage;//占位图
         private Drawable mProgressBarImage;//loading图
         private Drawable mRetryImage;//重试图
@@ -202,6 +204,11 @@ public class ImageLoadFresco {
 
         public LoadImageFrescoBuilder setBitmapDataSubscriber(BaseBitmapDataSubscriber mBitmapDataSubscriber) {
             this.mBitmapDataSubscriber = mBitmapDataSubscriber;
+            return this;
+        }
+
+        public LoadImageFrescoBuilder setProgressiveRender(boolean progressiveRender){
+            this.mProgressiveRender = progressiveRender;
             return this;
         }
 

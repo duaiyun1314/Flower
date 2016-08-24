@@ -50,7 +50,7 @@
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/owner_img"
                         android:text="@string/by_label"
-                        android:textColor="#999999"/>
+                        android:textColor="#999999" />
 
                     <TextView
                         android:id="@+id/owner_des"
@@ -59,7 +59,7 @@
                         android:layout_below="@id/by_label"
                         android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/owner_img"
-                        android:textColor="#333333"/>
+                        android:textColor="#333333" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -124,13 +124,14 @@
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_add"
+        android:src="@drawable/ic_menu_add"
         app:layout_behavior="@string/scroll_aware_fab_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

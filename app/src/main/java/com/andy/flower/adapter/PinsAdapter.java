@@ -51,6 +51,7 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
         img.setAspectRatio(ImageUtils.setImageLayoutParams(bean.getFile().getWidth(), bean.getFile().getHeight()));
         new ImageLoadFresco.LoadImageFrescoBuilder(mContext, img, imageUrl)
                 .setFailureImage(failDrawable)
+                .setProgressiveRender(true)
                 .build();
         new ImageLoadFresco.LoadImageFrescoBuilder(mContext, ownerImg, ownerImgUrl)
                 .setFailureImage(failDrawable)

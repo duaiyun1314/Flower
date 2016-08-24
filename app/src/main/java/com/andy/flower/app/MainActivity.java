@@ -187,9 +187,7 @@ public class MainActivity extends BaseToolBarActivity
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_out) {
-                FlowerApplication.from().setUserInfoBean(null);
-                FlowerApplication.from().setLogin(false);
-                LoginPrefKit.clear(this);
+                FlowerApplication.from().exit();
                 EventBus.getDefault().post(new LoginEvent(false));
 
             }
