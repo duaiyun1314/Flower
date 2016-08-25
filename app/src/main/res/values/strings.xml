@@ -61,4 +61,7 @@
     <string name="action_regather">转采</string>
     <string name="action_comment">评论</string>
     <string name="action_share">分享</string>
+    <string name="image_has_exist">图片已经下载</string>
+    <string name="image_download_ok">图片成功下载到系统相册</string>
+    <string name="image_download_fail">图片下载失败</string>
 </resources>

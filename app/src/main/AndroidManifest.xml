@@ -3,6 +3,8 @@
     package="com.andy.flower">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.FlowerApplication"
@@ -23,12 +25,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".app.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".app.SettingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".app.PinDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".app.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.PinDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

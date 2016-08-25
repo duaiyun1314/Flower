@@ -61,4 +61,5 @@ public class Constants {
     public static final String UNLIKEOPERATOR = "unlike";
     public static final String LIKEOPERATOR = "like";
 
+    public static final String IMAGE_PATH = "flower/";
 }

@@ -1,7 +1,11 @@
 package com.andy.flower.utils;
 
 import android.content.Context;
+import android.os.Environment;
+import android.text.TextUtils;
 import android.text.format.Formatter;
+
+import com.andy.flower.Constants;
 
 import java.io.File;
 
@@ -73,5 +77,29 @@ public class FileKit {
             }
             to.delete();
         }
+    }
+
+    public static String getImageType(String type) {
+        if (type == null || TextUtils.isEmpty(type)) {
+            return ".jpeg";
+        }
+        if (type.contains("jpeg")) {
+            return ".jpeg";
+        }
+        if (type.contains("png")) {
+            return ".png";
+        }
+        if (type.contains("gif")) {
+            return ".gif";
+        }
+        return null;
+    }
+
+    public static File getImageDir() {
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), Constants.IMAGE_PATH);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        return file;
     }
 }
