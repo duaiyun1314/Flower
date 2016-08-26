@@ -120,6 +120,7 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
                 .downloadImg(Constants.ImgRootUrl + url)
                 .map(responseBodyResponse -> {
                     try {
+                        file.createNewFile();
                         InputStream inputStream = responseBodyResponse.body().byteStream();
                         FileOutputStream fileOutputStream = new FileOutputStream(file);
                         byte[] bytes = new byte[1024];
@@ -139,10 +140,12 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
                     if (isSuccessful) {
                         Toast.makeText(mContext, mContext.getResources().getString(R.string.image_download_ok), Toast.LENGTH_SHORT).show();
                     } else {
+                        file.delete();
                         Toast.makeText(mContext, mContext.getResources().getString(R.string.image_download_fail), Toast.LENGTH_SHORT).show();
                     }
 
                 }, throwable -> {
+                    file.delete();
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.image_download_fail), Toast.LENGTH_SHORT).show();
                 });
 

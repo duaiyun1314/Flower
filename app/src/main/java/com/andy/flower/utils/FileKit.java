@@ -98,7 +98,7 @@ public class FileKit {
     public static File getImageDir() {
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), Constants.IMAGE_PATH);
         if (!file.exists()) {
-            file.mkdir();
+            file.mkdirs();
         }
         return file;
     }

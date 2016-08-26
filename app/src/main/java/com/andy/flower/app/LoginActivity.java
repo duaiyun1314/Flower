@@ -117,7 +117,7 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
         mProgressDialog = new ProgressDialog(LoginActivity.this);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage(getString(R.string.logining_label));
-        mProgressDialog.setProgressDrawable(getDrawable(R.drawable.progress_drawable));
+        //mProgressDialog.setProgressDrawable(getResources().getDrawable(R.drawable.progress_drawable));
     }
 
     @Override

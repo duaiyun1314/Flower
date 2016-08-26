@@ -28,14 +28,12 @@ import butterknife.ButterKnife;
  */
 public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
 
-    private Drawable progressDrawable;
     private Drawable failDrawable;
 
     public PinsAdapter(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
         TypedArray array = context.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
         int colorPrimary = array.getColor(0, 0xFF1473AF);
-        progressDrawable = new AutoRotateDrawable(ContextCompat.getDrawable(context, R.drawable.ic_load_progress), 5000);
         failDrawable = ImageUtils.getTintDrawable(context, R.drawable.ic_load_fail, colorPrimary);
 
     }
