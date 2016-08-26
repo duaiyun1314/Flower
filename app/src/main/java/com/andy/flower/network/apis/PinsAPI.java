@@ -1,15 +1,21 @@
 package com.andy.flower.network.apis;
 
 import com.andy.flower.Constants;
+import com.andy.flower.bean.POJO.Comments;
 import com.andy.flower.bean.POJO.PinDetailWrapper;
 import com.andy.flower.bean.POJO.PinsBean;
 import com.andy.flower.bean.POJO.PinsListBean;
 import com.andy.flower.bean.POJO.Weeklies;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -32,4 +38,10 @@ public interface PinsAPI {
 
     @GET("pins/{pinId}")
     Observable<PinDetailWrapper> getPinDetailByPinId(@Header(Constants.Authorization) String authorization, @Path("pinId") int pinId);
+
+    @POST("pins/{pinId}/comments")
+    Observable<Response<ResponseBody>> postCommentForPin(@Header(Constants.Authorization) String authorization, @Path("pinId") int pinId, @Body Map<String, String> map);
+
+    @GET("pins/{pinId}/comments")
+    Observable<Comments> getPinComments(@Header(Constants.Authorization) String authorization, @Path("pinId") int pinId);
 }

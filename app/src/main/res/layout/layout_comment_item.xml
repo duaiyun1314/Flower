@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dip">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/comment_userimg"
+        android:layout_width="@dimen/pin_detail_img"
+        android:layout_height="@dimen/pin_detail_img" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/comment_userimg">
+
+        <TextView
+            android:id="@+id/comment_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip" />
+
+        <TextView
+            android:id="@+id/comment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:textColor="#999999"
+            android:textSize="12dip" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/comment_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll"
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/comment_userimg"
+        android:textColor="#333333" />
+</RelativeLayout>

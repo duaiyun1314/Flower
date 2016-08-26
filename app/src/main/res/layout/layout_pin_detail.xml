@@ -7,8 +7,10 @@
     <include layout="@layout/layout_toolbar" />
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -121,6 +123,29 @@
                         android:layout_toRightOf="@id/to_rank"
                         android:textColor="#333333" />
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/comments_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/comments_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dip"
+                        android:layout_marginLeft="10dip" />
+
+                    <com.andy.flower.views.ListViewForScrollView
+                        android:id="@+id/comments_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="#999999"
+                        android:dividerHeight="2px" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

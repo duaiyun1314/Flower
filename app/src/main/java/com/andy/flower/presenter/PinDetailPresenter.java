@@ -22,6 +22,8 @@ import com.andy.flower.utils.Logger;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;
@@ -61,7 +63,21 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
                         iView.initView(false, refreshBase);
                     }
                 }, throwable -> NetUtils.checkHttpException(mContext, throwable));
+       getPinComments();
     }
+
+    @Override
+    public void getPinComments() {
+        NetClient.createService(PinsAPI.class)
+                .getPinComments(mApp.mAuthorization, mPin.getPin_id())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(pinComments -> pinComments != null && pinComments.getComments() != null && pinComments.getComments().size() > 0)
+                .subscribe(pinComments -> {
+                    iView.initComments(pinComments.getComments());
+                }, throwable -> Logger.e(throwable.getMessage()));
+    }
+
 
     @Override
     public void actionLike(Menu menu) {
@@ -147,6 +163,31 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
                 }, throwable -> {
                     file.delete();
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.image_download_fail), Toast.LENGTH_SHORT).show();
+                });
+
+    }
+
+    @Override
+    public void actionComment(String comment) {
+        Map<String, String> params = new HashMap<>();
+        params.put(Constants.TEXT_PARAM, comment);
+        NetClient.createService(PinsAPI.class)
+                .postCommentForPin(mApp.mAuthorization, mPin.getPin_id(), params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(responseBodyResponse -> {
+                    try {
+                        if (responseBodyResponse.body().string().contains("comment")) {
+                            getPinComments();
+                            Toast.makeText(mContext, mContext.getResources().getString(R.string.comment_success), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, mContext.getResources().getString(R.string.comment_fail), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(mContext, mContext.getResources().getString(R.string.comment_fail), Toast.LENGTH_SHORT).show();
+                    }
+                }, throwable -> {
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.comment_fail), Toast.LENGTH_SHORT).show();
                 });
 
     }

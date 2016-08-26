@@ -62,4 +62,7 @@ public class Constants {
     public static final String LIKEOPERATOR = "like";
 
     public static final String IMAGE_PATH = "flower";
+
+    public static final String TEXT_PARAM = "text";
+
 }
