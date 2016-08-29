@@ -8,11 +8,10 @@ import android.widget.Toast;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;
-import com.andy.flower.app.LoginActivity;
 import com.andy.flower.bean.POJO.AccessToken;
 import com.andy.flower.bean.POJO.BoardItemInfoBean;
 import com.andy.flower.bean.POJO.BoardListInfoBean;
-import com.andy.flower.bean.POJO.UserInfoBean;
+import com.andy.flower.bean.POJO.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.NetUtils;
@@ -20,7 +19,6 @@ import com.andy.flower.network.apis.LoginAPI;
 import com.andy.flower.network.apis.UserAPI;
 import com.andy.flower.presenter.LoginContract.IPresenter;
 import com.andy.flower.utils.LoginPrefKit;
-import com.andy.flower.utils.PrefKit;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,7 +33,7 @@ import rx.schedulers.Schedulers;
  */
 public class LoginPresenter extends BasePresenter<LoginContract.IView> implements IPresenter {
     private AccessToken mAccessToken;
-    private UserInfoBean mUserBean;
+    private PinsUser mUserBean;
 
     public LoginPresenter(Activity context, LoginContract.IView iView) {
         super(context, iView);
@@ -97,7 +95,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
     }
 
     @Override
-    public void saveUser(AccessToken accessToken, UserInfoBean userInfoBean, String userAccount, String password, List<BoardItemInfoBean> mBoardList) {
+    public void saveUser(AccessToken accessToken, PinsUser userInfoBean, String userAccount, String password, List<BoardItemInfoBean> mBoardList) {
 
         StringBuilder boardTitle = new StringBuilder();
         StringBuilder boardId = new StringBuilder();

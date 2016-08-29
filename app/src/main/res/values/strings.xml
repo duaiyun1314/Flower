@@ -69,4 +69,7 @@
     <string name="comment_fail">评论失败</string>
     <string name="comment_success">评论成功</string>
     <string name="comments_num"><xliff:g ID="comments_num">%1$d</xliff:g>评论</string>
+    <string name="user_is_null">用户信息为空</string>
+    <string name="follow_off">取消关注</string>
+    <string name="follow_on">关注</string>
 </resources>

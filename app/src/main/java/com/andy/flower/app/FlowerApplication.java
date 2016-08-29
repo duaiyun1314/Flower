@@ -4,13 +4,10 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.andy.flower.Constants;
-import com.andy.flower.bean.POJO.UserInfoBean;
+import com.andy.flower.bean.POJO.PinsUser;
 import com.andy.flower.utils.ImageUtils;
 import com.andy.flower.utils.LoginPrefKit;
 import com.andy.flower.utils.PrefKit;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipeline;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 
 /**
  * Created by andy on 16-6-6.
@@ -18,7 +15,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 public class FlowerApplication extends Application {
     private static FlowerApplication mApp;
     public boolean mIsLogin;
-    private UserInfoBean userInfoBean;
+    private PinsUser userInfoBean;
     public String mAuthorization;
 
     @Override
@@ -31,7 +28,7 @@ public class FlowerApplication extends Application {
 
     private void initData() {
         mIsLogin = PrefKit.getBoolean(this, Constants.IS_LOGIN, false);
-        userInfoBean = new UserInfoBean();
+        userInfoBean = new PinsUser();
         if (mIsLogin) {
             getDataByLogin();
         }
@@ -64,11 +61,11 @@ public class FlowerApplication extends Application {
         }
     }
 
-    public UserInfoBean getUserInfoBean() {
+    public PinsUser getUserInfoBean() {
         return userInfoBean;
     }
 
-    public void setUserInfoBean(UserInfoBean userInfoBean) {
+    public void setUserInfoBean(PinsUser userInfoBean) {
         this.userInfoBean = userInfoBean;
     }
 

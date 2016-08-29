@@ -7,5 +7,7 @@
 
     <color name="secondary_text">#727272</color>
     <color name="banner_title_color">#ffffffff</color>
+    <color name="common_text_color">#333333</color>
+    <color name="common_bg">#dddddd</color>
 
 </resources>

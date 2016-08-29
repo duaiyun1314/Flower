@@ -28,4 +28,5 @@
     <dimen name="banner_title_size">20dip</dimen>
     <dimen name="banner_date_size">16dip</dimen>
     <dimen name="pin_detail_img">40dip</dimen>
+    <dimen name="user_detail_portrait">60dip</dimen>
 </resources>

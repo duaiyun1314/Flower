@@ -44,4 +44,17 @@ public interface PinsAPI {
 
     @GET("pins/{pinId}/comments")
     Observable<Comments> getPinComments(@Header(Constants.Authorization) String authorization, @Path("pinId") int pinId);
+
+    @GET("users/{userId}/pins")
+    Observable<PinsListBean> getPinsByUserId(@Header(Constants.Authorization) String authorization, @Path("userId") int userId, @Query("limit") int limit);
+
+    @GET("users/{userId}/pins")
+    Observable<PinsListBean> getPinsByUserIdANDLimit(@Header(Constants.Authorization) String authorization, @Path("userId") int userId, @Query("max") int max, @Query("limit") int limit);
+
+    @GET("users/{userId}/likes")
+    Observable<PinsListBean> getLikesPinsByUserId(@Header(Constants.Authorization) String authorization, @Path("userId") int userId, @Query("limit") int limit);
+
+    @GET("users/{userId}/likes")
+    Observable<PinsListBean> getLikesPinsByUserIdANDLimit(@Header(Constants.Authorization) String authorization, @Path("userId") int userId, @Query("max") int max, @Query("limit") int limit);
+
 }

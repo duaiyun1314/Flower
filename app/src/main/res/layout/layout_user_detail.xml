@@ -1,0 +1,71 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_bg"
+            android:padding="@dimen/activity_horizontal_margin"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/user_portrait"
+                android:layout_width="@dimen/user_detail_portrait"
+                android:layout_height="@dimen/user_detail_portrait"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_toRightOf="@id/user_portrait"
+                android:textColor="@color/common_text_color" />
+
+            <ToggleButton
+                android:id="@+id/action_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@id/user_portrait"
+                android:background="@drawable/follow_user_bg"
+                android:button="@null"
+                android:minHeight="0dip"
+                android:minWidth="0dip"
+                android:padding="5dip"
+                android:textColor="@android:color/white"
+                android:textOff="@string/follow_off"
+                android:textOn="@string/follow_on" />
+        </RelativeLayout>
+
+        <com.andy.flower.views.ViewPagerIndicator
+            android:id="@+id/vp_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_bg" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import android.view.ViewStub;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.BaseRecyclerAdapter;
 import com.andy.flower.utils.Logger;
@@ -37,7 +38,7 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
         RecyclerViewUtils.setFooterView(recyclerView, footerView);
         recyclerView.addOnScrollListener(this);
         gridLayoutManager = ((StaggeredGridLayoutManager) recyclerView.getLayoutManager());
-        setState(STATUS_NORMAL, true);
+        setState(STATUS_LOADING, true);
     }
 
     /**
@@ -96,7 +97,7 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
             int size = mAdapter.getItemCount();
             int[] lastVisibleItemPositions = gridLayoutManager.findLastCompletelyVisibleItemPositions(null);
             int lastVisibableItemPosition = lastVisibleItemPositions[0] > lastVisibleItemPositions[1] ? lastVisibleItemPositions[0] : lastVisibleItemPositions[1];
-            if (lastVisibableItemPosition >= --size) {
+            if (lastVisibableItemPosition >= --size && mStatus != STATUS_END) {
                 if (nextListener != null) {
                     nextListener.loadNext();
                 }

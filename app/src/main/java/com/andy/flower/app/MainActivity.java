@@ -3,7 +3,6 @@ package com.andy.flower.app;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,18 +16,14 @@ import android.widget.Toast;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.bean.POJO.UserInfoBean;
+import com.andy.flower.bean.POJO.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.fragments.HomeFragment;
 import com.andy.flower.utils.ImageLoadFresco;
-import com.andy.flower.utils.LoginPrefKit;
-import com.andy.flower.views.CircleImageView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +38,7 @@ public class MainActivity extends BaseToolBarActivity
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    private UserInfoBean mCurrentUser;
+    private PinsUser mCurrentUser;
     private int mIconsRes[] = new int[]{R.drawable.icon_category_all, R.drawable.icon_category_home, R.drawable.icon_category_diy_crafts,
             R.drawable.icon_category_photography, R.drawable.icon_category_fooddrink, R.drawable.icon_category_travel,
             R.drawable.icon_category_illustration, R.drawable.icon_category_design, R.drawable.icon_category_apparel,

@@ -2,7 +2,7 @@ package com.andy.flower.network.apis;
 
 import com.andy.flower.Constants;
 import com.andy.flower.bean.POJO.AccessToken;
-import com.andy.flower.bean.POJO.UserInfoBean;
+import com.andy.flower.bean.POJO.PinsUser;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -23,5 +23,5 @@ public interface LoginAPI {
 
     //登录第二步 用上一步结果联网
     @GET("users/me")
-    Observable<UserInfoBean> getUserInfo(@Header(Constants.Authorization) String authorization);
+    Observable<PinsUser> getUserInfo(@Header(Constants.Authorization) String authorization);
 }

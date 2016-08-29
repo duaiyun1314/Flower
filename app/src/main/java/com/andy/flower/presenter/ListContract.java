@@ -2,12 +2,6 @@ package com.andy.flower.presenter;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.andy.flower.bean.POJO.AccessToken;
-import com.andy.flower.bean.POJO.BoardItemInfoBean;
-import com.andy.flower.bean.POJO.UserInfoBean;
-
-import java.util.List;
-
 /**
  * Created by andy on 16-6-12.
  */

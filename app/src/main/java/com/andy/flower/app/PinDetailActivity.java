@@ -28,6 +28,7 @@ import com.andy.flower.R;
 import com.andy.flower.adapter.CommentsAdapter;
 import com.andy.flower.bean.POJO.Comments;
 import com.andy.flower.bean.POJO.PinsBean;
+import com.andy.flower.bean.POJO.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.presenter.BasePresenter;
 import com.andy.flower.presenter.PinDetailContract;
@@ -49,6 +50,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by andy.wang on 2016/8/23.
@@ -266,4 +268,23 @@ public class PinDetailActivity extends AppCompatActivity implements PinDetailCon
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    @OnClick(R.id.by_container)
+    public void onClickBy(View v) {
+        gotoUser(mPin.getUser());
+    }
+
+    @OnClick(R.id.from_container)
+    public void onClickTo(View v) {
+        gotoUser(mPin.getVia_user());
+    }
+
+    private void gotoUser(PinsUser user) {
+        if (user != null) {
+            Intent intent = new Intent(this, UserDetailActivity.class);
+            intent.putExtra(UserDetailActivity.USER_VALUE_KEY, user);
+            startActivity(intent);
+        }
+    }
+
 }

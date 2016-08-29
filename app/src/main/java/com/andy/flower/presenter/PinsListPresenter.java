@@ -6,15 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import com.andy.flower.Constants;
 import com.andy.flower.adapter.PinsAdapter;
 import com.andy.flower.bean.POJO.PinsBean;
+import com.andy.flower.bean.POJO.PinsListBean;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.PinsAPI;
-import com.andy.flower.utils.Logger;
 import com.andy.flower.views.widgets.RecyclerFootManger;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -24,6 +24,10 @@ import rx.schedulers.Schedulers;
  */
 public class PinsListPresenter extends ListPresenter<PinsAdapter> {
     public int maxId;
+    public static final String LOAD_TYPE_CATEGORY = "load_type_category";
+    public static final String LOAD_TYPE_USER = "load_type_user";
+    public static final String LOAD_TYPE_USER_LIKES = "load_type_user_likes";
+
 
     public PinsListPresenter(Context context, ListContract.IView iView) {
         super(context, iView);
@@ -31,14 +35,13 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
 
     @Override
     public void loadNew(boolean isrefresh, Object... args) {
-        String categoryId = (String) args[1];
         iView.showTips(!isrefresh, false, false);
-        NetClient.createService(PinsAPI.class)
-                .getPinsByCategory(mAuthorization, categoryId, Constants.PAGE_COUNT_LIMIT)
+        iView.setFootStatus(RecyclerFootManger.STATUS_NORMAL, true);
+        getHttpByType(false, args)
                 .map(pinsListBean -> pinsListBean.getPins())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(getFilterFunc1())
+                .filter(getFilter(true))
                 .subscribe(pinsBeen -> {
                     iView.onLoadFinish();
                     if (pinsBeen == null || pinsBeen.size() < 1) {
@@ -47,7 +50,7 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
                         iView.showTips(false, false, false);
                     }
                     mAdapter.addItemTop(pinsBeen);
-                    maxId = getMaxId(pinsBeen);
+                    setMaxId((String) args[0], pinsBeen);
                 }, throwable -> {
                     iView.onLoadFinish();
                     iView.showTips(false, false, true);
@@ -57,18 +60,15 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
 
     @Override
     public void loadNext(Object... args) {
-        String categoryId = (String) args[1];
-        iView.setFootStatus(RecyclerFootManger.STATUS_LOADING, true);
-        NetClient.createService(PinsAPI.class)
-                .getPinsByCategoryANDLimit(mAuthorization, categoryId, maxId, Constants.PAGE_COUNT_LIMIT)
+        getHttpByType(true, args)
                 .map(pinsListBean -> pinsListBean.getPins())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(getFilterFunc1())
+                .filter(getFilter(false))
                 .subscribe(pinsBeen -> {
                     iView.onLoadFinish();
                     mAdapter.addItemLast(pinsBeen);
-                    maxId = getMaxId(pinsBeen);
+                    setMaxId((String) args[0], pinsBeen);
                 }, throwable -> {
                     iView.onLoadFinish();
                     NetUtils.checkHttpException(mContext, throwable);
@@ -82,25 +82,68 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
         return new PinsAdapter(mContext, recyclerView);
     }
 
-    private int getMaxId(List<PinsBean> result) {
-        return result.get(result.size() - 1).getPin_id();
+    private void setMaxId(String loadType, List<PinsBean> result) {
+        if (result != null && result.size() > 0) {
+            switch (loadType) {
+                case LOAD_TYPE_CATEGORY:
+                case LOAD_TYPE_USER:
+                    maxId = result.get(result.size() - 1).getPin_id();
+                    break;
+                case LOAD_TYPE_USER_LIKES:
+                    maxId = result.get(result.size() - 1).getSeq();
+                    break;
+            }
+        }
     }
 
-    protected Func1<List<PinsBean>, Boolean> getFilterFunc1() {
+    private Observable<PinsListBean> getHttpByType(boolean isLimit, Object... args) {
+        String requestType = (String) args[0];
+        if (requestType == LOAD_TYPE_CATEGORY) {
+            String categoryId = (String) args[1];
+            if (isLimit) {
+                return NetClient.createService(PinsAPI.class).getPinsByCategoryANDLimit(mAuthorization, categoryId, maxId, Constants.PAGE_COUNT_LIMIT);
+            } else {
+                return NetClient.createService(PinsAPI.class).getPinsByCategory(mAuthorization, categoryId, Constants.PAGE_COUNT_LIMIT);
+            }
+        } else if (requestType == LOAD_TYPE_USER) {
+            int userId = (int) args[1];
+            if (isLimit) {
+                return NetClient.createService(PinsAPI.class).getPinsByUserIdANDLimit(mAuthorization, userId, maxId, Constants.PAGE_COUNT_LIMIT);
+            } else {
+                return NetClient.createService(PinsAPI.class).getPinsByUserId(mAuthorization, userId, Constants.PAGE_COUNT_LIMIT);
+            }
+        } else if (requestType == LOAD_TYPE_USER_LIKES) {
+            int userId = (int) args[1];
+            if (isLimit) {
+                return NetClient.createService(PinsAPI.class).getLikesPinsByUserIdANDLimit(mAuthorization, userId, maxId, Constants.PAGE_COUNT_LIMIT);
+            } else {
+                return NetClient.createService(PinsAPI.class).getLikesPinsByUserId(mAuthorization, userId, Constants.PAGE_COUNT_LIMIT);
+            }
+        }
+        return null;
+    }
+
+    protected Func1<List<PinsBean>, Boolean> getFilter(boolean isLoadNew) {
         return new Func1<List<PinsBean>, Boolean>() {
             @Override
             public Boolean call(List<PinsBean> k) {
                 if (k == null || k.size() == 0) {
-                    iView.setFootStatus(RecyclerFootManger.STATUS_END, true);
-                    return false;
+                    if (!isLoadNew) {
+                        iView.setFootStatus(RecyclerFootManger.STATUS_END, true);
+                        return false;
+                    } else {
+                        iView.setFootStatus(RecyclerFootManger.STATUS_NORMAL, true);
+                        return true;
+                    }
                 }
 
                 if (k.size() < Constants.PAGE_COUNT_LIMIT) {
                     iView.setFootStatus(RecyclerFootManger.STATUS_END, true);
                     return true;
+                } else {
+                    iView.setFootStatus(RecyclerFootManger.STATUS_LOADING, true);
+                    return true;
                 }
-                ;
-                return true;
             }
         };
     }

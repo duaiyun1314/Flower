@@ -4,23 +4,23 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.andy.flower.presenter.PinsListPresenter;
-import com.andy.flower.views.widgets.RecyclerFootManger;
 
 /**
  * Created by andy on 16-6-12.
  */
-public class HomeView extends BaseListItemsView<PinsListPresenter> {
-    private String categoryId;
+public class UserPinsListView extends BaseListItemsView<PinsListPresenter> {
+    private int userId;
+    private String loadType;
 
-    public HomeView(Context context) {
+    public UserPinsListView(Context context) {
         super(context);
     }
 
-    public HomeView(Context context, AttributeSet attrs) {
+    public UserPinsListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public HomeView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public UserPinsListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -32,18 +32,19 @@ public class HomeView extends BaseListItemsView<PinsListPresenter> {
     @Override
     public void update(Object... args) {
         super.update(args);
-        categoryId = (String) args[1];
-        mPresenter.loadNew(false, PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
+        userId = (int) args[0];
+        loadType = (String)args[1];
+        mPresenter.loadNew(false, loadType, userId);
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.loadNew(true, PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
+        mPresenter.loadNew(true, loadType, userId);
     }
 
     @Override
     public void loadNext() {
-        mPresenter.loadNext(PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
+        mPresenter.loadNext(loadType, userId);
     }
 
     @Override

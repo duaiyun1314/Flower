@@ -2,7 +2,7 @@ package com.andy.flower.presenter;
 
 import com.andy.flower.bean.POJO.AccessToken;
 import com.andy.flower.bean.POJO.BoardItemInfoBean;
-import com.andy.flower.bean.POJO.UserInfoBean;
+import com.andy.flower.bean.POJO.PinsUser;
 
 import java.util.List;
 
@@ -20,6 +20,6 @@ public class LoginContract {
 
         void register();
 
-        void saveUser(AccessToken accessToken, UserInfoBean userInfoBean, String userAccount, String password, List<BoardItemInfoBean> itemInfoBeanList);
+        void saveUser(AccessToken accessToken, PinsUser userInfoBean, String userAccount, String password, List<BoardItemInfoBean> itemInfoBeanList);
     }
 }
