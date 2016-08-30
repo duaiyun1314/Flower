@@ -97,7 +97,7 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
             int size = mAdapter.getItemCount();
             int[] lastVisibleItemPositions = gridLayoutManager.findLastCompletelyVisibleItemPositions(null);
             int lastVisibableItemPosition = lastVisibleItemPositions[0] > lastVisibleItemPositions[1] ? lastVisibleItemPositions[0] : lastVisibleItemPositions[1];
-            if (lastVisibableItemPosition >= --size && mStatus != STATUS_END) {
+            if (lastVisibableItemPosition >= --size && mStatus == STATUS_LOADING) {
                 if (nextListener != null) {
                     nextListener.loadNext();
                 }

@@ -103,11 +103,12 @@ public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLa
             footManger = new RecyclerFootManger(mContext, listView, mPresenter.getAdapter(listView));
             footManger.setLoadNextListner(this);
         }
+        loading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showTips(boolean showLoading, boolean showEmpty, boolean showFail) {
-        loading.setVisibility(showLoading ? View.VISIBLE : View.GONE);
+        loading.setVisibility(View.GONE);
         loadEmpty.setVisibility(showEmpty ? View.VISIBLE : View.GONE);
         loadFail.setVisibility(showFail ? View.VISIBLE : View.GONE);
     }

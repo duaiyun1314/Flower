@@ -35,8 +35,6 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
 
     @Override
     public void loadNew(boolean isrefresh, Object... args) {
-        iView.showTips(!isrefresh, false, false);
-        iView.setFootStatus(RecyclerFootManger.STATUS_NORMAL, true);
         getHttpByType(false, args)
                 .map(pinsListBean -> pinsListBean.getPins())
                 .subscribeOn(Schedulers.io())
