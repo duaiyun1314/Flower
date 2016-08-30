@@ -24,6 +24,7 @@ import com.andy.flower.presenter.UserDetailPresenter;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ThemeManager;
 import com.andy.flower.views.BaseListItemsView;
+import com.andy.flower.views.BoardsListView;
 import com.andy.flower.views.UserPinsListView;
 import com.andy.flower.views.ViewPagerIndicator;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -36,17 +37,13 @@ import butterknife.ButterKnife;
 /**
  * Created by andy.wang on 2016/8/23.
  */
-public class UserDetailActivity extends AppCompatActivity implements UserDetailContract.IView {
+public class UserDetailActivity extends BaseToolBarActivity implements UserDetailContract.IView {
     PinsUser mUser;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     public static final String USER_VALUE_KEY = "USER_VALUE_KEY";
     @BindView(R.id.user_portrait)
     SimpleDraweeView mUserPortrait;
     @BindView(R.id.user_name)
     TextView mUserName;
-    @BindView(R.id.action_follow)
-    ToggleButton mActionFollow;
     @BindView(R.id.vp_indicator)
     ViewPagerIndicator mVpIndicator;
     @BindView(R.id.vp)
@@ -64,7 +61,6 @@ public class UserDetailActivity extends AppCompatActivity implements UserDetailC
         ButterKnife.bind(this);
         //EventBus.getDefault().register(this);
         //init toolbar
-        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
         Intent intent = getIntent();
         if (intent.hasExtra(USER_VALUE_KEY)) {
@@ -91,18 +87,11 @@ public class UserDetailActivity extends AppCompatActivity implements UserDetailC
     @Override
     public void initView() {
         //init user info
-        String userPortraitUrl = Constants.ImgRootUrl + mUser.getAvatar().getKey() + Constants.SMALL_IMG_SUFFIX;
+        String userPortraitUrl = Constants.ImgRootUrl + mUser.getAvatarUrl() + Constants.SMALL_IMG_SUFFIX;
         new ImageLoadFresco.LoadImageFrescoBuilder(this, mUserPortrait, userPortraitUrl)
                 .setIsCircle(true, true)
                 .build();
         mUserName.setText(mUser.getUsername());
-        mActionFollow.setChecked(mUser.getFollowing() == 1);
-        mActionFollow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mPresenter.actionFollow(isChecked);
-            }
-        });
         //initialize the number of some user's entries
         //init viewpager
         mViewPager.setAdapter(new UserViewPagerAdapter());
@@ -147,8 +136,10 @@ public class UserDetailActivity extends AppCompatActivity implements UserDetailC
             TextView tv = new TextView(UserDetailActivity.this);
             tv.setText(mEntitesTitles[position]);
             if (position == 0) {
-                container.addView(tv);
-                return tv;
+                BoardsListView boardsListView = new BoardsListView(UserDetailActivity.this);
+                boardsListView.update(mUser.getUser_id());
+                container.addView(boardsListView);
+                return boardsListView;
             } else if (position == 1) {
                 UserPinsListView pinsListView = new UserPinsListView(UserDetailActivity.this);
                 pinsListView.update(mUser.getUser_id(), PinsListPresenter.LOAD_TYPE_USER);
@@ -159,10 +150,8 @@ public class UserDetailActivity extends AppCompatActivity implements UserDetailC
                 pinsListView.update(mUser.getUser_id(), PinsListPresenter.LOAD_TYPE_USER_LIKES);
                 container.addView(pinsListView);
                 return pinsListView;
-            } else {
-                container.addView(tv);
-                return tv;
             }
+            return null;
         }
 
         @Override

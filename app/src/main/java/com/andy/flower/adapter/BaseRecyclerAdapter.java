@@ -5,11 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.andy.flower.R;
+import com.andy.flower.utils.ImageUtils;
 import com.andy.flower.utils.Logger;
 import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
 
@@ -20,11 +24,15 @@ public abstract class BaseRecyclerAdapter<T> extends
     protected List<T> mDatas = new LinkedList<T>();
     public OnItemClickListener<T> mOnItemClickListener;
     public RecyclerView mRecyclerView;
+    protected Drawable failDrawable;
 
     public BaseRecyclerAdapter(Context context, RecyclerView recyclerView) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mRecyclerView = recyclerView;
+        TypedArray array = context.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
+        int colorPrimary = array.getColor(0, 0xFF1473AF);
+        failDrawable = ImageUtils.getTintDrawable(context, R.drawable.ic_load_fail, colorPrimary);
     }
 
     @Override

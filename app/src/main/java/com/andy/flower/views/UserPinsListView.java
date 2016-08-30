@@ -34,12 +34,12 @@ public class UserPinsListView extends BaseListItemsView<PinsListPresenter> {
         super.update(args);
         userId = (int) args[0];
         loadType = (String)args[1];
-        mPresenter.loadNew(false, loadType, userId);
+        mPresenter.loadNew(loadType, userId);
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.loadNew(true, loadType, userId);
+        mPresenter.loadNew(loadType, userId);
     }
 
     @Override

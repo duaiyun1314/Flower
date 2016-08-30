@@ -64,7 +64,7 @@ public class CommentsAdapter extends BaseAdapter {
         viewHolder.commentDes.setText(comment.getRaw_text());
         viewHolder.commentUserName.setText(comment.getUser().getUsername());
         viewHolder.commentTime.setText(format.format(new Date(comment.getCreated_at() * 1000)));
-        String imgUrl = Constants.ImgRootUrl + comment.getUser().getAvatar().getKey() + Constants.SMALL_IMG_SUFFIX;
+        String imgUrl = Constants.ImgRootUrl + comment.getUser().getAvatarUrl() + Constants.SMALL_IMG_SUFFIX;
         new ImageLoadFresco.LoadImageFrescoBuilder(context, viewHolder.commentUserImg, imgUrl)
                 .build();
         return view;

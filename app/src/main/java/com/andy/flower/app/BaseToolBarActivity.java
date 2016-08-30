@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
 import com.andy.flower.R;
 import com.andy.flower.utils.ThemeManager;
 
@@ -37,6 +38,7 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         content = (FrameLayout) findViewById(R.id.content);
         mApplication = FlowerApplication.from();
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     @Override

@@ -17,17 +17,19 @@ import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
 /**
  * Created by andy on 16-7-5.
  */
-public class RecyclerFootManger extends RecyclerView.OnScrollListener {
+public class RecyclerFootManger extends RecyclerView.OnScrollListener implements View.OnClickListener {
 
     private View footerView;
     private View mLoadingView;
     private View mTheEndView;
+    private View mErrorView;
     private LoadNextListener nextListener;
     private BaseRecyclerAdapter mAdapter;
     public int mStatus;
     public static final int STATUS_NORMAL = 1;
     public static final int STATUS_LOADING = 2;
     public static final int STATUS_END = 3;
+    public static final int STATUS_ERROR = 4;
     private StaggeredGridLayoutManager gridLayoutManager;
 
     public RecyclerFootManger(Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
@@ -35,6 +37,8 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
         footerView = View.inflate(context, R.layout.layout_footer, null);
         mLoadingView = ((ViewStub) footerView.findViewById(R.id.loading_viewstub)).inflate();
         mTheEndView = ((ViewStub) footerView.findViewById(R.id.end_viewstub)).inflate();
+        mErrorView = ((ViewStub) footerView.findViewById(R.id.error_viewstub)).inflate();
+        mErrorView.setOnClickListener(this);
         RecyclerViewUtils.setFooterView(recyclerView, footerView);
         recyclerView.addOnScrollListener(this);
         gridLayoutManager = ((StaggeredGridLayoutManager) recyclerView.getLayoutManager());
@@ -48,9 +52,9 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
      * @param showView 是否展示当前View
      */
     public void setState(int status, boolean showView) {
-        if (mStatus == status) {
+        /*if (mStatus == status) {
             return;//如果状态已经相同 不做修改
-        }
+        }*/
         mStatus = status;
 
         switch (status) {
@@ -64,11 +68,17 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
                     mTheEndView.setVisibility(View.GONE);
                 }
 
+                if (mErrorView != null) {
+                    mErrorView.setVisibility(View.GONE);
+                }
 
                 break;
             case STATUS_LOADING:
                 if (mTheEndView != null) {
                     mTheEndView.setVisibility(View.GONE);
+                }
+                if (mErrorView != null) {
+                    mErrorView.setVisibility(View.GONE);
                 }
                 if (mLoadingView != null) {
                     mLoadingView.setVisibility(showView ? View.VISIBLE : View.GONE);
@@ -79,9 +89,23 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
                     mLoadingView.setVisibility(View.GONE);
                 }
 
+                if (mErrorView != null) {
+                    mErrorView.setVisibility(View.GONE);
+                }
 
                 if (mTheEndView != null) {
                     mTheEndView.setVisibility(showView ? View.VISIBLE : View.GONE);
+                }
+                break;
+            case STATUS_ERROR:
+                if (mLoadingView != null) {
+                    mLoadingView.setVisibility(View.GONE);
+                }
+                if (mTheEndView != null) {
+                    mTheEndView.setVisibility(View.GONE);
+                }
+                if (mErrorView != null) {
+                    mErrorView.setVisibility(showView ? View.VISIBLE : View.GONE);
                 }
                 break;
             default:
@@ -97,11 +121,18 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
             int size = mAdapter.getItemCount();
             int[] lastVisibleItemPositions = gridLayoutManager.findLastCompletelyVisibleItemPositions(null);
             int lastVisibableItemPosition = lastVisibleItemPositions[0] > lastVisibleItemPositions[1] ? lastVisibleItemPositions[0] : lastVisibleItemPositions[1];
-            if (lastVisibableItemPosition >= --size && mStatus == STATUS_LOADING) {
-                if (nextListener != null) {
-                    nextListener.loadNext();
-                }
+            if (lastVisibableItemPosition >= --size && (mStatus == STATUS_LOADING || mStatus == STATUS_ERROR)) {
+                loadNext();
             }
+        }
+    }
+
+    private void loadNext() {
+        if (mLoadingView != null && mStatus == STATUS_ERROR) {
+            setState(STATUS_LOADING, true);
+        }
+        if (nextListener != null) {
+            nextListener.loadNext();
         }
     }
 
@@ -109,6 +140,11 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener {
         if (nextListener != null) {
             this.nextListener = nextListener;
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        loadNext();
     }
 
     public interface LoadNextListener {

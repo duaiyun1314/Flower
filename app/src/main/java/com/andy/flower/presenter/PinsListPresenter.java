@@ -34,7 +34,7 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
     }
 
     @Override
-    public void loadNew(boolean isrefresh, Object... args) {
+    public void loadNew(Object... args) {
         getHttpByType(false, args)
                 .map(pinsListBean -> pinsListBean.getPins())
                 .subscribeOn(Schedulers.io())
@@ -46,9 +46,9 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
                         iView.showTips(false, true, false);
                     } else {
                         iView.showTips(false, false, false);
+                        mAdapter.addItemTop(pinsBeen);
+                        setMaxId((String) args[0], pinsBeen);
                     }
-                    mAdapter.addItemTop(pinsBeen);
-                    setMaxId((String) args[0], pinsBeen);
                 }, throwable -> {
                     iView.onLoadFinish();
                     iView.showTips(false, false, true);
@@ -70,8 +70,7 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
                 }, throwable -> {
                     iView.onLoadFinish();
                     NetUtils.checkHttpException(mContext, throwable);
-                    iView.setFootStatus(RecyclerFootManger.STATUS_NORMAL, true);
-
+                    iView.setFootStatus(RecyclerFootManger.STATUS_ERROR, true);
                 });
     }
 
@@ -121,29 +120,6 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
         return null;
     }
 
-    protected Func1<List<PinsBean>, Boolean> getFilter(boolean isLoadNew) {
-        return new Func1<List<PinsBean>, Boolean>() {
-            @Override
-            public Boolean call(List<PinsBean> k) {
-                if (k == null || k.size() == 0) {
-                    if (!isLoadNew) {
-                        iView.setFootStatus(RecyclerFootManger.STATUS_END, true);
-                        return false;
-                    } else {
-                        iView.setFootStatus(RecyclerFootManger.STATUS_NORMAL, true);
-                        return true;
-                    }
-                }
 
-                if (k.size() < Constants.PAGE_COUNT_LIMIT) {
-                    iView.setFootStatus(RecyclerFootManger.STATUS_END, true);
-                    return true;
-                } else {
-                    iView.setFootStatus(RecyclerFootManger.STATUS_LOADING, true);
-                    return true;
-                }
-            }
-        };
-    }
 
 }

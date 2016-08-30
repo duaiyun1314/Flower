@@ -138,7 +138,7 @@ public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLa
 
     @Override
     public void setFootStatus(int status, boolean showView) {
-        footManger.setState(status, true);
+        footManger.setState(status, showView);
     }
 
     @Override

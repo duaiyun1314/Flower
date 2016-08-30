@@ -19,7 +19,6 @@ public class UserDetailContract {
     }
 
     public interface IPresenter {
-        void actionFollow(boolean isCheck);
 
         void getUserDetail();
     }

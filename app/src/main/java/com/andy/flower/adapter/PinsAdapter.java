@@ -28,14 +28,8 @@ import butterknife.ButterKnife;
  */
 public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
 
-    private Drawable failDrawable;
-
     public PinsAdapter(Context context, RecyclerView recyclerView) {
         super(context, recyclerView);
-        TypedArray array = context.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
-        int colorPrimary = array.getColor(0, 0xFF1473AF);
-        failDrawable = ImageUtils.getTintDrawable(context, R.drawable.ic_load_fail, colorPrimary);
-
     }
 
     @Override
@@ -43,7 +37,7 @@ public class PinsAdapter extends BaseRecyclerAdapter<PinsBean> {
         PinsBean bean = mDatas.get(position);
         ((PinsItemViewHolder) holder).tv.setText(bean.getRaw_text());
         String imageUrl = Constants.ImgRootUrl + bean.getFile().getKey() + Constants.GENERAL_IMG_SUFFIX;
-        String ownerImgUrl = Constants.ImgRootUrl + bean.getUser().getAvatar().getKey() + Constants.SMALL_IMG_SUFFIX;
+        String ownerImgUrl = Constants.ImgRootUrl + bean.getUser().getAvatarUrl() + Constants.SMALL_IMG_SUFFIX;
         SimpleDraweeView img = ((PinsItemViewHolder) holder).img;
         SimpleDraweeView ownerImg = ((PinsItemViewHolder) holder).owner_img;
         img.setAspectRatio(ImageUtils.setImageLayoutParams(bean.getFile().getWidth(), bean.getFile().getHeight()));

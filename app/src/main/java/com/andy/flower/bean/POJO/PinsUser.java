@@ -1,5 +1,7 @@
 package com.andy.flower.bean.POJO;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 /**
@@ -23,7 +25,12 @@ public class PinsUser implements Serializable {
     private String avatarUrl;
 
     public String getAvatarUrl() {
-        return avatarUrl;
+        if (!TextUtils.isEmpty(avatarUrl)) {
+            return avatarUrl;
+        } else if (getAvatar() != null) {
+            return getAvatar().getKey();
+        }
+        return "";
     }
 
     public void setAvatarUrl(String avatarUrl) {

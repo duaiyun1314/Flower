@@ -24,10 +24,6 @@ public class UserDetailPresenter extends BasePresenter<UserDetailContract.IView>
         super(context, iView);
     }
 
-    @Override
-    public void actionFollow(boolean isCheck) {
-
-    }
 
     @Override
     public void getUserDetail() {

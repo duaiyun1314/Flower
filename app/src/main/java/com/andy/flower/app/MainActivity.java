@@ -200,6 +200,10 @@ public class MainActivity extends BaseToolBarActivity
                 if (!mApplication.isLogin()) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, UserDetailActivity.class);
+                    intent.putExtra(UserDetailActivity.USER_VALUE_KEY, mCurrentUser);
+                    startActivity(intent);
                 }
                 break;
         }

@@ -49,7 +49,7 @@
     <string name="pref_version_title">版本</string>
     <string name="login_info">login_info</string>
 
-
+    <string name="text_foot_error">加载失败，点击重试</string>
     <string name="text_foot_end">-- END --</string>
     <string name="text_foot_loading">正在加载。。。</string>
     <string name="weekly_label">Flower周刊</string>

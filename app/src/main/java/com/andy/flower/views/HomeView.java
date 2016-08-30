@@ -33,12 +33,12 @@ public class HomeView extends BaseListItemsView<PinsListPresenter> {
     public void update(Object... args) {
         super.update(args);
         categoryId = (String) args[1];
-        mPresenter.loadNew(false, PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
+        mPresenter.loadNew(PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.loadNew(true, PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
+        mPresenter.loadNew(PinsListPresenter.LOAD_TYPE_CATEGORY, categoryId);
     }
 
     @Override

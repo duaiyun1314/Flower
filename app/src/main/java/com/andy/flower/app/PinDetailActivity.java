@@ -55,14 +55,12 @@ import butterknife.OnClick;
 /**
  * Created by andy.wang on 2016/8/23.
  */
-public class PinDetailActivity extends AppCompatActivity implements PinDetailContract.IView {
+public class PinDetailActivity extends BaseToolBarActivity implements PinDetailContract.IView {
     private PinsBean mPin;
     private int pin_id;
     private Menu menu;
     public static final String PIN_VALUE_KEY = "pin_value_key";
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.img)
     SimpleDraweeView draweeView;
     @BindView(R.id.description)
@@ -106,7 +104,6 @@ public class PinDetailActivity extends AppCompatActivity implements PinDetailCon
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         //init toolbar
-        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
         setTitle(R.string.pin_item_detail);
         initCommentsViews();
@@ -145,7 +142,7 @@ public class PinDetailActivity extends AppCompatActivity implements PinDetailCon
         if (!fromSimpleBean) {
             //init owner info
             ownerDes.setText(mPin.getUser().getUsername());
-            String ownerImgUrl = Constants.ImgRootUrl + mPin.getUser().getAvatar().getKey() + Constants.SMALL_IMG_SUFFIX;
+            String ownerImgUrl = Constants.ImgRootUrl + mPin.getUser().getAvatarUrl() + Constants.SMALL_IMG_SUFFIX;
             draweeView.setAspectRatio(ImageUtils.setImageLayoutParams(mPin.getFile().getWidth(), mPin.getFile().getHeight()));
             new ImageLoadFresco.LoadImageFrescoBuilder(this, ownerImg, ownerImgUrl)
                     .build();
@@ -153,7 +150,7 @@ public class PinDetailActivity extends AppCompatActivity implements PinDetailCon
             if (mPin.getVia_user() != null) {
                 fromContainer.setVisibility(View.VISIBLE);
                 fromDes.setText(mPin.getVia_user().getUsername());
-                String fromImgUrl = Constants.ImgRootUrl + mPin.getVia_user().getAvatar().getKey() + Constants.SMALL_IMG_SUFFIX;
+                String fromImgUrl = Constants.ImgRootUrl + mPin.getVia_user().getAvatarUrl() + Constants.SMALL_IMG_SUFFIX;
                 draweeView.setAspectRatio(ImageUtils.setImageLayoutParams(mPin.getFile().getWidth(), mPin.getFile().getHeight()));
                 new ImageLoadFresco.LoadImageFrescoBuilder(this, fromImg, fromImgUrl)
                         .build();
