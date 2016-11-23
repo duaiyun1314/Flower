@@ -59,8 +59,7 @@ public class UserDetailActivity extends BaseToolBarActivity implements UserDetai
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_user_detail);
         ButterKnife.bind(this);
-        //EventBus.getDefault().register(this);
-        //init toolbar
+        //init mToolbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
         Intent intent = getIntent();
         if (intent.hasExtra(USER_VALUE_KEY)) {
@@ -73,19 +72,17 @@ public class UserDetailActivity extends BaseToolBarActivity implements UserDetai
         }
         app = FlowerApplication.from();
         mPresenter = new UserDetailPresenter(this, this, mUser);
-        initData();
-        initView();
         mPresenter.getUserDetail();
 
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         mEntitesTitles = getResources().getStringArray(R.array.user_entites);
     }
 
-
     @Override
-    public void initView() {
+    protected void configViews() {
         //init user info
         String userPortraitUrl = Constants.ImgRootUrl + mUser.getAvatarUrl() + Constants.SMALL_IMG_SUFFIX;
         new ImageLoadFresco.LoadImageFrescoBuilder(this, mUserPortrait, userPortraitUrl)
@@ -106,11 +103,6 @@ public class UserDetailActivity extends BaseToolBarActivity implements UserDetai
         mVpIndicator.setSpecificTitle(0, mUser.getBoard_count() + mEntitesTitles[0]);
         mVpIndicator.setSpecificTitle(1, mUser.getPin_count() + mEntitesTitles[1]);
         mVpIndicator.setSpecificTitle(2, mUser.getLike_count() + mEntitesTitles[2]);
-    }
-
-    @Override
-    public void setPresenter(BasePresenter presenter) {
-
     }
 
     @Override
@@ -156,7 +148,6 @@ public class UserDetailActivity extends BaseToolBarActivity implements UserDetai
 
         @Override
         public void destroyItem(View container, int position, Object object) {
-            //super.destroyItem(container, position, object);
             ((ViewPager) container).removeView((View) object);
         }
     }

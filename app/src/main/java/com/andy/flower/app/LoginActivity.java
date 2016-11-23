@@ -47,7 +47,6 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
     ScrollView scrollLoginForm;
 
     private LoginPresenter mPresenter;
-    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,35 +55,20 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
         setTitle(R.string.login_label);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        initView();
-        initProgressDialog();
-
         mPresenter = new LoginPresenter(this, this);
-
-
     }
 
-    private void initView() {
+    @Override
+    protected void configViews() {
         RxView.clicks(btnLogin)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        attemptLogin();
-                    }
-                });
+                .subscribe(avoid -> attemptLogin());
         RxView.clicks(btnRegister)
                 .throttleFirst(500, TimeUnit.MILLISECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        mPresenter.register();
-                    }
-                });
+                .subscribe(aVoid -> mPresenter.register());
     }
 
     private void attemptLogin() {
-
         String userName = actvUsername.getText().toString();
         String userPassword = editPassword.getText().toString();
         if (TextUtils.isEmpty(userName)) {
@@ -105,23 +89,10 @@ public class LoginActivity extends BaseToolBarActivity implements LoginContract.
     @Override
     public void showProgress(boolean show) {
         if (show) {
-            mProgressDialog.show();
+            showProgressDialog(R.string.hold_on, R.string.logining_label);
         } else {
-            mProgressDialog.dismiss();
+            dismissProgressDialog();
         }
-
     }
 
-    @Override
-    public void initProgressDialog() {
-        mProgressDialog = new ProgressDialog(LoginActivity.this);
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage(getString(R.string.logining_label));
-        //mProgressDialog.setProgressDrawable(getResources().getDrawable(R.drawable.progress_drawable));
-    }
-
-    @Override
-    public void setPresenter(BasePresenter presenter) {
-
-    }
 }

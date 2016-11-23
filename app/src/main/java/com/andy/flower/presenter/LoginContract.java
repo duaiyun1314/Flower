@@ -12,7 +12,6 @@ import java.util.List;
 public class LoginContract {
     public interface IView extends BaseIView {
         void showProgress(boolean show);
-        void initProgressDialog();
     }
 
     public interface IPresenter {

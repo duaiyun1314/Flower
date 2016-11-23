@@ -17,8 +17,6 @@ public class BasePresenter<UI extends BaseIView> {
     public BasePresenter(Context context, UI ui) {
         this.mContext = context;
         this.iView = ui;
-        iView.setPresenter(this);
-
     }
 
 }

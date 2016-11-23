@@ -1,27 +1,31 @@
 package com.andy.flower.app;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.andy.flower.R;
 import com.andy.flower.utils.ThemeManager;
 
-import butterknife.ButterKnife;
-
 
 public abstract class BaseToolBarActivity extends AppCompatActivity {
-    protected FrameLayout content;
-    protected Toolbar toolbar;
-    protected int colorPrimary;
-    protected int colorPrimaryDark;
+    protected FrameLayout mContent;
+    protected Toolbar mToolbar;
+    protected int mColorPrimary;
+    protected int mColorPrimaryDark;
     protected int colorAccent;
     protected FlowerApplication mApplication;
     protected int mCurrentThemeId;
+    private Dialog mProgressDialog;
 
 
     @Override
@@ -30,15 +34,15 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(getBasicContentLayout());
         TypedArray array = obtainStyledAttributes(new int[]{R.attr.colorPrimary, R.attr.colorPrimaryDark, R.attr.colorAccent});
-        colorPrimary = array.getColor(0, 0xFF1473AF);
-        colorPrimaryDark = array.getColor(1, 0xFF11659A);
+        mColorPrimary = array.getColor(0, 0xFF1473AF);
+        mColorPrimaryDark = array.getColor(1, 0xFF11659A);
         colorAccent = array.getColor(2, 0xFF3C69CE);
         array.recycle();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        content = (FrameLayout) findViewById(R.id.content);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        mContent = (FrameLayout) findViewById(R.id.content);
         mApplication = FlowerApplication.from();
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
     @Override
@@ -50,9 +54,22 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        configViews();
+        initData();
+    }
+
+    protected void configViews() {
+    }
+
+    protected void initData() {
+    }
+
+    @Override
     public void setContentView(int layoutResID) {
-        content.removeAllViews();
-        getLayoutInflater().inflate(layoutResID, content);
+        mContent.removeAllViews();
+        getLayoutInflater().inflate(layoutResID, mContent);
     }
 
     public void setContentViewSuper(int layoutResID) {
@@ -61,8 +78,8 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(View view) {
-        content.removeAllViews();
-        content.addView(view);
+        mContent.removeAllViews();
+        mContent.addView(view);
     }
 
     public void setContentViewUseSuper(View view) {
@@ -71,8 +88,8 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-        content.removeAllViews();
-        content.addView(view, params);
+        mContent.removeAllViews();
+        mContent.addView(view, params);
     }
 
     public void setContentViewsSuper(View view, ViewGroup.LayoutParams params) {
@@ -89,6 +106,22 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
     }
 
     protected FrameLayout getRootView() {
-        return content;
+        return mContent;
+    }
+
+    public void showProgressDialog(@StringRes int title, @StringRes int content) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new MaterialDialog.Builder(this)
+                    .title(title)
+                    .content(content)
+                    .progress(true, 0)
+                    .show();
+        } else {
+            mProgressDialog.show();
+        }
+    }
+
+    public void dismissProgressDialog() {
+        if (mProgressDialog != null) mProgressDialog.dismiss();
     }
 }

@@ -84,14 +84,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
                         ((Activity) mContext).finish();
                     }
                 });
-
     }
 
     @Override
     public void register() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Register_Url));
         mContext.startActivity(intent);
-
     }
 
     @Override
@@ -102,7 +100,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
         for (int i = 0, size = mBoardList.size(); i < size; i++) {
             boardTitle.append(mBoardList.get(i).getTitle());
             boardId.append(mBoardList.get(i).getBoard_id());
-
             if (i != size - 1) {
                 boardTitle.append(Constants.SEPARATECOMMA);
                 boardId.append(Constants.SEPARATECOMMA);
@@ -127,6 +124,6 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
         LoginPrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
         LoginPrefKit.writeString(FlowerApplication.from(), Constants.BOARDIDARRAY, boardId.toString());
         LoginPrefKit.writeString(FlowerApplication.from(), Constants.BOARDTILTARRAY, boardTitle.toString());
-
     }
+
 }

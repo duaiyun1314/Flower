@@ -58,17 +58,18 @@ public class MainActivity extends BaseToolBarActivity
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         ButterKnife.bind(this);
-        initView();
-        initUser();
     }
 
+    @Override
+    protected void initData() {
+        initUser();
+    }
 
     /**
      * init user information
      */
     private void initUser() {
         mCurrentUser = mApplication.getUserInfoBean();
-
         if (mApplication.isLogin()) {
             mUserName.setVisibility(View.VISIBLE);
             mUserEmail.setVisibility(View.VISIBLE);
@@ -92,10 +93,8 @@ public class MainActivity extends BaseToolBarActivity
         initUser();
     }
 
-    /**
-     * init and inflater view
-     */
-    private void initView() {
+    @Override
+    protected void configViews() {
 
         //init menu
         navigationView.setNavigationItemSelectedListener(this);
@@ -116,7 +115,7 @@ public class MainActivity extends BaseToolBarActivity
         //init drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
     }

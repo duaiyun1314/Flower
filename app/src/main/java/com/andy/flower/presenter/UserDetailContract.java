@@ -14,7 +14,6 @@ import java.util.List;
 public class UserDetailContract {
 
     public interface IView extends BaseIView {
-        void initView();
         void setUser(PinsUser user);
     }
 

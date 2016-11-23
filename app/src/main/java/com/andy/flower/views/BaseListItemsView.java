@@ -146,8 +146,4 @@ public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLa
 
     }
 
-    @Override
-    public void setPresenter(BasePresenter presenter) {
-
-    }
 }

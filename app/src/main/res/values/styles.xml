@@ -1,14 +1,14 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
-        <item name="android:textAppearanceLarge">@style/ddd</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textAppearanceLarge">@style/TextLarge</item>
     </style>
 
-    <style name="ddd">
+    <style name="TextLarge">
         <item name="android:textSize">16dip</item>
     </style>
-    <style name="AppTheme.Basic" parent="AppTheme">
 
+    <style name="AppTheme.Basic" parent="AppTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">#3c69ce</item>
@@ -59,7 +59,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="light_dialog" >
+    <style name="light_dialog">
 
     </style>
 

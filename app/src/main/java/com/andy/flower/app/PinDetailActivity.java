@@ -103,7 +103,7 @@ public class PinDetailActivity extends BaseToolBarActivity implements PinDetailC
         setContentView(R.layout.layout_pin_detail);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        //init toolbar
+        //init mToolbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_HOME_AS_UP);
         setTitle(R.string.pin_item_detail);
         initCommentsViews();
@@ -253,11 +253,6 @@ public class PinDetailActivity extends BaseToolBarActivity implements PinDetailC
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(LoginEvent event) {
         mPresenter.getDetailBean();
-    }
-
-    @Override
-    public void setPresenter(BasePresenter presenter) {
-
     }
 
     @Override
