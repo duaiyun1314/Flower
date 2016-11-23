@@ -6,14 +6,14 @@ apply plugin: 'me.tatarka.retrolambda'
 
 def buildDate = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date())
 android {
-    compileSdkVersion java.lang.Integer.parseInt(ANDROID_COMPILE_SDK_VERSION)
-    buildToolsVersion ANDROID_BUILD_TOOL_VERSION
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion ANDROID_TARGET_SDK_VERSION
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         buildConfigField "String", "buildDate", "\"" + buildDate.toString() + "\""
         vectorDrawables.useSupportLibrary = true
     }
@@ -38,9 +38,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     // support
-    compile 'com.android.support:appcompat-v7:' + ANDROID_SUPPORT_VERSION
-    compile 'com.android.support:design:' + ANDROID_SUPPORT_VERSION
-    compile 'com.android.support:cardview-v7:' + ANDROID_SUPPORT_VERSION
+    compile 'com.android.support:appcompat-v7:' + rootProject.ext.dependencies.support
+    compile 'com.android.support:cardview-v7:' + rootProject.ext.dependencies.support
+    compile 'com.android.support:design:' + rootProject.ext.dependencies.support
     // inject
     compile 'com.jakewharton:butterknife:8.0.1'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
@@ -58,7 +58,6 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     // image
     compile 'com.facebook.fresco:fresco:0.11.0'
-
     // views
     compile 'com.andy.autoscrollbanner:autoScrollBanner:1.0.0'
     compile 'com.afollestad.material-dialogs:core:0.9.1.0'
