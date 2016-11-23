@@ -73,4 +73,8 @@
     <string name="follow_off">取消关注</string>
     <string name="follow_on">关注</string>
     <string name="hold_on">请稍后</string>
+    <string name="confirm_label">确定</string>
+    <string name="allow">确定</string>
+    <string name="deny">取消</string>
+    <string name="logout_label">确定要退出当前账号吗？</string>
 </resources>

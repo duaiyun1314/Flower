@@ -1,7 +1,6 @@
 package com.andy.flower.app;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,7 @@ import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.andy.flower.R;
-import com.andy.flower.utils.ThemeManager;
+import com.andy.flower.manager.ThemeManager;
 
 
 public abstract class BaseToolBarActivity extends AppCompatActivity {
@@ -56,8 +55,8 @@ public abstract class BaseToolBarActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        configViews();
         initData();
+        configViews();
     }
 
     protected void configViews() {

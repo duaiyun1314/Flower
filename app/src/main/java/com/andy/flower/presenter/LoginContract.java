@@ -18,7 +18,5 @@ public class LoginContract {
         void login(final String username, final String password);
 
         void register();
-
-        void saveUser(AccessToken accessToken, PinsUser userInfoBean, String userAccount, String password, List<BoardItemInfoBean> itemInfoBeanList);
     }
 }

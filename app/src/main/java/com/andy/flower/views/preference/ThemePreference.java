@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 import com.andy.flower.R;
 import com.andy.flower.app.SettingActivity;
-import com.andy.flower.utils.ThemeManager;
+import com.andy.flower.manager.ThemeManager;
 
 /**
  * Created by andy on 16-6-21.

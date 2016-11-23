@@ -5,9 +5,12 @@ import android.text.TextUtils;
 
 import com.andy.flower.Constants;
 import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.event.LoginEvent;
 import com.andy.flower.utils.ImageUtils;
 import com.andy.flower.utils.LoginPrefKit;
 import com.andy.flower.utils.PrefKit;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by andy on 16-6-6.
@@ -54,8 +57,8 @@ public class FlowerApplication extends Application {
         userInfoBean.setUser_id(PrefKit.getInt(this, Constants.USERID, 0));
         userInfoBean.setEmail(PrefKit.getString(this, Constants.USEREMAIL, ""));
         userInfoBean.setAvatarUrl(PrefKit.getString(this, Constants.USERHEADKEY, ""));
-        String tokenType = PrefKit.getString(this,Constants.TOKENTYPE,"");
-        String accessType = PrefKit.getString(this,Constants.TOKENACCESS,"");
+        String tokenType = PrefKit.getString(this, Constants.TOKENTYPE, "");
+        String accessType = PrefKit.getString(this, Constants.TOKENACCESS, "");
         if (!TextUtils.isEmpty(tokenType) && !TextUtils.isEmpty(accessType)) {
             mAuthorization = tokenType + " " + accessType;
         }
@@ -67,12 +70,7 @@ public class FlowerApplication extends Application {
 
     public void setUserInfoBean(PinsUser userInfoBean) {
         this.userInfoBean = userInfoBean;
+        if (userInfoBean == null) setLogin(false);
     }
 
-    public void exit() {
-        this.userInfoBean = null;
-        this.setLogin(false);
-        mAuthorization = Constants.mClientInto;
-        LoginPrefKit.clear(this);
-    }
 }

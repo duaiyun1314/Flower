@@ -1,8 +1,5 @@
 package com.andy.flower.app;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
@@ -15,7 +12,6 @@ import android.widget.ScrollView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.presenter.BasePresenter;
 import com.andy.flower.presenter.LoginContract;
 import com.andy.flower.presenter.LoginPresenter;
 import com.andy.flower.utils.StringUtil;
@@ -25,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.functions.Action1;
 
 /**
  * Created by andy on 16-6-6.

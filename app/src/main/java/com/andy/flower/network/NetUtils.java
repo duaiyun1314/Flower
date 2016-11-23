@@ -1,10 +1,9 @@
 package com.andy.flower.network;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.Toast;
 
 import com.andy.flower.R;
+import com.andy.flower.utils.ToastUtil;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
@@ -43,6 +42,6 @@ public class NetUtils {
         } else {
             message = mContext.getString(R.string.message_unknown_error);
         }
-        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(mContext, message);
     }
 }

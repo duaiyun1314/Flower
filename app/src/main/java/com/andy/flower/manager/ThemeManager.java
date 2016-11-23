@@ -1,4 +1,4 @@
-package com.andy.flower.utils;
+package com.andy.flower.manager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.andy.flower.R;
+import com.andy.flower.utils.PrefKit;
 
 /**
  * Created by andy on 16-6-6.

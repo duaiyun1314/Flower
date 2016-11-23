@@ -3,6 +3,7 @@ package com.andy.flower.app;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,12 +15,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.POJO.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.fragments.HomeFragment;
+import com.andy.flower.manager.UserManager;
 import com.andy.flower.utils.ImageLoadFresco;
+import com.andy.flower.utils.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,14 +67,13 @@ public class MainActivity extends BaseToolBarActivity
 
     @Override
     protected void initData() {
-        initUser();
+        mCurrentUser = mApplication.getUserInfoBean();
     }
 
     /**
      * init user information
      */
     private void initUser() {
-        mCurrentUser = mApplication.getUserInfoBean();
         if (mApplication.isLogin()) {
             mUserName.setVisibility(View.VISIBLE);
             mUserEmail.setVisibility(View.VISIBLE);
@@ -79,23 +83,25 @@ public class MainActivity extends BaseToolBarActivity
             new ImageLoadFresco.LoadImageFrescoBuilder(this, mUserPortrait, imageUrl)
                     .setIsCircle(true, true)
                     .build();
+            navigationView.getMenu().findItem(R.id.nav_out).setVisible(true);
         } else {
             mUserName.setVisibility(View.GONE);
             mUserEmail.setVisibility(View.GONE);
             Uri uri = Uri.parse("res:///" + R.drawable.ic_avatar);
             mUserPortrait.setImageURI(uri);
+            navigationView.getMenu().findItem(R.id.nav_out).setVisible(false);
         }
 
     }
 
     @Subscribe
     public void onEventMainThread(LoginEvent event) {
+        initData();
         initUser();
     }
 
     @Override
     protected void configViews() {
-
         //init menu
         navigationView.setNavigationItemSelectedListener(this);
         Menu menu = navigationView.getMenu();
@@ -118,6 +124,9 @@ public class MainActivity extends BaseToolBarActivity
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        //init User view
+        initUser();
     }
 
     @Override
@@ -181,14 +190,29 @@ public class MainActivity extends BaseToolBarActivity
                 Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.nav_out) {
-                FlowerApplication.from().exit();
-                EventBus.getDefault().post(new LoginEvent(false));
-
+                showPerformDialog();
             }
 
         }
 
 
+    }
+
+    private void showPerformDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.confirm_label)
+                .content(R.string.logout_label)
+                .positiveText(R.string.allow)
+                .negativeText(R.string.deny)
+                .onAny(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (which == DialogAction.POSITIVE) {
+                            UserManager.logOut();
+                        }
+                    }
+                })
+                .show();
     }
 
     @Override

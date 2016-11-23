@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
  * This is a basic list view, and provides the data loading interface
  * and related loading logic and joined the headerview and footvew.
  * A subclass only need to define your own presenter
+ *
+ * @author andy.wang
  */
 public abstract class BaseListItemsView<P extends ListPresenter> extends FrameLayout implements ListContract.IView, SwipeRefreshLayout.OnRefreshListener, RecyclerFootManger.LoadNextListener {
     @BindView(R.id.list_view)
