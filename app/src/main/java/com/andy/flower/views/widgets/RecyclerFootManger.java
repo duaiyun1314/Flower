@@ -52,9 +52,6 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener implements
      * @param showView 是否展示当前View
      */
     public void setState(int status, boolean showView) {
-        /*if (mStatus == status) {
-            return;//如果状态已经相同 不做修改
-        }*/
         mStatus = status;
 
         switch (status) {
@@ -118,13 +115,17 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener implements
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         if (newState == recyclerView.SCROLL_STATE_IDLE) {
-            int size = mAdapter.getItemCount();
-            int[] lastVisibleItemPositions = gridLayoutManager.findLastCompletelyVisibleItemPositions(null);
-            int lastVisibableItemPosition = lastVisibleItemPositions[0] > lastVisibleItemPositions[1] ? lastVisibleItemPositions[0] : lastVisibleItemPositions[1];
-            if (lastVisibableItemPosition >= --size && (mStatus == STATUS_LOADING || mStatus == STATUS_ERROR)) {
+            //If the current list is empty or has appeared in the end, will not loading the next
+            if (isSlideBottom(recyclerView) && (mStatus == STATUS_LOADING || mStatus == STATUS_ERROR)) {
                 loadNext();
             }
         }
+    }
+
+    public boolean isSlideBottom(RecyclerView recyclerView) {
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
     private void loadNext() {

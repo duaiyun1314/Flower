@@ -11,7 +11,7 @@ import com.andy.autoscrollbanner.views.SwitchView;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.BannerAdapter;
-import com.andy.flower.bean.POJO.Weekly;
+import com.andy.flower.bean.Weekly;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.apis.PinsAPI;
 import com.andy.flower.utils.Logger;

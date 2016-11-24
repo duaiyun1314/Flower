@@ -1,4 +1,4 @@
-package com.andy.flower.bean.POJO;
+package com.andy.flower.bean;
 
 import java.io.Serializable;
 

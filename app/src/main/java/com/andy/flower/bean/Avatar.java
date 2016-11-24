@@ -1,18 +1,27 @@
-package com.andy.flower.bean.POJO;
+package com.andy.flower.bean;
 
 import java.io.Serializable;
 
 /**
  * Created by andy on 16-6-15.
  */
-public class PinsFile implements Serializable {
+public  class Avatar implements Serializable{
+    private int id;
     private String farm;
     private String bucket;
     private String key;
     private String type;
-    private int width;
-    private int height;
-    private int frames;
+    private String height;
+    private String width;
+    private String frames;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFarm() {
         return farm;
@@ -46,27 +55,27 @@ public class PinsFile implements Serializable {
         this.type = type;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public int getFrames() {
+    public String getWidth() {
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    public String getFrames() {
         return frames;
     }
 
-    public void setFrames(int frames) {
+    public void setFrames(String frames) {
         this.frames = frames;
     }
 }

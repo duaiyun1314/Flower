@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.adapter.PinsAdapter;
-import com.andy.flower.bean.POJO.PinsBean;
-import com.andy.flower.bean.POJO.PinsListBean;
+import com.andy.flower.bean.PinsBean;
+import com.andy.flower.bean.PinsListBean;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.PinsAPI;
@@ -16,7 +16,6 @@ import java.util.List;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**

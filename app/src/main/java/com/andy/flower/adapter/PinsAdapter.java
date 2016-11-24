@@ -2,9 +2,6 @@ package com.andy.flower.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +11,9 @@ import android.widget.TextView;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.PinDetailActivity;
-import com.andy.flower.bean.POJO.PinsBean;
+import com.andy.flower.bean.PinsBean;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
-import com.facebook.drawee.drawable.AutoRotateDrawable;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;

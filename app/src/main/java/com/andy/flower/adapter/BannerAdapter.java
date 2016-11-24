@@ -3,13 +3,12 @@ package com.andy.flower.adapter;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.andy.autoscrollbanner.switchadapter.SwitchAdapter;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.bean.POJO.Weekly;
+import com.andy.flower.bean.Weekly;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.StringUtil;
 import com.facebook.drawee.view.SimpleDraweeView;

@@ -19,12 +19,11 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.fragments.HomeFragment;
 import com.andy.flower.manager.UserManager;
 import com.andy.flower.utils.ImageLoadFresco;
-import com.andy.flower.utils.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;

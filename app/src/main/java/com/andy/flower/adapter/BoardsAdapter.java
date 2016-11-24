@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.bean.POJO.PinsBean;
-import com.andy.flower.bean.POJO.PinsBoard;
+import com.andy.flower.bean.PinsBean;
+import com.andy.flower.bean.PinsBoard;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
 import com.facebook.drawee.view.SimpleDraweeView;

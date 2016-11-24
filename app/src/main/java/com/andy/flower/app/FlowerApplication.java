@@ -4,13 +4,9 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.andy.flower.Constants;
-import com.andy.flower.bean.POJO.PinsUser;
-import com.andy.flower.event.LoginEvent;
+import com.andy.flower.bean.PinsUser;
 import com.andy.flower.utils.ImageUtils;
-import com.andy.flower.utils.LoginPrefKit;
 import com.andy.flower.utils.PrefKit;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by andy on 16-6-6.

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.bean.POJO.Comments;
+import com.andy.flower.bean.Comments;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 

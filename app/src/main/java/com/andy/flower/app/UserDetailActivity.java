@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.bean.PinsUser;
 import com.andy.flower.presenter.PinsListPresenter;
 import com.andy.flower.presenter.UserDetailContract;
 import com.andy.flower.presenter.UserDetailPresenter;

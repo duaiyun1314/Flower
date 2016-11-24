@@ -2,7 +2,6 @@ package com.andy.flower.presenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.LoginActivity;
-import com.andy.flower.bean.POJO.PinsBean;
+import com.andy.flower.bean.PinsBean;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.OperatorAPI;

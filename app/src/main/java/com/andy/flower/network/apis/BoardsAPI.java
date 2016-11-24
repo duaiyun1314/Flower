@@ -1,20 +1,10 @@
 package com.andy.flower.network.apis;
 
 import com.andy.flower.Constants;
-import com.andy.flower.bean.POJO.BoardsListBean;
-import com.andy.flower.bean.POJO.Comments;
-import com.andy.flower.bean.POJO.PinDetailWrapper;
-import com.andy.flower.bean.POJO.PinsListBean;
-import com.andy.flower.bean.POJO.Weeklies;
+import com.andy.flower.bean.BoardsListBean;
 
-import java.util.Map;
-
-import okhttp3.ResponseBody;
-import retrofit2.Response;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;

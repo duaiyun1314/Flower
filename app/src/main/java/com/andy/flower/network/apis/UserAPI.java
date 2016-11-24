@@ -1,8 +1,8 @@
 package com.andy.flower.network.apis;
 
 import com.andy.flower.Constants;
-import com.andy.flower.bean.POJO.BoardListInfoBean;
-import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.bean.BoardListInfoBean;
+import com.andy.flower.bean.PinsUser;
 
 import retrofit2.http.GET;
 import retrofit2.http.Header;

@@ -2,7 +2,7 @@ package com.andy.flower.presenter;
 
 import android.content.Context;
 
-import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.bean.PinsUser;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.apis.UserAPI;
 

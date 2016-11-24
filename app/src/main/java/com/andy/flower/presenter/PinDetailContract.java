@@ -1,10 +1,9 @@
 package com.andy.flower.presenter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 
-import com.andy.flower.bean.POJO.Comments;
-import com.andy.flower.bean.POJO.PinsBean;
+import com.andy.flower.bean.Comments;
+import com.andy.flower.bean.PinsBean;
 
 import java.util.List;
 

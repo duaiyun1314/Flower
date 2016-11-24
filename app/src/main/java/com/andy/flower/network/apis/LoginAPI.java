@@ -1,8 +1,8 @@
 package com.andy.flower.network.apis;
 
 import com.andy.flower.Constants;
-import com.andy.flower.bean.POJO.AccessToken;
-import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.bean.AccessToken;
+import com.andy.flower.bean.PinsUser;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

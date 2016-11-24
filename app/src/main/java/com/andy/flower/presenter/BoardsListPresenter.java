@@ -5,8 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.adapter.BoardsAdapter;
-import com.andy.flower.bean.POJO.PinsBean;
-import com.andy.flower.bean.POJO.PinsBoard;
+import com.andy.flower.bean.PinsBoard;
 import com.andy.flower.network.NetClient;
 import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.BoardsAPI;

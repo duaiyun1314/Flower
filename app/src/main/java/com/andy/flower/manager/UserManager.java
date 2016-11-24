@@ -2,9 +2,9 @@ package com.andy.flower.manager;
 
 import com.andy.flower.Constants;
 import com.andy.flower.app.FlowerApplication;
-import com.andy.flower.bean.POJO.AccessToken;
-import com.andy.flower.bean.POJO.BoardItemInfoBean;
-import com.andy.flower.bean.POJO.PinsUser;
+import com.andy.flower.bean.AccessToken;
+import com.andy.flower.bean.BoardItemInfoBean;
+import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.utils.LoginPrefKit;
 
