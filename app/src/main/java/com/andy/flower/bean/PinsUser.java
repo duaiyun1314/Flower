@@ -1,13 +1,17 @@
 package com.andy.flower.bean;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.text.TextUtils;
+
+import com.andy.flower.BR;
 
 import java.io.Serializable;
 
 /**
  * Created by andy on 16-6-7.
  */
-public class PinsUser implements Serializable {
+public class PinsUser extends BaseObservable implements Serializable {
     private int user_id;
     private String username;
     private String urlname;
@@ -24,6 +28,7 @@ public class PinsUser implements Serializable {
     private int pin_count;
     private String avatarUrl;
 
+    @Bindable
     public String getAvatarUrl() {
         if (!TextUtils.isEmpty(avatarUrl)) {
             return avatarUrl;
@@ -35,6 +40,7 @@ public class PinsUser implements Serializable {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+        notifyPropertyChanged(BR.avatarUrl);
     }
 
     //该用户是否已经关注 关注为1 否则没有对应的网络字段 int默认值为0
@@ -42,44 +48,54 @@ public class PinsUser implements Serializable {
 
     private ProfileBean profile;
 
+    @Bindable
     public int getUser_id() {
         return user_id;
     }
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+        notifyPropertyChanged(BR.user_id);
     }
 
+    @Bindable
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+        notifyPropertyChanged(BR.username);
     }
 
+    @Bindable
     public String getUrlname() {
         return urlname;
     }
 
     public void setUrlname(String urlname) {
         this.urlname = urlname;
+        notifyPropertyChanged(BR.urlname);
     }
 
+    @Bindable
     public Avatar getAvatar() {
         return avatar;
     }
 
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
+        notifyPropertyChanged(BR.avatar);
     }
 
+    @Bindable
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+        notifyPropertyChanged(BR.email);
     }
 
     public int getCreated_at() {
@@ -227,5 +243,40 @@ public class PinsUser implements Serializable {
         }
     }
 
+    public void set(PinsUser user) {
+        setUser_id(user.getUser_id());
+        setUsername(user.getUsername());
+        setUrlname(user.getUrlname());
+        setAvatar(user.getAvatar());
+        setEmail(user.getEmail());
+        setLike_count(user.getLike_count());
+        setBoards_like_count(user.getBoards_like_count());
+        setFollowing_count(user.getFollowing_count());
+        setCreated_at(user.getCreated_at());
+        setCommodity_count(user.getCommodity_count());
+        setFollower_count(user.getFollower_count());
+        setCreations_count(user.getCreations_count());
+        setBoard_count(user.getBoard_count());
+        setPin_count(user.getPin_count());
+        setAvatarUrl(user.getAvatarUrl());
+    }
+
+    public void clear() {
+        setUser_id(0);
+        setUsername("");
+        setUrlname("");
+        setAvatar(null);
+        setEmail("");
+        setLike_count(0);
+        setBoards_like_count(0);
+        setFollowing_count(0);
+        setCreated_at(0);
+        setCommodity_count(0);
+        setFollower_count(0);
+        setCreations_count(0);
+        setBoard_count(0);
+        setPin_count(0);
+        setAvatarUrl("");
+    }
 
 }

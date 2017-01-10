@@ -65,8 +65,13 @@ public class FlowerApplication extends Application {
     }
 
     public void setUserInfoBean(PinsUser userInfoBean) {
-        this.userInfoBean = userInfoBean;
-        if (userInfoBean == null) setLogin(false);
+        if (userInfoBean == null) {
+            setLogin(false);
+            this.userInfoBean.clear();
+        } else {
+            setLogin(true);
+            this.userInfoBean.set(userInfoBean);
+        }
     }
 
 }

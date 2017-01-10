@@ -65,4 +65,18 @@ public class Constants {
 
     public static final String TEXT_PARAM = "text";
 
+    public static final int mIconsRes[] = new int[]{R.drawable.icon_category_all, R.drawable.icon_category_home, R.drawable.icon_category_diy_crafts,
+            R.drawable.icon_category_photography, R.drawable.icon_category_fooddrink, R.drawable.icon_category_travel,
+            R.drawable.icon_category_illustration, R.drawable.icon_category_design, R.drawable.icon_category_apparel,
+            R.drawable.icon_category_hair, R.drawable.icon_category_wedding, R.drawable.icon_category_desire,
+            R.drawable.icon_category_beauty, R.drawable.icon_category_pets, R.drawable.icon_category_kids,
+            R.drawable.icon_category_architecture, R.drawable.icon_category_film, R.drawable.icon_category_tips,
+            R.drawable.icon_category_art, R.drawable.icon_category_men, R.drawable.icon_category_fitness,
+            R.drawable.icon_category_quotes, R.drawable.icon_category_people, R.drawable.icon_category_geek,
+            R.drawable.icon_category_data, R.drawable.icon_category_game, R.drawable.icon_category_car,
+            R.drawable.icon_category_education, R.drawable.icon_category_sports, R.drawable.icon_category_funny,
+            R.drawable.icon_category_industrial, R.drawable.icon_category_anim
+
+    };
+
 }

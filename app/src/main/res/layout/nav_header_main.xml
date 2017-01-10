@@ -1,38 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/side_nav_bar"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/user_portrait"
-        android:layout_width="@dimen/nav_header_img_height"
-        android:layout_height="@dimen/nav_header_img_width"
-        android:layout_marginLeft="@dimen/nav_header_left_spacing"
-        android:layout_marginTop="@dimen/nav_header_vertical_spacing"
-        fresco:roundingBorderColor="@color/white"
-        fresco:roundingBorderWidth="1dip"
-        fresco:roundAsCircle="true"
-        fresco:placeholderImage="@drawable/ic_avatar"/>
+    <data>
 
-    <TextView
-        android:id="@+id/user_name"
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="user"
+            type="com.andy.flower.bean.PinsUser" />
+
+        <variable
+            name="click"
+            type="com.andy.flower.app.MainActivity" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/nav_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:paddingLeft="@dimen/nav_header_left_spacing"
-        android:paddingRight="@dimen/nav_header_left_spacing"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="@dimen/nav_header_height"
+        android:background="@drawable/side_nav_bar"
+        android:onClick="@{click.onClick}"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <TextView
-        android:id="@+id/user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/nav_header_left_spacing"
-        android:paddingRight="@dimen/nav_header_left_spacing"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/user_portrait"
+            android:layout_width="@dimen/nav_header_img_height"
+            android:layout_height="@dimen/nav_header_img_width"
+            android:layout_marginLeft="@dimen/nav_header_left_spacing"
+            android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+            fresco:avatar="@{user.avatarUrl}"
+            fresco:placeholderImage="@drawable/ic_avatar"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="@color/white"
+            fresco:roundingBorderWidth="1dip" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:paddingLeft="@dimen/nav_header_left_spacing"
+            android:paddingRight="@dimen/nav_header_left_spacing"
+            android:text="@{user.username}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:visibility="@{TextUtils.isEmpty(user.username)? View.GONE : View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/nav_header_left_spacing"
+            android:paddingRight="@dimen/nav_header_left_spacing"
+            android:text="@{user.email}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:visibility="@{TextUtils.isEmpty(user.username)? View.GONE : View.VISIBLE}" />
+
+    </LinearLayout>
+</layout>
