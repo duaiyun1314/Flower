@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andy.commons.activity.BaseActivity;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.PinsUser;
@@ -17,7 +18,6 @@ import com.andy.flower.presenter.PinsListPresenter;
 import com.andy.flower.presenter.UserDetailContract;
 import com.andy.flower.presenter.UserDetailPresenter;
 import com.andy.flower.utils.ImageLoadFresco;
-import com.andy.flower.manager.ThemeManager;
 import com.andy.flower.views.BoardsListView;
 import com.andy.flower.views.UserPinsListView;
 import com.andy.flower.views.ViewPagerIndicator;
@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * Created by andy.wang on 2016/8/23.
  */
-public class UserDetailActivity extends BaseToolBarActivity implements UserDetailContract.IView {
+public class UserDetailActivity extends BaseActivity implements UserDetailContract.IView {
     PinsUser mUser;
     public static final String USER_VALUE_KEY = "USER_VALUE_KEY";
     @BindView(R.id.user_portrait)
@@ -49,7 +49,6 @@ public class UserDetailActivity extends BaseToolBarActivity implements UserDetai
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeManager.onActivityCreateSetTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_user_detail);
         ButterKnife.bind(this);

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
+import com.andy.commons.activity.BaseActivity;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.presenter.LoginContract;
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
 /**
  * Created by andy on 16-6-6.
  */
-public class LoginActivity extends BaseToolBarActivity implements LoginContract.IView {
+public class LoginActivity extends BaseActivity implements LoginContract.IView {
     @BindView(R.id.actv_username)
     AutoCompleteTextView actvUsername;
     @BindView(R.id.edit_password)

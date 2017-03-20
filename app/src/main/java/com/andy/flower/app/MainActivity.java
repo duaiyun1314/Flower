@@ -1,10 +1,6 @@
 package com.andy.flower.app;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
-import android.databinding.ViewDataBinding;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -20,6 +16,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.andy.commons.activity.BaseActivity;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.PinsUser;
@@ -34,25 +31,26 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseToolBarActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private long mFirstBackTime;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-
     private PinsUser mCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        setContentView(R.layout.activity_main);
+        setupToolBar(R.id.toolbar);
         ButterKnife.bind(this);
     }
 
     @Override
     protected void initData() {
-        mCurrentUser = mApplication.getUserInfoBean();
+        mCurrentUser = FlowerApplication.from().getUserInfoBean();
         //更新用户基本信息
         UserManager.syncUserInfo();
     }
@@ -90,7 +88,7 @@ public class MainActivity extends BaseToolBarActivity
      * init user information
      */
     private void initUser() {
-        if (mApplication.isLogin()) {
+        if (FlowerApplication.from().isLogin()) {
             navigationView.getMenu().findItem(R.id.nav_out).setVisible(true);
         } else {
             navigationView.getMenu().findItem(R.id.nav_out).setVisible(false);
@@ -101,11 +99,6 @@ public class MainActivity extends BaseToolBarActivity
     @Subscribe
     public void onEventMainThread(LoginEvent event) {
         initUser();
-    }
-
-    @Override
-    protected int getBasicContentLayout() {
-        return R.layout.activity_main;
     }
 
     @Override
@@ -190,7 +183,7 @@ public class MainActivity extends BaseToolBarActivity
     }
 
     public void onClick(View v) {
-        if (!mApplication.isLogin()) {
+        if (!FlowerApplication.from().isLogin()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
@@ -214,5 +207,10 @@ public class MainActivity extends BaseToolBarActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected boolean enableToolBar() {
+        return false;
     }
 }

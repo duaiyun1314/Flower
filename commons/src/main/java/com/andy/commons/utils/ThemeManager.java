@@ -1,12 +1,11 @@
-package com.andy.flower.manager;
+package com.andy.commons.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.andy.flower.R;
-import com.andy.flower.utils.PrefKit;
+import com.andy.commons.R;
+import com.andy.commons.model.preference.PrefKit;
 
 /**
  * Created by andy on 16-6-6.

@@ -1,18 +1,16 @@
 package com.andy.flower.app;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 
+import com.andy.commons.activity.BaseActivity;
 import com.andy.flower.R;
 import com.andy.flower.fragments.SettingFragment;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by andy on 16-6-21.
  */
-public class SettingActivity extends BaseToolBarActivity {
+public class SettingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

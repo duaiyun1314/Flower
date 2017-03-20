@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andy.commons.activity.BaseActivity;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.CommentsAdapter;
@@ -29,7 +30,6 @@ import com.andy.flower.presenter.PinDetailContract;
 import com.andy.flower.presenter.PinDetailPresenter;
 import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.utils.ImageUtils;
-import com.andy.flower.manager.ThemeManager;
 import com.andy.flower.views.ListViewForScrollView;
 import com.andy.flower.views.PinRankSmallView;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -48,7 +48,7 @@ import butterknife.OnClick;
 /**
  * Created by andy.wang on 2016/8/23.
  */
-public class PinDetailActivity extends BaseToolBarActivity implements PinDetailContract.IView {
+public class PinDetailActivity extends BaseActivity implements PinDetailContract.IView {
     private PinsBean mPin;
     private int pin_id;
     private Menu menu;
@@ -91,7 +91,6 @@ public class PinDetailActivity extends BaseToolBarActivity implements PinDetailC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeManager.onActivityCreateSetTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_pin_detail);
         ButterKnife.bind(this);

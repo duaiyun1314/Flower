@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.utils.ImageUtils;
-import com.andy.flower.utils.PrefKit;
+import com.andy.commons.model.preference.PrefKit;
 
 /**
  * Created by andy on 16-6-6.

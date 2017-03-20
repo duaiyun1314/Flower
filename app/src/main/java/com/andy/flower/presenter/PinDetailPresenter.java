@@ -2,6 +2,7 @@ package com.andy.flower.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +63,7 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
                         iView.initView(false, refreshBase);
                     }
                 }, throwable -> NetUtils.checkHttpException(mContext, throwable));
-       getPinComments();
+        getPinComments();
     }
 
     @Override
@@ -143,6 +144,10 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
                         while ((i = inputStream.read(bytes)) != -1) {
                             fileOutputStream.write(bytes, 0, i);
                         }
+                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                        Uri uri = Uri.fromFile(file);
+                        intent.setData(uri);
+                        mContext.sendBroadcast(intent);
                         return true;
                     } catch (Exception e) {
                         e.printStackTrace();

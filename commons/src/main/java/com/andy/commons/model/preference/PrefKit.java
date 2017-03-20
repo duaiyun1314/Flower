@@ -1,4 +1,4 @@
-package com.andy.flower.utils;
+package com.andy.commons.model.preference;
 
 import android.content.Context;
 import android.content.SharedPreferences;
