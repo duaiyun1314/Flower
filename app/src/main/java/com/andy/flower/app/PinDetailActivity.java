@@ -211,7 +211,7 @@ public class PinDetailActivity extends BaseActivity implements PinDetailContract
     }
 
     private void showCommentDialog() {
-        if (!FlowerApplication.from().isLogin()) {
+        if (!FlowerApplication.from().getUserInfoBean().isLogin()) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             return;

@@ -5,13 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.BaseRecyclerAdapter;
-import com.andy.flower.utils.Logger;
 import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
 
 /**

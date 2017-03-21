@@ -27,6 +27,20 @@ public class PinsUser extends BaseObservable implements Serializable {
     private int creations_count;
     private int pin_count;
     private String avatarUrl;
+    private String authorization;
+
+
+    public boolean isLogin() {
+        return user_id > 0 && !TextUtils.isEmpty(getAuthorization());
+    }
+
+    public String getAuthorization() {
+        return authorization;
+    }
+
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
+    }
 
     @Bindable
     public String getAvatarUrl() {
@@ -277,6 +291,7 @@ public class PinsUser extends BaseObservable implements Serializable {
         setBoard_count(0);
         setPin_count(0);
         setAvatarUrl("");
+        setAuthorization("");
     }
 
 }

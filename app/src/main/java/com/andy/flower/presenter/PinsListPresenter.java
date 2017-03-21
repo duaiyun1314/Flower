@@ -3,20 +3,20 @@ package com.andy.flower.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.andy.commons.model.http.RetrofitFactory;
+import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.adapter.PinsAdapter;
 import com.andy.flower.bean.PinsBean;
 import com.andy.flower.bean.PinsListBean;
-import com.andy.flower.network.NetClient;
-import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.PinsAPI;
 import com.andy.flower.views.widgets.RecyclerFootManger;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by andy on 16-6-15.
@@ -97,28 +97,27 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
         if (requestType == LOAD_TYPE_CATEGORY) {
             String categoryId = (String) args[1];
             if (isLimit) {
-                return NetClient.createService(PinsAPI.class).getPinsByCategoryANDLimit(mAuthorization, categoryId, maxId, Constants.PAGE_COUNT_LIMIT);
+                return RetrofitFactory.getInstance().createService(PinsAPI.class).getPinsByCategoryANDLimit(categoryId, maxId, Constants.PAGE_COUNT_LIMIT);
             } else {
-                return NetClient.createService(PinsAPI.class).getPinsByCategory(mAuthorization, categoryId, Constants.PAGE_COUNT_LIMIT);
+                return RetrofitFactory.getInstance().createService(PinsAPI.class).getPinsByCategory(categoryId, Constants.PAGE_COUNT_LIMIT);
             }
         } else if (requestType == LOAD_TYPE_USER) {
             int userId = (int) args[1];
             if (isLimit) {
-                return NetClient.createService(PinsAPI.class).getPinsByUserIdANDLimit(mAuthorization, userId, maxId, Constants.PAGE_COUNT_LIMIT);
+                return RetrofitFactory.getInstance().createService(PinsAPI.class).getPinsByUserIdANDLimit(userId, maxId, Constants.PAGE_COUNT_LIMIT);
             } else {
-                return NetClient.createService(PinsAPI.class).getPinsByUserId(mAuthorization, userId, Constants.PAGE_COUNT_LIMIT);
+                return RetrofitFactory.getInstance().createService(PinsAPI.class).getPinsByUserId(userId, Constants.PAGE_COUNT_LIMIT);
             }
         } else if (requestType == LOAD_TYPE_USER_LIKES) {
             int userId = (int) args[1];
             if (isLimit) {
-                return NetClient.createService(PinsAPI.class).getLikesPinsByUserIdANDLimit(mAuthorization, userId, maxId, Constants.PAGE_COUNT_LIMIT);
+                return RetrofitFactory.getInstance().createService(PinsAPI.class).getLikesPinsByUserIdANDLimit(userId, maxId, Constants.PAGE_COUNT_LIMIT);
             } else {
-                return NetClient.createService(PinsAPI.class).getLikesPinsByUserId(mAuthorization, userId, Constants.PAGE_COUNT_LIMIT);
+                return RetrofitFactory.getInstance().createService(PinsAPI.class).getLikesPinsByUserId(userId, Constants.PAGE_COUNT_LIMIT);
             }
         }
         return null;
     }
-
 
 
 }

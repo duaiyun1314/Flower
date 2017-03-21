@@ -8,21 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andy.autoscrollbanner.views.SwitchView;
+import com.andy.commons.model.http.RetrofitFactory;
+import com.andy.commons.utils.Logger;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.BannerAdapter;
 import com.andy.flower.bean.Weekly;
-import com.andy.flower.network.NetClient;
 import com.andy.flower.network.apis.PinsAPI;
-import com.andy.flower.utils.Logger;
 import com.andy.flower.views.HomeView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by andy on 16-6-6.
@@ -77,7 +78,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if (position == 0 && switchView != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            NetClient.createService(PinsAPI.class)
+            RetrofitFactory.getInstance().createService(PinsAPI.class)
                     .getWeekliesByLimit(format.format(new Date()), 3)
                     .map(weeklies -> {
                         List<Weekly> weekliesBean = weeklies.getWeeklies();

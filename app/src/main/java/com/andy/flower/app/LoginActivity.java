@@ -16,7 +16,7 @@ import com.andy.flower.R;
 import com.andy.flower.presenter.LoginContract;
 import com.andy.flower.presenter.LoginPresenter;
 import com.andy.flower.utils.StringUtil;
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.concurrent.TimeUnit;
 

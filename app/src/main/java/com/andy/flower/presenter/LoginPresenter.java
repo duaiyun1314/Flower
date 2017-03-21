@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.andy.commons.model.http.RetrofitFactory;
+import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;
@@ -12,8 +14,6 @@ import com.andy.flower.bean.BoardListInfoBean;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.manager.UserManager;
-import com.andy.flower.network.NetClient;
-import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.LoginAPI;
 import com.andy.flower.network.apis.UserAPI;
 import com.andy.flower.presenter.LoginContract.IPresenter;
@@ -21,10 +21,11 @@ import com.andy.flower.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by andy on 16-6-6.
@@ -39,38 +40,39 @@ public class LoginPresenter extends BasePresenter<LoginContract.IView> implement
 
     @Override
     public void login(final String username, final String password) {
-        NetClient.createService(LoginAPI.class)
-                .getAccessToken(mAuthorization, "password", username, password)
+        LoginAPI loginAPI = RetrofitFactory.getInstance().createService(LoginAPI.class);
+        UserAPI userAPI = RetrofitFactory.getInstance().createService(UserAPI.class);
+        loginAPI.getAccessToken("password", username, password)
                 .flatMap(accessToekn -> {
                     mAccessToken = accessToekn;
-                    mAuthorization = accessToekn.getToken_type() + " " + accessToekn.getAccess_token();
-                    FlowerApplication.from().mAuthorization = mAuthorization;
-                    return NetClient.createService(LoginAPI.class)
-                            .getUserInfo(mAuthorization);
+                    String authorization = accessToekn.getToken_type() + " " + accessToekn.getAccess_token();
+                    FlowerApplication.from().setAuthorization(authorization);
+                    return loginAPI.getUserInfo();
                 })
                 .flatMap(userInfoBean -> {
                     mUserBean = userInfoBean;
-                    return NetClient.createService(UserAPI.class)
-                            .httpsBoardListInfo(mAuthorization, Constants.OPERATEBOARDEXTRA);
+                    return userAPI.httpsBoardListInfo(Constants.OPERATEBOARDEXTRA);
 
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BoardListInfoBean>() {
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        iView.showProgress(true);
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                    }
+                .subscribe(new Observer<BoardListInfoBean>() {
 
                     @Override
                     public void onError(Throwable e) {
                         iView.showProgress(false);
+                        FlowerApplication.from().setAuthorization("");
                         NetUtils.checkHttpException(mContext, e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        iView.showProgress(true);
                     }
 
                     @Override

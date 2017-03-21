@@ -32,8 +32,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.andy.commons.utils.Logger;
 import com.andy.flower.R;
-import com.andy.flower.utils.Logger;
 
 public class ViewPagerIndicator extends HorizontalScrollView {
 

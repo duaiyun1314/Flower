@@ -8,7 +8,6 @@ public class Constants {
     public static final String Authorization = "Authorization";
 
     //user
-    public static final String IS_LOGIN = "is_login";
     public static final String LOGINTIME = "loginTime";
     public static final String USERNAME = "userName";
     public static final String USERID = "userID";

@@ -1,30 +1,25 @@
 package com.andy.flower.manager;
 
-import android.app.Activity;
-import android.text.TextUtils;
-
+import com.andy.commons.model.http.RetrofitFactory;
+import com.andy.commons.model.preference.PrefKit;
+import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
-import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;
 import com.andy.flower.bean.AccessToken;
 import com.andy.flower.bean.BoardItemInfoBean;
-import com.andy.flower.bean.BoardListInfoBean;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
-import com.andy.flower.network.NetClient;
-import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.LoginAPI;
-import com.andy.flower.network.apis.UserAPI;
-import com.andy.flower.utils.LoginPrefKit;
-import com.andy.flower.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by andy.wang on 2016/11/23.
@@ -54,35 +49,32 @@ public class UserManager {
         }
         userInfoBean.setAvatarUrl(userInfoBean.getAvatar().getKey());
         FlowerApplication.from().setUserInfoBean(userInfoBean);
-        FlowerApplication.from().setLogin(true);
 
-        LoginPrefKit.writeBoolean(FlowerApplication.from(), Constants.IS_LOGIN, true);
-        LoginPrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERPASSWORD, password);
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.TOKENACCESS, accessToken.getAccess_token());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.TOKENTYPE, accessToken.getToken_type());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.TOKENREFRESH, accessToken.getRefresh_token());
-        LoginPrefKit.writeInt(FlowerApplication.from(), Constants.TOKENEXPIRESIN, accessToken.getExpires_in());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERNAME, userInfoBean.getUsername());
-        LoginPrefKit.writeInt(FlowerApplication.from(), Constants.USERID, userInfoBean.getUser_id());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERHEADKEY, userInfoBean.getAvatar().getKey());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.BOARDIDARRAY, boardId.toString());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.BOARDTILTARRAY, boardTitle.toString());
+        PrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERPASSWORD, password);
+        PrefKit.writeString(FlowerApplication.from(), Constants.TOKENACCESS, accessToken.getAccess_token());
+        PrefKit.writeString(FlowerApplication.from(), Constants.TOKENTYPE, accessToken.getToken_type());
+        PrefKit.writeString(FlowerApplication.from(), Constants.TOKENREFRESH, accessToken.getRefresh_token());
+        PrefKit.writeInt(FlowerApplication.from(), Constants.TOKENEXPIRESIN, accessToken.getExpires_in());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERACCOUNT, userAccount);
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERNAME, userInfoBean.getUsername());
+        PrefKit.writeInt(FlowerApplication.from(), Constants.USERID, userInfoBean.getUser_id());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERHEADKEY, userInfoBean.getAvatar().getKey());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
+        PrefKit.writeString(FlowerApplication.from(), Constants.BOARDIDARRAY, boardId.toString());
+        PrefKit.writeString(FlowerApplication.from(), Constants.BOARDTILTARRAY, boardTitle.toString());
     }
 
     public static void updateUserInfo(PinsUser userInfoBean) {
         if (userInfoBean == null) return;
         userInfoBean.setAvatarUrl(userInfoBean.getAvatar().getKey());
         FlowerApplication.from().setUserInfoBean(userInfoBean);
-        LoginPrefKit.writeBoolean(FlowerApplication.from(), Constants.IS_LOGIN, true);
-        LoginPrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERNAME, userInfoBean.getUsername());
-        LoginPrefKit.writeInt(FlowerApplication.from(), Constants.USERID, userInfoBean.getUser_id());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USERHEADKEY, userInfoBean.getAvatar().getKey());
-        LoginPrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
+        PrefKit.writeLong(FlowerApplication.from(), Constants.LOGINTIME, System.currentTimeMillis());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERNAME, userInfoBean.getUsername());
+        PrefKit.writeInt(FlowerApplication.from(), Constants.USERID, userInfoBean.getUser_id());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USERHEADKEY, userInfoBean.getAvatar().getKey());
+        PrefKit.writeString(FlowerApplication.from(), Constants.USEREMAIL, userInfoBean.getEmail());
 
     }
 
@@ -91,31 +83,30 @@ public class UserManager {
      */
     public static void logOut() {
         FlowerApplication.from().setUserInfoBean(null);
-        FlowerApplication.from().mAuthorization = Constants.mClientInto;
-        LoginPrefKit.clear(FlowerApplication.from());
+        PrefKit.clear(FlowerApplication.from());
         EventBus.getDefault().post(new LoginEvent(false));
     }
 
     public static void syncUserInfo() {
-        if (!TextUtils.isEmpty(FlowerApplication.from().mAuthorization)) {
-            String mAuthorization = FlowerApplication.from().mAuthorization;
-            NetClient.createService(LoginAPI.class)
-                    .getUserInfo(mAuthorization)
+        if (FlowerApplication.from().getUserInfoBean().isLogin()) {
+            RetrofitFactory.getInstance().createService(LoginAPI.class)
+                    .getUserInfo()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<PinsUser>() {
-                        @Override
-                        public void onStart() {
-                            super.onStart();
-                        }
-
-                        @Override
-                        public void onCompleted() {
-                        }
-
+                    .subscribe(new Observer<PinsUser>() {
                         @Override
                         public void onError(Throwable e) {
                             NetUtils.checkHttpException(FlowerApplication.from(), e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
                         }
 
                         @Override

@@ -5,12 +5,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.andy.flower.Constants;
 import com.andy.flower.adapter.BaseRecyclerAdapter;
-import com.andy.flower.utils.Logger;
 import com.andy.flower.views.widgets.RecyclerFootManger;
 
 import java.util.List;
 
-import rx.functions.Func1;
+import io.reactivex.functions.Predicate;
+
 
 /**
  * Created by andy on 16-6-12.
@@ -32,14 +32,15 @@ public abstract class ListPresenter<Adapter extends BaseRecyclerAdapter> extends
 
     /**
      * change the footview status according to count of  fetching data
+     *
      * @param isLoadNew
      * @param <T>
      * @return
      */
-    protected <T> Func1<List<T>, Boolean> getFilter(boolean isLoadNew) {
-        return new Func1<List<T>, Boolean>() {
+    protected <T> Predicate<List<T>> getFilter(boolean isLoadNew) {
+        return new Predicate<List<T>>() {
             @Override
-            public Boolean call(List<T> k) {
+            public boolean test(List<T> k) throws Exception {
                 if (k == null || k.size() == 0) {
                     if (!isLoadNew) {
                         iView.setFootStatus(RecyclerFootManger.STATUS_END, true);

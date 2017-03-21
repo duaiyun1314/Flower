@@ -19,11 +19,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            buildConfigField "boolean", "ISDEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            buildConfigField "boolean", "ISDEBUG", "true"
         }
     }
 
@@ -44,18 +40,6 @@ dependencies {
     // inject
     compile 'com.jakewharton:butterknife:8.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.1.0'
-    // logger
-    compile 'com.orhanobut:logger:1.11'
-    // gson
-    compile 'com.google.code.gson:gson:2.6.2'
-    // net and rx
-    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    // event
-    compile 'org.greenrobot:eventbus:3.0.0'
     // image
     compile 'com.facebook.fresco:fresco:0.11.0'
     // views

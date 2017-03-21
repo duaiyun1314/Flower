@@ -3,18 +3,18 @@ package com.andy.flower.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.andy.commons.model.http.RetrofitFactory;
+import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.adapter.BoardsAdapter;
 import com.andy.flower.bean.PinsBoard;
-import com.andy.flower.network.NetClient;
-import com.andy.flower.network.NetUtils;
 import com.andy.flower.network.apis.BoardsAPI;
 import com.andy.flower.views.widgets.RecyclerFootManger;
 
 import java.util.List;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by andy.wang on 2016/8/30.
@@ -29,8 +29,8 @@ public class BoardsListPresenter extends ListPresenter<BoardsAdapter> {
 
     @Override
     public void loadNew(Object... args) {
-        NetClient.createService(BoardsAPI.class)
-                .getBoardsByUserId(mApp.mAuthorization, (int) args[0], Constants.PAGE_COUNT_LIMIT)
+        RetrofitFactory.getInstance().createService(BoardsAPI.class)
+                .getBoardsByUserId((int) args[0], Constants.PAGE_COUNT_LIMIT)
                 .map(boardsListBean1 -> boardsListBean1.getBoards())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,8 +54,8 @@ public class BoardsListPresenter extends ListPresenter<BoardsAdapter> {
 
     @Override
     public void loadNext(Object... args) {
-        NetClient.createService(BoardsAPI.class)
-                .getBoardsByUserIdANDLimit(mApp.mAuthorization, (int) args[0], maxId, Constants.PAGE_COUNT_LIMIT)
+        RetrofitFactory.getInstance().createService(BoardsAPI.class)
+                .getBoardsByUserIdANDLimit((int) args[0], maxId, Constants.PAGE_COUNT_LIMIT)
                 .map(boardsListBean -> boardsListBean.getBoards())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

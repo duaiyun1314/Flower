@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 
 import com.andy.flower.R;
 import com.andy.flower.utils.ImageUtils;
-import com.andy.flower.utils.Logger;
-import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
 
 public abstract class BaseRecyclerAdapter<T> extends
         RecyclerView.Adapter {

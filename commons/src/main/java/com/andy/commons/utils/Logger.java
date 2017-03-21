@@ -1,9 +1,9 @@
-package com.andy.flower.utils;
+package com.andy.commons.utils;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.andy.flower.BuildConfig;
+import com.andy.commons.BuildConfig;
 import com.orhanobut.logger.LogLevel;
 
 /**
@@ -23,13 +23,12 @@ public class Logger {
     private static int ERROR = 5;
 
     static {
-
         com.orhanobut.logger.Logger
                 .init(mTag)                       // default PRETTYLOGGER or use just init()
-                .setMethodCount(1)                // default 2
-                .setMethodOffset(1)
+                .methodCount(1)                // default 2
+                .methodOffset(1)
                 .hideThreadInfo()                 // default shown
-                .setLogLevel(BuildConfig.ISDEBUG ? LogLevel.FULL : LogLevel.NONE);      // default LogLevel.FULL
+                .logLevel(BuildConfig.ISDEBUG ? LogLevel.FULL : LogLevel.NONE);      // default LogLevel.FULL
 
 
     }

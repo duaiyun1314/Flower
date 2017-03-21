@@ -1,8 +1,8 @@
 package com.andy.flower.app;
 
-import android.app.Application;
 import android.text.TextUtils;
 
+import com.andy.commons.BaseApplication;
 import com.andy.flower.Constants;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.utils.ImageUtils;
@@ -11,11 +11,9 @@ import com.andy.commons.model.preference.PrefKit;
 /**
  * Created by andy on 16-6-6.
  */
-public class FlowerApplication extends Application {
+public class FlowerApplication extends BaseApplication {
     private static FlowerApplication mApp;
-    public boolean mIsLogin;
     private PinsUser userInfoBean;
-    public String mAuthorization;
 
     @Override
     public void onCreate() {
@@ -25,12 +23,19 @@ public class FlowerApplication extends Application {
         ImageUtils.initImageLoader(this);
     }
 
+    @Override
+    public String getAuthorization() {
+        String authorization = userInfoBean.getAuthorization();
+        return TextUtils.isEmpty(authorization) ? Constants.mClientInto : authorization;
+    }
+
+    public void setAuthorization(String authorization) {
+        userInfoBean.setAuthorization(authorization);
+    }
+
     private void initData() {
-        mIsLogin = PrefKit.getBoolean(this, Constants.IS_LOGIN, false);
         userInfoBean = new PinsUser();
-        if (mIsLogin) {
-            getDataByLogin();
-        }
+        getDataByLogin();
     }
 
     public static FlowerApplication from() {
@@ -38,14 +43,6 @@ public class FlowerApplication extends Application {
             mApp = new FlowerApplication();
         }
         return mApp;
-    }
-
-    public boolean isLogin() {
-        return mIsLogin;
-    }
-
-    public void setLogin(boolean isLogin) {
-        this.mIsLogin = isLogin;
     }
 
     public void getDataByLogin() {
@@ -56,8 +53,9 @@ public class FlowerApplication extends Application {
         String tokenType = PrefKit.getString(this, Constants.TOKENTYPE, "");
         String accessType = PrefKit.getString(this, Constants.TOKENACCESS, "");
         if (!TextUtils.isEmpty(tokenType) && !TextUtils.isEmpty(accessType)) {
-            mAuthorization = tokenType + " " + accessType;
+            userInfoBean.setAuthorization(tokenType + " " + accessType);
         }
+
     }
 
     public PinsUser getUserInfoBean() {
@@ -66,10 +64,8 @@ public class FlowerApplication extends Application {
 
     public void setUserInfoBean(PinsUser userInfoBean) {
         if (userInfoBean == null) {
-            setLogin(false);
             this.userInfoBean.clear();
         } else {
-            setLogin(true);
             this.userInfoBean.set(userInfoBean);
         }
     }

@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity
      * init user information
      */
     private void initUser() {
-        if (FlowerApplication.from().isLogin()) {
+        if (FlowerApplication.from().getUserInfoBean().isLogin()) {
             navigationView.getMenu().findItem(R.id.nav_out).setVisible(true);
         } else {
             navigationView.getMenu().findItem(R.id.nav_out).setVisible(false);
@@ -183,7 +183,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void onClick(View v) {
-        if (!FlowerApplication.from().isLogin()) {
+        if (!FlowerApplication.from().getUserInfoBean().isLogin()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else {
