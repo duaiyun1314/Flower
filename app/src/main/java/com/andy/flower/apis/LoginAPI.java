@@ -1,6 +1,5 @@
-package com.andy.flower.network.apis;
+package com.andy.flower.apis;
 
-import com.andy.flower.Constants;
 import com.andy.flower.bean.AccessToken;
 import com.andy.flower.bean.PinsUser;
 
@@ -8,7 +7,6 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**

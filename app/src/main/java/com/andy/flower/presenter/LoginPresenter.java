@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.andy.commons.buscomponent.baselistview.presenter.BasePresenter;
 import com.andy.commons.model.http.RetrofitFactory;
 import com.andy.commons.utils.NetUtils;
+import com.andy.commons.utils.ToastUtil;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;
@@ -14,10 +16,8 @@ import com.andy.flower.bean.BoardListInfoBean;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.manager.UserManager;
-import com.andy.flower.network.apis.LoginAPI;
-import com.andy.flower.network.apis.UserAPI;
-import com.andy.flower.presenter.LoginContract.IPresenter;
-import com.andy.flower.utils.ToastUtil;
+import com.andy.flower.apis.LoginAPI;
+import com.andy.flower.apis.UserAPI;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by andy on 16-6-6.
  */
-public class LoginPresenter extends BasePresenter<LoginContract.IView> implements IPresenter {
+public class LoginPresenter extends BasePresenter<LoginContract.IView> implements LoginContract.IPresenter {
     private AccessToken mAccessToken;
     private PinsUser mUserBean;
 

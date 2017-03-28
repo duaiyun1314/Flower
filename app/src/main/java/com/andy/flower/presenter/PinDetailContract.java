@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class PinDetailContract {
 
-    public interface IView extends BaseIView {
+    public interface IView {
         void initView(boolean fromSimpleBean, boolean refreshBase);
         void initFavoriteIcon();
         void setPinBean(PinsBean pinBean);

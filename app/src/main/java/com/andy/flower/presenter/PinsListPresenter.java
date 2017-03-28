@@ -3,14 +3,14 @@ package com.andy.flower.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
+import com.andy.commons.buscomponent.baselistview.presenter.BaseListContract;
+import com.andy.commons.buscomponent.baselistview.presenter.BaseListPresenter;
 import com.andy.commons.model.http.RetrofitFactory;
 import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
-import com.andy.flower.adapter.PinsAdapter;
 import com.andy.flower.bean.PinsBean;
 import com.andy.flower.bean.PinsListBean;
-import com.andy.flower.network.apis.PinsAPI;
-import com.andy.flower.views.widgets.RecyclerFootManger;
+import com.andy.flower.apis.PinsAPI;
 
 import java.util.List;
 
@@ -21,14 +21,14 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by andy on 16-6-15.
  */
-public class PinsListPresenter extends ListPresenter<PinsAdapter> {
+public class PinsListPresenter extends BaseListPresenter {
     public int maxId;
     public static final String LOAD_TYPE_CATEGORY = "load_type_category";
     public static final String LOAD_TYPE_USER = "load_type_user";
     public static final String LOAD_TYPE_USER_LIKES = "load_type_user_likes";
 
 
-    public PinsListPresenter(Context context, ListContract.IView iView) {
+    public PinsListPresenter(Context context, BaseListContract.IView iView) {
         super(context, iView);
     }
 
@@ -38,19 +38,15 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
                 .map(pinsListBean -> pinsListBean.getPins())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(getFilter(true))
                 .subscribe(pinsBeen -> {
-                    iView.onLoadFinish();
-                    if (pinsBeen == null || pinsBeen.size() < 1) {
-                        iView.showTips(false, true, false);
-                    } else {
-                        iView.showTips(false, false, false);
-                        mAdapter.addItemTop(pinsBeen);
+                    updateFootAfterFetch(pinsBeen, true);
+                    iView.updateData(pinsBeen);
+                    if (pinsBeen != null && pinsBeen.size() > 1) {
                         setMaxId((String) args[0], pinsBeen);
                     }
                 }, throwable -> {
-                    iView.onLoadFinish();
-                    iView.showTips(false, false, true);
+                    updateFootAfterFetchError(true);
+                    iView.updateData(null);
                     NetUtils.checkHttpException(mContext, throwable);
                 });
     }
@@ -61,21 +57,17 @@ public class PinsListPresenter extends ListPresenter<PinsAdapter> {
                 .map(pinsListBean -> pinsListBean.getPins())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(getFilter(false))
                 .subscribe(pinsBeen -> {
-                    iView.onLoadFinish();
-                    mAdapter.addItemLast(pinsBeen);
-                    setMaxId((String) args[0], pinsBeen);
+                    updateFootAfterFetch(pinsBeen, false);
+                    iView.updateDataAdd(pinsBeen);
+                    if (pinsBeen != null && pinsBeen.size() > 1) {
+                        setMaxId((String) args[0], pinsBeen);
+                    }
                 }, throwable -> {
-                    iView.onLoadFinish();
+                    updateFootAfterFetchError(false);
+                    iView.updateDataAdd(null);
                     NetUtils.checkHttpException(mContext, throwable);
-                    iView.setFootStatus(RecyclerFootManger.STATUS_ERROR, true);
                 });
-    }
-
-    @Override
-    public PinsAdapter createAdapter(RecyclerView recyclerView) {
-        return new PinsAdapter(mContext, recyclerView);
     }
 
     private void setMaxId(String loadType, List<PinsBean> result) {

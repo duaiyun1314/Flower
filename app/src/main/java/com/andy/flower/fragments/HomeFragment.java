@@ -14,7 +14,7 @@ import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.BannerAdapter;
 import com.andy.flower.bean.Weekly;
-import com.andy.flower.network.apis.PinsAPI;
+import com.andy.flower.apis.PinsAPI;
 import com.andy.flower.views.HomeView;
 
 import java.text.SimpleDateFormat;
@@ -52,25 +52,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //homepage add weekly banner
-        if (position == 0) {
-            switchView = new SwitchView(getActivity());
-            switchView.setAdaper(new BannerAdapter(getActivity()));
-            HomeView homeView = new HomeView(getActivity()) {
-                @Override
-                protected View createHeadView() {
-                    return switchView;
-                }
-            };
-            homeView.update(categoryNames[position], categoryIds[position]);
-            return homeView;
-
-        } else {
-            HomeView mRootView = new HomeView(getActivity());
-            mRootView.update(categoryNames[position], categoryIds[position]);
-            return mRootView;
-        }
-
+        HomeView mRootView = new HomeView(getActivity());
+        mRootView.update(categoryNames[position], categoryIds[position]);
+        return mRootView;
     }
 
     @Override

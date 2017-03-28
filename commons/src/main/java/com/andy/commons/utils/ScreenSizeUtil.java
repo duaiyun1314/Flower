@@ -1,4 +1,4 @@
-package com.andy.flower.utils;
+package com.andy.commons.utils;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;

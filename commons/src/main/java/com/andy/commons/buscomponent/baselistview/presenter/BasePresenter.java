@@ -1,15 +1,14 @@
-package com.andy.flower.presenter;
+package com.andy.commons.buscomponent.baselistview.presenter;
 
 import android.content.Context;
 
-import com.andy.flower.Constants;
-import com.andy.flower.app.FlowerApplication;
 
 /**
  * Created by andy on 16-6-6.
  */
-public class BasePresenter<UI extends BaseIView> {
-    protected FlowerApplication mApp = FlowerApplication.from();
+public class BasePresenter<UI> {
+
+
     protected Context mContext;
     protected UI iView;
 

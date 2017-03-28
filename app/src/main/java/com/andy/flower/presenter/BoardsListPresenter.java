@@ -1,15 +1,14 @@
 package com.andy.flower.presenter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 
+import com.andy.commons.buscomponent.baselistview.presenter.BaseListContract;
+import com.andy.commons.buscomponent.baselistview.presenter.BaseListPresenter;
 import com.andy.commons.model.http.RetrofitFactory;
 import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
-import com.andy.flower.adapter.BoardsAdapter;
 import com.andy.flower.bean.PinsBoard;
-import com.andy.flower.network.apis.BoardsAPI;
-import com.andy.flower.views.widgets.RecyclerFootManger;
+import com.andy.flower.apis.BoardsAPI;
 
 import java.util.List;
 
@@ -19,11 +18,11 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by andy.wang on 2016/8/30.
  */
-public class BoardsListPresenter extends ListPresenter<BoardsAdapter> {
+public class BoardsListPresenter extends BaseListPresenter {
 
     private int maxId;
 
-    public BoardsListPresenter(Context context, ListContract.IView iView) {
+    public BoardsListPresenter(Context context, BaseListContract.IView iView) {
         super(context, iView);
     }
 
@@ -34,19 +33,15 @@ public class BoardsListPresenter extends ListPresenter<BoardsAdapter> {
                 .map(boardsListBean1 -> boardsListBean1.getBoards())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(getFilter(true))
                 .subscribe(boardsList -> {
-                    iView.onLoadFinish();
-                    if (boardsList == null || boardsList.size() < 1) {
-                        iView.showTips(false, true, false);
-                    } else {
-                        iView.showTips(false, false, false);
-                        mAdapter.addItemTop(boardsList);
+                    updateFootAfterFetch(boardsList, true);
+                    iView.updateData(boardsList);
+                    if (boardsList != null && boardsList.size() > 1) {
                         setMaxId(boardsList);
                     }
                 }, throwable -> {
-                    iView.onLoadFinish();
-                    iView.showTips(false, false, true);
+                    updateFootAfterFetchError(true);
+                    iView.updateData(null);
                     NetUtils.checkHttpException(mContext, throwable);
                 });
 
@@ -59,21 +54,16 @@ public class BoardsListPresenter extends ListPresenter<BoardsAdapter> {
                 .map(boardsListBean -> boardsListBean.getBoards())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(getFilter(false))
                 .subscribe(boards -> {
-                    iView.onLoadFinish();
-                    mAdapter.addItemLast(boards);
-                    setMaxId(boards);
+                    updateFootAfterFetch(boards, false);
+                    iView.updateDataAdd(boards);
+                    if (boards != null && boards.size() > 1) {
+                        setMaxId(boards);
+                    }
                 }, throwable -> {
-                    iView.onLoadFinish();
-                    NetUtils.checkHttpException(mContext, throwable);
-                    iView.setFootStatus(RecyclerFootManger.STATUS_ERROR, true);
+                    updateFootAfterFetchError(false);
+                    iView.updateData(null);
                 });
-    }
-
-    @Override
-    public BoardsAdapter createAdapter(RecyclerView recyclerView) {
-        return new BoardsAdapter(mContext, recyclerView);
     }
 
     private void setMaxId(List<PinsBoard> result) {

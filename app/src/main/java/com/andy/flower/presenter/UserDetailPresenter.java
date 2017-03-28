@@ -2,9 +2,10 @@ package com.andy.flower.presenter;
 
 import android.content.Context;
 
+import com.andy.commons.buscomponent.baselistview.presenter.BasePresenter;
 import com.andy.commons.model.http.RetrofitFactory;
 import com.andy.flower.bean.PinsUser;
-import com.andy.flower.network.apis.UserAPI;
+import com.andy.flower.apis.UserAPI;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

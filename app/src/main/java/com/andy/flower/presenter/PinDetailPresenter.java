@@ -8,15 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.andy.commons.buscomponent.baselistview.presenter.BasePresenter;
 import com.andy.commons.model.http.RetrofitFactory;
 import com.andy.commons.utils.Logger;
 import com.andy.commons.utils.NetUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
+import com.andy.flower.app.FlowerApplication;
 import com.andy.flower.app.LoginActivity;
 import com.andy.flower.bean.PinsBean;
-import com.andy.flower.network.apis.OperatorAPI;
-import com.andy.flower.network.apis.PinsAPI;
+import com.andy.flower.apis.OperatorAPI;
+import com.andy.flower.apis.PinsAPI;
 import com.andy.flower.utils.FileKit;
 
 import java.io.File;
@@ -82,7 +84,7 @@ public class PinDetailPresenter extends BasePresenter<PinDetailContract.IView> i
 
     @Override
     public void actionLike(Menu menu) {
-        if (!mApp.getUserInfoBean().isLogin()) {
+        if (!FlowerApplication.from().getUserInfoBean().isLogin()) {
             Intent intent = new Intent(mContext, LoginActivity.class);
             mContext.startActivity(intent);
             return;

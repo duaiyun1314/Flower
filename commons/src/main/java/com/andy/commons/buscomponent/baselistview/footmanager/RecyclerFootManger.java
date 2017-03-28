@@ -1,14 +1,12 @@
-package com.andy.flower.views.widgets;
+package com.andy.commons.buscomponent.baselistview.footmanager;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewStub;
 
-import com.andy.flower.R;
-import com.andy.flower.adapter.BaseRecyclerAdapter;
-import com.andy.flower.utils.recyclerheaderutils.RecyclerViewUtils;
+import com.andy.commons.R;
+
 
 /**
  * Created by andy on 16-7-5.
@@ -20,16 +18,13 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener implements
     private View mTheEndView;
     private View mErrorView;
     private LoadNextListener nextListener;
-    private BaseRecyclerAdapter mAdapter;
     public int mStatus;
     public static final int STATUS_NORMAL = 1;
     public static final int STATUS_LOADING = 2;
     public static final int STATUS_END = 3;
     public static final int STATUS_ERROR = 4;
-    private StaggeredGridLayoutManager gridLayoutManager;
 
-    public RecyclerFootManger(Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
-        mAdapter = (BaseRecyclerAdapter) adapter;
+    public RecyclerFootManger(Context context, RecyclerView recyclerView) {
         footerView = View.inflate(context, R.layout.layout_footer, null);
         mLoadingView = ((ViewStub) footerView.findViewById(R.id.loading_viewstub)).inflate();
         mTheEndView = ((ViewStub) footerView.findViewById(R.id.end_viewstub)).inflate();
@@ -37,7 +32,6 @@ public class RecyclerFootManger extends RecyclerView.OnScrollListener implements
         mErrorView.setOnClickListener(this);
         RecyclerViewUtils.setFooterView(recyclerView, footerView);
         recyclerView.addOnScrollListener(this);
-        gridLayoutManager = ((StaggeredGridLayoutManager) recyclerView.getLayoutManager());
         setState(STATUS_LOADING, true);
     }
 

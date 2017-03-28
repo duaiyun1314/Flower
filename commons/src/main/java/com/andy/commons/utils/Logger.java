@@ -28,7 +28,7 @@ public class Logger {
                 .methodCount(1)                // default 2
                 .methodOffset(1)
                 .hideThreadInfo()                 // default shown
-                .logLevel(BuildConfig.ISDEBUG ? LogLevel.FULL : LogLevel.NONE);      // default LogLevel.FULL
+                .logLevel(true ? LogLevel.FULL : LogLevel.NONE);      // default LogLevel.FULL
 
 
     }

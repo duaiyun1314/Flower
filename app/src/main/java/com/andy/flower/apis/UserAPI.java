@@ -1,12 +1,10 @@
-package com.andy.flower.network.apis;
+package com.andy.flower.apis;
 
-import com.andy.flower.Constants;
 import com.andy.flower.bean.BoardListInfoBean;
 import com.andy.flower.bean.PinsUser;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 

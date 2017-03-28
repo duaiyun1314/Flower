@@ -4,7 +4,7 @@ package com.andy.flower.presenter;
  * Created by andy on 16-6-6.
  */
 public class LoginContract {
-    public interface IView extends BaseIView {
+    public interface IView {
         void showProgress(boolean show);
     }
 

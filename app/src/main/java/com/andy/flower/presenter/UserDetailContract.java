@@ -7,7 +7,7 @@ import com.andy.flower.bean.PinsUser;
  */
 public class UserDetailContract {
 
-    public interface IView extends BaseIView {
+    public interface IView  {
         void setUser(PinsUser user);
     }
 

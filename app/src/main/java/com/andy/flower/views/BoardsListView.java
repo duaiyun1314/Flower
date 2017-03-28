@@ -1,14 +1,21 @@
 package com.andy.flower.views;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 
+import com.andy.commons.buscomponent.baselistview.typepool.MultiTypePool;
+import com.andy.commons.buscomponent.baselistview.typepool.TypePool;
+import com.andy.commons.buscomponent.baselistview.view.BaseListView;
+import com.andy.flower.adapter.BoardItemAdapter;
+import com.andy.flower.bean.PinsBoard;
 import com.andy.flower.presenter.BoardsListPresenter;
 
 /**
  * Created by andy.wang on 2016/8/30.
  */
-public class BoardsListView extends BaseListItemsView<BoardsListPresenter> {
+public class BoardsListView extends BaseListView<BoardsListPresenter> {
     int userId;
 
     public BoardsListView(Context context) {
@@ -24,8 +31,15 @@ public class BoardsListView extends BaseListItemsView<BoardsListPresenter> {
     }
 
     @Override
+    protected TypePool createTypePool() {
+        MultiTypePool typePool = new MultiTypePool();
+        typePool.register(PinsBoard.class, new BoardItemAdapter(getContext()));
+        return typePool;
+    }
+
+    @Override
     protected BoardsListPresenter createPresenter() {
-        return new BoardsListPresenter(mContext, this);
+        return new BoardsListPresenter(getContext(), this);
     }
 
     @Override
@@ -48,5 +62,10 @@ public class BoardsListView extends BaseListItemsView<BoardsListPresenter> {
     @Override
     protected boolean createFootView() {
         return true;
+    }
+
+    @Override
+    protected RecyclerView.LayoutManager generateLayoutManager() {
+        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
     }
 }

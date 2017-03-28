@@ -9,7 +9,7 @@ import com.andy.flower.bean.AccessToken;
 import com.andy.flower.bean.BoardItemInfoBean;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
-import com.andy.flower.network.apis.LoginAPI;
+import com.andy.flower.apis.LoginAPI;
 
 import org.greenrobot.eventbus.EventBus;
 
