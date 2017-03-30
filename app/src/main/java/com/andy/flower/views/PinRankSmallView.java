@@ -5,13 +5,11 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
+import com.andy.commons.utils.imageloader.ImageLoadFresco;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
-import com.andy.flower.utils.ImageLoadFresco;
-import com.andy.flower.utils.ImageUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

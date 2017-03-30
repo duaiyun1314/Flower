@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andy.commons.activity.BaseActivity;
+import com.andy.commons.utils.imageloader.ImageLoadFresco;
+import com.andy.commons.utils.imageloader.ImageUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.adapter.CommentsAdapter;
@@ -28,8 +30,6 @@ import com.andy.flower.bean.PinsUser;
 import com.andy.flower.event.LoginEvent;
 import com.andy.flower.presenter.PinDetailContract;
 import com.andy.flower.presenter.PinDetailPresenter;
-import com.andy.flower.utils.ImageLoadFresco;
-import com.andy.flower.utils.ImageUtils;
 import com.andy.flower.views.ListViewForScrollView;
 import com.andy.flower.views.PinRankSmallView;
 import com.facebook.drawee.view.SimpleDraweeView;

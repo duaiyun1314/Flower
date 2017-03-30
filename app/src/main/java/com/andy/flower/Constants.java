@@ -50,8 +50,6 @@ public class Constants {
     public static final String[] Categories_ID = new String[]{"all", "home", "diy_crafts", "photography", "food_drink", "travel_places", "illustration", "design", "apparel", "modeling_hair", "wedding_events", "desire", "beauty", "pets", "kids", "architecture", "film_music_books", "tips", "art", "men", "fitness", "quotes", "people", "geek", "data_presentation", "games", "cars_motorcycles", "education", "sports", "funny", "industrial_design", "anime"};
     public static final String[] Categories_NAMES = new String[]{"首页", "家居/家装", "手工/布艺", "摄影", "美食", "旅行", "插画/漫画", "平面", "女装/搭配", "造型/美妆", "婚礼", "礼物", "美女", "宠物", "儿童", "建筑/设计", "电影/图书", "生活百科", "人文艺术", "男士/风尚", "健身/舞蹈", "美图", "明星", "极客", "数据图", "游戏", "汽车/摩托", "教育", "运动", "搞笑", "工业设计", "动漫"};
     public static final int PAGE_COUNT_LIMIT = 20;
-    public static final int CATEGORY_CACHE_COUNT = 2;
-    public static final float IMAGE_MAXHEIGHT_SCALE = 0.7f;
 
     public static final String GENERAL_IMG_SUFFIX = "_fw320sf";
     public static final String BIG_IMG_SUFFIX = "_fw658";

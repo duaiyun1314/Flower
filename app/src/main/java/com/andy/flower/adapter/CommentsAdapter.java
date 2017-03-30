@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.andy.commons.utils.imageloader.ImageLoadFresco;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.Comments;
-import com.andy.flower.utils.ImageLoadFresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.SimpleDateFormat;

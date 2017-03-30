@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.andy.commons.utils.imageloader.ImageLoadFresco;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.app.FlowerApplication;

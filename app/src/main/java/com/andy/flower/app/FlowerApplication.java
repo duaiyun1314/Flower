@@ -3,9 +3,9 @@ package com.andy.flower.app;
 import android.text.TextUtils;
 
 import com.andy.commons.BaseApplication;
+import com.andy.commons.utils.imageloader.ImageUtils;
 import com.andy.flower.Constants;
 import com.andy.flower.bean.PinsUser;
-import com.andy.flower.utils.ImageUtils;
 import com.andy.commons.model.preference.PrefKit;
 
 /**
@@ -20,7 +20,6 @@ public class FlowerApplication extends BaseApplication {
         super.onCreate();
         mApp = this;
         initData();
-        ImageUtils.initImageLoader(this);
     }
 
     @Override

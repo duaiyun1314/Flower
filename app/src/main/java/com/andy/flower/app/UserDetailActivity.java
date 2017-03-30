@@ -11,13 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andy.commons.activity.BaseActivity;
+import com.andy.commons.utils.imageloader.ImageLoadFresco;
 import com.andy.flower.Constants;
 import com.andy.flower.R;
 import com.andy.flower.bean.PinsUser;
 import com.andy.flower.presenter.PinsListPresenter;
 import com.andy.flower.presenter.UserDetailContract;
 import com.andy.flower.presenter.UserDetailPresenter;
-import com.andy.flower.utils.ImageLoadFresco;
 import com.andy.flower.views.BoardsListView;
 import com.andy.flower.views.UserPinsListView;
 import com.andy.flower.views.ViewPagerIndicator;
