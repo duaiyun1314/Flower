@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.andy.commons.BaseApplication;
 import com.andy.commons.utils.imageloader.ImageUtils;
+import com.andy.flower.BuildConfig;
 import com.andy.flower.Constants;
 import com.andy.flower.bean.PinsUser;
 import com.andy.commons.model.preference.PrefKit;
@@ -26,6 +27,11 @@ public class FlowerApplication extends BaseApplication {
     public String getAuthorization() {
         String authorization = userInfoBean.getAuthorization();
         return TextUtils.isEmpty(authorization) ? Constants.mClientInto : authorization;
+    }
+
+    @Override
+    public boolean isDebug() {
+        return BuildConfig.ISDEBUG;
     }
 
     public void setAuthorization(String authorization) {

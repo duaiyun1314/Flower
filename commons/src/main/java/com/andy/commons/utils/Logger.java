@@ -3,6 +3,7 @@ package com.andy.commons.utils;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.andy.commons.BaseApplication;
 import com.andy.commons.BuildConfig;
 import com.orhanobut.logger.LogLevel;
 
@@ -28,7 +29,7 @@ public class Logger {
                 .methodCount(1)                // default 2
                 .methodOffset(1)
                 .hideThreadInfo()                 // default shown
-                .logLevel(true ? LogLevel.FULL : LogLevel.NONE);      // default LogLevel.FULL
+                .logLevel(BaseApplication.isDebug ? LogLevel.FULL : LogLevel.NONE);      // default LogLevel.FULL
 
 
     }

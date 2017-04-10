@@ -10,6 +10,7 @@ import com.andy.commons.utils.imageloader.ImageUtils;
 
 public abstract class BaseApplication extends Application {
     private static BaseApplication baseApplication;
+    public static boolean isDebug = false;
 
 
     @Override
@@ -17,6 +18,7 @@ public abstract class BaseApplication extends Application {
         super.onCreate();
         baseApplication = this;
         ImageUtils.initImageLoader(this);
+        isDebug = isDebug();
     }
 
     public abstract String getAuthorization();
@@ -24,5 +26,7 @@ public abstract class BaseApplication extends Application {
     public static BaseApplication getBaseApplication() {
         return baseApplication;
     }
+
+    public abstract boolean isDebug();
 
 }
